@@ -27,10 +27,13 @@ That's it! People can now use it as a Reactjo extension.
 reactjo init
 ```
 
-2. In reactjorc/config.json, add this to the list of extensions:
+2. In reactjorc/config.json, add this to the extensions array:
 
 ```
-"https://github.com/path-to-your-repo.git"
+{
+    "title": "your-extension-title-NO-SPACES-ALLOWED",
+    "uri": "https://github.com/your-name/your-extensions-repo.git"
+}
 ```
 
 3. Back in your terminal, run:
