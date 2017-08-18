@@ -1,19 +1,34 @@
-# Installation
-Only if you haven't already:
+# Start with this if you haven't already
 
 ```bash
 virtualenv venv
-source activate venv/bin/activate
+source venv/bin/activate
 pip install reactjo
-reactjo init
 ```
 
-In reactjorc/config.json, add this to the list of extensions:
+# If you want to create a new extension 
+
+1. Clone the template
+```bash
+reactjo extend
+cd template
+```
+
+2. Make some changes
+3. Make a new repo on github
+4. Set it as the remote origin
+5. Push the template to the new repo
+That's it! People can now use it as a Reactjo extension.
+
+# If you want to install a new extension into a project
+
+1. In reactjorc/config.json, add this to the list of extensions:
+
 ```
 'https://github.com/path-to-your-repo.git'
 ```
 
-then in your terminal, run:
+2. Then in your terminal, run:
 ```
 reactjo update
 ```
