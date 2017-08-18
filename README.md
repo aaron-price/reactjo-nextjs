@@ -22,13 +22,18 @@ That's it! People can now use it as a Reactjo extension.
 
 # If you want to install a new extension into a project
 
-1. In reactjorc/config.json, add this to the list of extensions:
+1. Initialize reactjo if you haven't already
+```bash
+reactjo init
+```
+
+2. In reactjorc/config.json, add this to the list of extensions:
 
 ```
-'https://github.com/path-to-your-repo.git'
+"https://github.com/path-to-your-repo.git"
 ```
 
-2. Then in your terminal, run:
+3. Back in your terminal, run:
 ```
 reactjo update
 ```
