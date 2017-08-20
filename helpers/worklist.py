@@ -1,4 +1,4 @@
-from reactjo.helpers.config_manipulation import get_cfg, set_cfg
+from reactjo.helpers.config_manager import get_cfg, set_cfg
 
 def worklist(string = None):
 	cfg = get_cfg()
