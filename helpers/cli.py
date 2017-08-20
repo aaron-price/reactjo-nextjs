@@ -9,3 +9,6 @@ def npm(args):
 def manage(args):
 	os.chdir(p('manage.py'))
 	subprocess.call(['python', 'manage.py'] + args)
+
+def pip(args):
+	subprocess.call(['pip'] + args)

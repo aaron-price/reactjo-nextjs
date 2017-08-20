@@ -1,5 +1,7 @@
-from helpers.path_manager import path_manager as p
 from tests.config_mock import setup_config, teardown_config
+setup_config()
+
+from helpers.path_manager import path_manager as p
 import os
 
 def test_paths():
@@ -114,5 +116,4 @@ def test_paths():
 	actual = p('Home.js', 'www')
 	assert(expected == actual)
 
-	print("EXPECTED", expected)
-	print("ACTUAL  ", actual)
+	teardown_config()
