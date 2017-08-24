@@ -6,48 +6,65 @@ PROJECT_NAME = cfg['project_name']
 EXTENSION_NAME = 'react-django'
 
 # Organization:
-# assuming project is named "www", and it has one app named "foo"
 # Here's the default structure and how to return a string path for ANYTHING.
+
+
+# TOP LEVEL PATHS
+# None of these should be version controlled
 #
-# / 									p('super_root')
-# 	 /venv								p('super_root') + '/venv'
-# 	 /reactjorc 						p('reactjorc')
-# 		/config.json 					p('config')
-# 		/extensions 					p('extensions')
-# 			/react-django				p('extensions', 'react-django')
-# 				/assets/ 				p('assets')
-# 				/helpers/ 				p('helpers')
-# 				/entry.py 				p('extensions', 'react-django') + '/entry.py'
-# 	/www 								p('root')
-# 		/manage.py						p('manage.py')
-# 		/package.json					p('package.json')
-# 		/webpack.config.js				p('webpack.config.js')
-# 		/.babelrc  						p('.babel')
-# 		/Procfile 						p('Procfile')
-# 		/requirements.txt				p('requirements.txt')
-# 		/www							p('app', 'www')
-# 			settings.py 				p('settings.py')
-# 			/views.py 					p('views', 'www')
-# 			/urls.py 					p('urls', 'www')
-# 			/tests.py 					p('tests', 'www')
-# 			/templates 					p('templates', 'www')
-#				/www					p('templates', 'www') + '/www'
-# 					/home.html 			p('home.html', 'www')
-# 					/react 				p('react', 'www')
-#						/components 	p('components', 'www')
-# 						/containers 	p('containers', 'www')
-# 							/Home.js 	p('Home.js', 'www')
-# 		/foo 							p('app', 'foo')
-# 			/views.py 					p('views','foo')
-# 			/urls.py 					p('urls','foo')
-# 			/tests.py 					p('tests','foo')
-# 			/templates 					p('templates','foo')
-#				/foo					p('templates','foo') + '/foo'
-# 					/home.html 			p('home.html','foo')
-# 					/react 				p('react','foo')
-#						/components 	p('components','foo')
-# 						/containers 	p('containers','foo')
-# 							/Home.js 	p('Home.js','foo')
+# / 								p('super_root')
+# 	 /venv							p('super_root') + '/venv'
+# 	 /reactjorc 					p('reactjorc')
+#	 /backend						p('backend')
+#	 /frontend						p('frontend')
+
+
+# REACTJORC PATHS
+# Don't put these in production, or version control
+#
+# /reactjorc 						p('reactjorc')
+# 	/config.json 					p('config')
+# 	/extensions 					p('extensions')
+# 		/react-django				p('extensions', 'react-django')
+# 			/assets/ 				p('assets')
+# 			/helpers/ 				p('helpers')
+# 			/entry.py 				p('extensions', 'react-django') + '/entry.py'
+
+# FRONTEND PATHS
+# The Node + express server that runs react and all things client side. Based on create-react-app
+# 
+# /frontend 						p('frontend')
+#	/config 						p('fe_config')
+#	/node_modules 					p('node_modules')
+#	/package.json 					p('package_json')
+#	/fe_public 						p('fe_public')
+# 	/src 							p('fe_src')
+
+#	/.babelrc 						p('babelrc')
+
+
+# BACKEND PATHS
+# The Django + gunicorn server that runs the API.
+# This assumes the project is named "www", and it has one app named "foo"
+#
+# /backend 							p('backend')
+# 	/www							p('backend_project')
+# 		/manage.py					p('manage.py')
+# 		/package.json				p('package.json')
+# 		/webpack.config.js			p('webpack.config.js')
+# 		/.babelrc  					p('.babel')
+# 		/Procfile 					p('Procfile')
+# 		/requirements.txt			p('requirements.txt')
+# 		/www						p('app', 'www')
+# 			settings.py 			p('settings.py')
+# 			/views.py 				p('views', 'www')
+# 			/urls.py 				p('urls', 'www')
+# 			/tests.py 				p('tests', 'www')
+# 		/foo 						p('app', 'foo')
+# 			/views.py 				p('views','foo')
+# 			/urls.py 				p('urls','foo')
+# 			/tests.py 				p('tests','foo')
+
 
 # SUPER ROOT
 def super_root():

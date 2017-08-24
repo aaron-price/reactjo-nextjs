@@ -1,3 +1,5 @@
+import re
+
 def get_type(string):
 	curly = string.find('{')
 	square= string.find('[')
@@ -19,6 +21,59 @@ def get_type(string):
 		'opposite': opposite,
 		'index': type_pos[0]
 	}
+
+def get_string_contents(string, start):
+    first_single = string.find("'", start)
+    first_double = string.find('"', start)
+    first = None
+    if first_single == -1 and first_double == -1:
+        return -1
+    elif first_single == -1:
+        first = { 't': '"', 'i': first_double }
+    else:
+        first = { 't': "'", 'i': first_single }
+
+    last = string.find(first['t'], first['i'] + 1)
+    return string[first['i']:last + 1]
+
+def get_variable(string, data):
+    if len(data['target']) == 1:
+        query = data['target'][0]
+    candidates = [(m.start(0), m.end(0)) for m in re.finditer(r'' + query +'', string)]
+
+    for c in candidates:
+        lh_start = c[0]
+        lh_end = c[1]
+        rh_start = None
+        def check_next(end):
+            relevant_string = string[end:]
+            if relevant_string[1] in [' ','"', "'"]:
+                end += 1
+                return check_next(end)
+            elif relevant_string[1] in [':', '=']:
+                end += 1
+                nonlocal rh_start 
+                rh_start = end + 1
+                return True
+            else:
+                return False
+        is_valid = check_next(lh_end)
+        if is_valid:
+            break
+
+    rh_end = string.find('\n', rh_start) 
+    if string[rh_end - 1:] == ',':
+        rh_end -= 1
+
+    return {
+        'lh_start': lh_start,
+        'lh_end': lh_end,
+        'rh_start': rh_start,
+        'rh_end': rh_end,
+        'string': string[lh_start:rh_end],
+        'lh_string': string[lh_start:lh_end],
+        'rh_string': string[rh_start:rh_end]
+    }
 
 def get_brackets(string, start = 0):
 	typ = get_type(string[start:])

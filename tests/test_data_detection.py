@@ -1,4 +1,4 @@
-from helpers.data_detection import get_brackets, get_type, list_index_positions, detect_duplicate
+from helpers.data_detection import get_brackets, get_variable, get_string_contents, get_type, list_index_positions, detect_duplicate
 from helpers.file_manager import file_manager
 from helpers.commas import soft_comma
 
@@ -7,6 +7,19 @@ def debug_print(e, a):
     print(e)
     print("ACTUAL")
     print(a)
+
+def test_get_string_contents():
+    string = "foo = 'hello!'"
+    assert(get_string_contents(string, 0) == "'hello!'")
+
+def test_get_variable():
+    file = file_manager('tests/sandbox/settings.py', 'r')
+    data = {
+        'target': ['thing']    
+    }
+    var = get_variable(file, data)
+    print(var)
+    assert(var['string'] == 'thing = "hello"')
 
 def test_get_type():
 	string = "config = { 'foo': 1 }"
