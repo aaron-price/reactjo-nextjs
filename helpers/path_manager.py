@@ -3,7 +3,7 @@ import os
 
 cfg = get_cfg()
 PROJECT_NAME = cfg['project_name']
-EXTENSION_NAME = 'react-django'
+EXTENSION_NAME = 'django'
 
 # Organization:
 # Here's the default structure and how to return a string path for ANYTHING.
@@ -25,45 +25,55 @@ EXTENSION_NAME = 'react-django'
 # /reactjorc 						p('reactjorc')
 # 	/config.json 					p('config')
 # 	/extensions 					p('extensions')
-# 		/react-django				p('extensions', 'react-django')
-# 			/assets/ 				p('assets')
-# 			/helpers/ 				p('helpers')
-# 			/entry.py 				p('extensions', 'react-django') + '/entry.py'
-
-# FRONTEND PATHS
-# The Node + express server that runs react and all things client side. Based on create-react-app
-# 
-# /frontend 						p('frontend')
-#	/config 						p('fe_config')
-#	/node_modules 					p('node_modules')
-#	/package.json 					p('package_json')
-#	/fe_public 						p('fe_public')
-# 	/src 							p('fe_src')
-
-#	/.babelrc 						p('babelrc')
-
+# 		/django						p('extensions', 'django')
+# 			/assets/ 				p('assets', 'django')
+# 			/helpers/ 				p('helpers', 'django')
+# 			/entry.py 				p('extensions', 'django') + '/entry.py'
 
 # BACKEND PATHS
-# The Django + gunicorn server that runs the API.
-# This assumes the project is named "www", and it has one app named "foo"
+# The Django codebase which runs the API.
+# This assumes the project is named "www", and has an extra app named "foo"
 #
 # /backend 							p('backend')
+# 	/requirements.txt				p('requirements.txt')
 # 	/www							p('backend_project')
 # 		/manage.py					p('manage.py')
-# 		/package.json				p('package.json')
-# 		/webpack.config.js			p('webpack.config.js')
-# 		/.babelrc  					p('.babel')
-# 		/Procfile 					p('Procfile')
-# 		/requirements.txt			p('requirements.txt')
 # 		/www						p('app', 'www')
-# 			settings.py 			p('settings.py')
+#			/settings				p('settings')
+# 				base.py				p('base_settings')
+# 				production.py		p('prod_settings')
+# 				development.py		p('dev_settings')
 # 			/views.py 				p('views', 'www')
 # 			/urls.py 				p('urls', 'www')
 # 			/tests.py 				p('tests', 'www')
+#			/serializers.py			p('serializers', 'www')
+#			/permissions.py			p('permissions', 'www')
+#			/models.py				p('models', 'www')
+# 		/api 						p('app', 'api')
+# 			/views.py 				p('views','api')
+# 			/urls.py 				p('urls','api')
+# 			/tests.py 				p('tests','api')
+#			/serializers.py			p('serializers')
+#			/permissions.py			p('permissions')
+#			/models.py				p('models', 'api')
 # 		/foo 						p('app', 'foo')
 # 			/views.py 				p('views','foo')
 # 			/urls.py 				p('urls','foo')
 # 			/tests.py 				p('tests','foo')
+#			/serializers.py			p('serializers', 'www')
+#			/permissions.py			p('permissions', 'www')
+#			/models.py				p('models', 'foo')
+
+# FRONTEND PATHS
+# The Node + express server that runs react and all things client side. Based on create-react-app
+#
+# /frontend 						p('frontend')
+#	/config 						p('fe_config')
+#	/node_modules 					p('node_modules')
+#	/package.json 					p('package_json')
+#	/public 						p('public')
+# 	/src 							p('src')
+#	/.babelrc 						p('babelrc')
 
 
 # SUPER ROOT
@@ -80,121 +90,125 @@ def config():
 def extensions():
 	return os.path.join(reactjorc(), 'extensions')
 
-def assets():
-	return os.path.join(extensions() + '/' + EXTENSION_NAME, 'assets')
+def assets(ext_name = EXTENSION_NAME):
+	return os.path.join(os.path.join(extensions(), ext_name), 'assets')
 
-def helpers():
-	return os.path.join(extensions() + '/' + EXTENSION_NAME, 'helpers')
+def helpers(ext_name = EXTENSION_NAME):
+	return os.path.join(os.path.join(extensions(), ext_name), 'helpers')
 
-# PROJECT ROOT
-def project_root():
-	return os.path.join(super_root(), PROJECT_NAME)
+def helpers(ext_name = EXTENSION_NAME):
+	return os.path.join(os.path.join(extensions(), ext_name), 'helpers')
 
-def managepy():
-	return os.path.join(project_root(), 'manage.py')
+def scaffolding(ext_name = EXTENSION_NAME):
+	return os.path.join(os.path.join(extensions(), ext_name), 'scaffolding')
 
-def package_json():
-	return os.path.join(project_root(), 'package.json')
-
-def babel():
-	return os.path.join(project_root(), '.babelrc')
-
-def webpack():
-	return os.path.join(project_root(), 'webpack.config.js')
-
-def procfile():
-	return os.path.join(project_root(), 'Procfile')
+# BACKEND
+def backend():
+	return os.path.join(super_root(), 'backend')
 
 def requirements():
-	return os.path.join(project_root(), 'requirements.txt')
+	return os.path.join(backend(), 'requirements.txt')
 
-def app(name):
-	return os.path.join(project_root(), name)
+def backend_project():
+	return os.path.join(backend(), PROJECT_NAME)
+
+def manage_py():
+	return os.path.join(backend_project(), 'manage.py')
 
 def settings():
-	return os.path.join(app(PROJECT_NAME), 'settings.py')
+	return os.path.join(backend_project(), 'settings')
 
-def views(name):
-	return os.path.join(app(name), 'views.py')
+def app(app_name):
+	return os.path.join(backend_project(), app_name)
 
-def urls(name):
-	return os.path.join(app(name), 'urls.py')
+def views(app_name):
+	return os.path.join(app(app_name), 'views.py')
 
-def tests(name):
-	return os.path.join(app(name), 'tests.py')
+def models(app_name):
+	return os.path.join(app(app_name), 'models.py')
 
-def templates(name):
-	return os.path.join(app(name), 'templates')
+def admin(app_name):
+	return os.path.join(app(app_name), 'admin.py')
 
-def home_html(name):
-	return os.path.join(templates(name) + '/' + name, 'home.html')
+def urls(app_name):
+	return os.path.join(app(app_name), 'urls.py')
 
-def react(name):
-	return os.path.join(templates(name) + '/' + name, 'react')
+def tests(app_name):
+	return os.path.join(app(app_name), 'tests.py')
 
-def components(name):
-	return os.path.join(react(name), 'components')
+def serializers(app_name = 'api'):
+	return os.path.join(app(app_name), 'serializers.py')
 
-def containers(name):
-	return os.path.join(react(name), 'containers')
+def permissions(app_name = 'api'):
+	return os.path.join(app(app_name), 'permissions.py')
 
-def home_js(name):
-	return os.path.join(containers(name), 'Home.js')
+# FRONTEND
+def frontend():
+	return os.path.join(super_root(), 'frontend')
 
-def path_manager(query, modifier = ''):
+def webpack():
+	return os.path.join(frontend(), 'webpack.config.js')
+
+def path_manager(query, **kwargs):
 	string = ''
-	query = query.lower()
+	query = query.lower().replace(' ', '').replace('-', '').replace('_', '').replace('.', '')
 
-	if query in ['super_root', 'super']:
+	# SUPER ROOT
+	if query in ['superroot', 'super']:
 		string = super_root()
+
+	# REACTJORC
 	if query in ['reactjorc']:
 		string = reactjorc()
-	if query in ['config', 'config.json','cfg','config_json']:
+	if query in ['config','cfg','configjson']:
 		string = config()
 	if query in ['extensions']:
-		if modifier == '':
-			string = extensions()
-		else:
-			string = os.path.join(extensions(), modifier)
+		string = extensions()
 	if query in ['assets']:
-		string = assets()
-	if query in ['helpers']:
-		string = helpers()
-	if query in ['project_root', 'project', 'root']:
-		string = project_root()
-	if query in ['manage', 'managepy', 'manage.py']:
-		string = managepy()
-	if query in ['package', 'package.json', 'package_json', 'packagejson']:
-		string = package_json()
-	if query in ['babel', '.babelrc','babelrc']:
-		string = babel()
-	if query in ['webpack','webpack.config.js']:
-		string = webpack()
-	if query in ['procfile']:
-		string = procfile()
-	if query in ['requirements', 'requirements.txt']:
-		string = requirements()
-	if query in ['app', 'app_root']:
-		string = app(modifier)
-	if query in ['settings', 'settings.py']:
+		string = assets(**kwargs)
+	if query in ['helpers', 'helper']:
+		string = helpers(**kwargs)
+	if query in ['scaffold', 'scaffolding']:
+		string = scaffolding(**kwargs)
+
+	# BACKEND
+	if query in ['backend']:
+		string = backend(**kwargs)
+	if query in ['requirements', 'requirementstxt']:
+		string = requirements(**kwargs)
+	if query in ['backendproject']:
+		string = backend_project()
+	if query in ['manage', 'managepy']:
+		string = manage_py()
+	if query in ['settings', 'settingsroot']:
 		string = settings()
-	if query in ['views', 'views.py']:
-		string = views(modifier)
-	if query in ['urls', 'urls.py']:
-		string = urls(modifier)
-	if query in ['tests', 'tests.py']:
-		string = tests(modifier)
-	if query in ['templates']:
-		string = templates(modifier)
-	if query in ['home.html']:
-		string = home_html(modifier)
-	if query in ['react']:
-		string = react(modifier)
-	if query in ['components']:
-		string = components(modifier)
-	if query in ['containers']:
-		string = containers(modifier)
-	if query in ['home_js','home.js']:
-		string = home_js(modifier)
+	if query in ['settingsbase']:
+		string = os.path.join(settings(), 'base.py')
+	if query in ['settingsdev','settingsdevelopment']:
+		string = os.path.join(settings(), 'development.py')
+	if query in ['settingsprod','settingsproduction']:
+		string = os.path.join(settings(), 'production.py')
+	if query in ['app']:
+		string = app(**kwargs)
+	if query in ['views','viewspy']:
+		string = views(**kwargs)
+	if query in ['models','modelspy']:
+		string = models(**kwargs)
+	if query in ['urls','urlspy']:
+		string = urls(**kwargs)
+	if query in ['admin','adminpy']:
+		string = admin(**kwargs)
+	if query in ['tests','testspy']:
+		string = tests(**kwargs)
+	if query in ['serializers','serializerspy']:
+		string = serializers(**kwargs)
+	if query in ['permissions','permissionspy']:
+		string = permissions(**kwargs)
+
+	if query in ['frontend']:
+		string = frontend()
+	if query in ['webpack', 'webpackconfig', 'webpackconfigjs']:
+		string = webpack()
+
 
 	return string
