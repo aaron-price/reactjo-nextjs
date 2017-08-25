@@ -127,6 +127,25 @@ def obj_append(path, data):
 
         file_write(path, beginning + after)
 
+def ln_remove(path, data):
+    file = file_read(path)
+    startIndex = file.find(data['target'])
+    endIndex = file.find('\n', startIndex)
+    start = file[:startIndex]
+    end = file[endIndex:]
+
+    file_write(path, start + end)
+
+def ln_overwrite(path, data):
+    file = file_read(path)
+    startIndex = file.find(data['target'])
+    endIndex = file.find('\n', startIndex)
+    start = file[:startIndex]
+    end = file[endIndex:]
+
+    file_write(path, start + data['content'] + end)
+
+
 def file_parse(path, data):
     string = file_read(path)
     item_starts   = [m.start() for m in re.finditer("<%", string)]
@@ -153,7 +172,10 @@ def file_manager(path, query, data = None):
     if q == 'mkdir':
         mkdir(path)
     if q in ['w', 'write', 'create']:
-        file_write(path, data)
+        if isinstance(data, string_types):
+            file_write(path, data)
+        else:
+            ln_overwrite(path, data)
     if q in ['d','remove','delete']:
         file_remove(path)
     if q in ['f','format']:

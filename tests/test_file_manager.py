@@ -34,6 +34,32 @@ def test_file_manager_writing():
     file_manager(new_file, 'write', contents)
     assert(file_manager(new_file, 'exists') == True)
 
+def test_file_manager_line_remove():
+    settings = file_manager(settings_file, 'r')
+    overwritable_path = 'tests/sandbox/overwrite_me.py'
+    file_manager(overwritable_path, 'w', settings)
+    data = {
+        'target': 'world =',
+        'content': ''
+    }
+    file_manager(overwritable_path, 'w', data)
+    actual = file_manager(overwritable_path, 'r')
+    expected = file_manager('tests/sandbox/expected_string_remove.py', 'r')
+    assert(actual == expected)
+
+def test_file_manager_line_overwrite():
+    settings = file_manager(settings_file, 'r')
+    overwritable_path = 'tests/sandbox/overwrite_me.py'
+    file_manager(overwritable_path, 'w', settings)
+    data = {
+        'target': 'world =',
+        'content': 'world = "Mars"'
+    }
+    file_manager(overwritable_path, 'w', data)
+    actual = file_manager(overwritable_path, 'r')
+    expected = file_manager('tests/sandbox/expected_overwrite_string.py', 'r')
+    assert(actual == expected)
+
 # Reading
 def test_file_manager_reading():
     actual   = file_manager(settings_file, 'r')
