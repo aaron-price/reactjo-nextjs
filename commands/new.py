@@ -1,4 +1,2 @@
-from scaffolding.bootstrap import bootstrap
-
 def new():
-	bootstrap()
+	print("Hello world!")
