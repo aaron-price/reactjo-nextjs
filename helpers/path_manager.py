@@ -68,12 +68,13 @@ EXTENSION_NAME = 'django'
 # The Node + express server that runs react and all things client side. Based on create-react-app
 #
 # /frontend 						p('frontend')
-#	/config 						p('fe_config')
-#	/node_modules 					p('node_modules')
+#	/pages 							p('pages')
+#	/node_modules 					p('frontend') + '/node_modules'
 #	/package.json 					p('package_json')
-#	/public 						p('public')
-# 	/src 							p('src')
-#	/.babelrc 						p('babelrc')
+#	/components 					p('components')
+# 	/redux 							p('redux')
+#	/server.js						p('server_js')
+#	/services						p('services')
 
 
 # SUPER ROOT
@@ -90,17 +91,17 @@ def config():
 def extensions():
 	return os.path.join(reactjorc(), 'extensions')
 
-def assets(ext_name = EXTENSION_NAME):
-	return os.path.join(os.path.join(extensions(), ext_name), 'assets')
+def assets(name = EXTENSION_NAME):
+	return os.path.join(os.path.join(extensions(), name), 'assets')
 
-def helpers(ext_name = EXTENSION_NAME):
-	return os.path.join(os.path.join(extensions(), ext_name), 'helpers')
+def helpers(name = EXTENSION_NAME):
+	return os.path.join(os.path.join(extensions(), name), 'helpers')
 
-def helpers(ext_name = EXTENSION_NAME):
-	return os.path.join(os.path.join(extensions(), ext_name), 'helpers')
+def helpers(name = EXTENSION_NAME):
+	return os.path.join(os.path.join(extensions(), name), 'helpers')
 
-def scaffolding(ext_name = EXTENSION_NAME):
-	return os.path.join(os.path.join(extensions(), ext_name), 'scaffolding')
+def scaffolding(name = EXTENSION_NAME):
+	return os.path.join(os.path.join(extensions(), name), 'scaffolding')
 
 # BACKEND
 def backend():
@@ -115,42 +116,58 @@ def backend_project():
 def manage_py():
 	return os.path.join(backend_project(), 'manage.py')
 
+def app(name):
+	return os.path.join(backend_project(), name)
+
 def settings():
-	return os.path.join(backend_project(), 'settings')
+	return os.path.join(app(name = PROJECT_NAME), 'settings')
 
-def app(app_name):
-	return os.path.join(backend_project(), app_name)
+def views(name):
+	return os.path.join(app(name), 'views.py')
 
-def views(app_name):
-	return os.path.join(app(app_name), 'views.py')
+def models(name):
+	return os.path.join(app(name), 'models.py')
 
-def models(app_name):
-	return os.path.join(app(app_name), 'models.py')
+def admin(name):
+	return os.path.join(app(name), 'admin.py')
 
-def admin(app_name):
-	return os.path.join(app(app_name), 'admin.py')
+def urls(name):
+	return os.path.join(app(name), 'urls.py')
 
-def urls(app_name):
-	return os.path.join(app(app_name), 'urls.py')
+def tests(name):
+	return os.path.join(app(name), 'tests.py')
 
-def tests(app_name):
-	return os.path.join(app(app_name), 'tests.py')
+def serializers(name = 'api'):
+	return os.path.join(app(name = 'api'), 'serializers.py')
 
-def serializers(app_name = 'api'):
-	return os.path.join(app(app_name), 'serializers.py')
-
-def permissions(app_name = 'api'):
-	return os.path.join(app(app_name), 'permissions.py')
+def permissions(name = 'api'):
+	return os.path.join(app(name = 'api'), 'permissions.py')
 
 # FRONTEND
 def frontend():
 	return os.path.join(super_root(), 'frontend')
 
-def webpack():
-	return os.path.join(frontend(), 'webpack.config.js')
+def pages():
+	return os.path.join(frontend(), 'pages')
+
+def package_json():
+	return os.path.join(frontend(), 'package.json')
+
+def components():
+	return os.path.join(frontend(), 'components')
+
+def redux():
+	return os.path.join(frontend(), 'redux')
+
+def serverjs():
+	return os.path.join(frontend(), 'server.js')
+
+def services():
+	return os.path.join(frontend(), 'services')
 
 def path_manager(query, **kwargs):
 	string = ''
+	original_query = query
 	query = query.lower().replace(' ', '').replace('-', '').replace('_', '').replace('.', '')
 
 	# SUPER ROOT
@@ -158,57 +175,70 @@ def path_manager(query, **kwargs):
 		string = super_root()
 
 	# REACTJORC
-	if query in ['reactjorc']:
+	elif query in ['reactjorc']:
 		string = reactjorc()
-	if query in ['config','cfg','configjson']:
+	elif query in ['config','cfg','configjson']:
 		string = config()
-	if query in ['extensions']:
+	elif query in ['extensions']:
 		string = extensions()
-	if query in ['assets']:
+	elif query in ['assets']:
 		string = assets(**kwargs)
-	if query in ['helpers', 'helper']:
+	elif query in ['helpers', 'helper']:
 		string = helpers(**kwargs)
-	if query in ['scaffold', 'scaffolding']:
+	elif query in ['scaffold', 'scaffolding']:
 		string = scaffolding(**kwargs)
 
 	# BACKEND
-	if query in ['backend']:
+	elif query in ['backend']:
 		string = backend(**kwargs)
-	if query in ['requirements', 'requirementstxt']:
+	elif query in ['requirements', 'requirementstxt']:
 		string = requirements(**kwargs)
-	if query in ['backendproject']:
+	elif query in ['backendproject']:
 		string = backend_project()
-	if query in ['manage', 'managepy']:
+	elif query in ['manage', 'managepy']:
 		string = manage_py()
-	if query in ['settings', 'settingsroot']:
+	elif query in ['settings', 'settingsroot']:
 		string = settings()
-	if query in ['settingsbase']:
+	elif query in ['settingsbase', 'basesettings']:
 		string = os.path.join(settings(), 'base.py')
-	if query in ['settingsdev','settingsdevelopment']:
+	elif query in ['settingsdev','settingsdevelopment', 'devsettings','developmentsettings']:
 		string = os.path.join(settings(), 'development.py')
-	if query in ['settingsprod','settingsproduction']:
+	elif query in ['settingsprod','settingsproduction', 'prodsettings', 'productionsettings']:
 		string = os.path.join(settings(), 'production.py')
-	if query in ['app']:
+	elif query in ['app']:
 		string = app(**kwargs)
-	if query in ['views','viewspy']:
+	elif query in ['views','viewspy']:
 		string = views(**kwargs)
-	if query in ['models','modelspy']:
+	elif query in ['models','modelspy']:
 		string = models(**kwargs)
-	if query in ['urls','urlspy']:
+	elif query in ['urls','urlspy']:
 		string = urls(**kwargs)
-	if query in ['admin','adminpy']:
+	elif query in ['admin','adminpy']:
 		string = admin(**kwargs)
-	if query in ['tests','testspy']:
+	elif query in ['tests','testspy']:
 		string = tests(**kwargs)
-	if query in ['serializers','serializerspy']:
+	elif query in ['serializers','serializerspy']:
 		string = serializers(**kwargs)
-	if query in ['permissions','permissionspy']:
+	elif query in ['permissions','permissionspy']:
 		string = permissions(**kwargs)
 
-	if query in ['frontend']:
+	elif query in ['frontend']:
 		string = frontend()
-	if query in ['webpack', 'webpackconfig', 'webpackconfigjs']:
-		string = webpack()
+	elif query in ['pages']:
+		string = pages()
+	elif query in ['packagejson', 'package']:
+		string = package_json()
+	elif query in ['components']:
+		string = components()
+	elif query in ['redux']:
+		string = redux()
+	elif query in ['serverjs', 'server']:
+		string = serverjs()
+	elif query in ['services']:
+		string = services()
+
+	else:
+		raise Exception("PATH MANAGER COULDN'T FIND A MATCH FOR: ", original_query)
 
 
 	return string
