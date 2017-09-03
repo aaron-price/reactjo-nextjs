@@ -14,7 +14,7 @@ reactjo init
 ```
 {
     "uri": "https://github.com/aaron-price/nextjs_trial.git",
-    "rc_home": "nextjs_trial",
+    "rc_home": "reactjo_nextjs",
     "branch": "master"
 }
 ```
