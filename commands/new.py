@@ -1,4 +1,4 @@
-from scaffolding.bootstrap import bootstrap
+from scaffolding.main_structure import build_structure
 
 def new():
-	bootstrap()
+	build_structure()

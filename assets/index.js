@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Layout from '../components/MyLayout.js'
 import "isomorphic-fetch"
 import React, { Component } from 'react'
 import { profile_list } from '../services/profile_requests.js'
@@ -43,7 +42,8 @@ class Index extends Component {
 				mode: "cors",
 				headers: {
 						'Accept': 'application/json',
-						'Content-Type': 'application/json'
+						'Content-Type': 'application/json',
+						'Authorization': `token ${token}` || 'none'
 				},
 				name: username,
 				email: email,
