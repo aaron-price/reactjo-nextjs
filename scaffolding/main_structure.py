@@ -10,14 +10,17 @@ def build_structure():
     mkdir('$out/services')
     mkdir('$out/redux')
 
+    prev_path = os.getcwd()
+    os.chdir(f('$out', '$'))
+    subprocess.run(['npm', 'init', '-y'])
+    os.chdir(prev_path)
+
     f('$out/server.js', 'w', '$assets/server.js')
     f('$out/pages/index.js', 'w', '$assets/index.js')
     f('$out/services/profile_requests.js', 'w', '$assets/profile_requests.js')
     wl('Build directories and files')
 
-    prev_path = os.getcwd()
-    os.chdir(f('$out', 'path'))
-    subprocess.run(['npm', 'init', '-y'])
+
 
     dependencies = [
         'react',
@@ -29,6 +32,7 @@ def build_structure():
         'cookie-parser'
     ]
     print('Installing node dependencies. This will take a while.')
+    os.chdir(f('$out', '$'))
     subprocess.run(['npm', 'install'] + dependencies)
     os.chdir(prev_path)
     wl('Installed node dependencies')
