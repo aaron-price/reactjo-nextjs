@@ -16,11 +16,11 @@ def build_structure():
     os.chdir(prev_path)
 
     f('$out/server.js', 'w', '$assets/server.js')
-    f('$out/pages/index.js', 'w', '$assets/index.js')
-    f('$out/services/profile_requests.js', 'w', '$assets/profile_requests.js')
+    f('$out/pages/index.js', 'w', '$assets/pages/index.js')
+    f('$out/pages/profile.js', 'w', '$assets/pages/profile.js')
+    f('$out/components/Login.js', 'w', '$assets/components/Login.js')
+    f('$out/services/login_service.js', 'w', '$assets/services/login_service.js')
     wl('Build directories and files')
-
-
 
     dependencies = [
         'react',
@@ -29,8 +29,11 @@ def build_structure():
         'express',
         'isomorphic-fetch',
         'isomorphic-unfetch',
-        'cookie-parser'
+        'cookie-parser',
+        'express-validator',
+        'body-parser'
     ]
+
     print('Installing node dependencies. This will take a while.')
     os.chdir(f('$out', '$'))
     subprocess.run(['npm', 'install'] + dependencies)
