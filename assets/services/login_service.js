@@ -17,7 +17,7 @@ const login_service = (req, res, app) => {
             console.log(data)
             res.cookie('reactjo_app' , data.token)
             res.status(200)
-            app.render(req, res, '/profile')
+            app.render(req, res, '/users')
         } else {
             res.status(400)
             app.render(req, res, '/')

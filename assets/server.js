@@ -15,6 +15,12 @@ app.prepare().then(() => {
 		server.use(bodyParser.urlencoded({ extended: false }))
 		server.use(expressValidator())
 
+		server.get('/user/:id', (req, res) => {
+				const actualPage = '/user'
+				const queryParams = { id: req.params.id }
+				app.render(req, res, actualPage, queryParams)
+		})
+
 		server.post('/login/', (req, res) => {
 				login_service(req, res, app)
 		})
