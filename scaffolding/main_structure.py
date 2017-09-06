@@ -18,7 +18,6 @@ def build_structure():
     # Component assets
     f('$out/components/Header.js', 'w', '$assets/components/Header.js')
     f('$out/components/Layout.js', 'w', '$assets/components/Layout.js')
-    f('$out/components/Login.js', 'w', '$assets/components/Login.js')
 
     # Pages assets
     f('$out/pages/index.js', 'w', '$assets/pages/index.js')
@@ -32,7 +31,7 @@ def build_structure():
 
     # Misc assets
     f('$out/server.js', 'w', '$assets/server.js')
-    
+
     wl('Build directories and files')
 
     dependencies = [
