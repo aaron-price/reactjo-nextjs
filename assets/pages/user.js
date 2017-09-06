@@ -1,6 +1,7 @@
 import Layout from '../components/Layout.js'
 import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
+import React from 'react'
 
 const User = (props) => (
     <Layout>

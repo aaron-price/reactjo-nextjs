@@ -21,7 +21,7 @@ app.prepare().then(() => {
 				app.render(req, res, actualPage, queryParams)
 		})
 
-		server.post('/login/', (req, res) => {
+		server.post('/login', (req, res) => {
 				login_service(req, res, app)
 		})
 

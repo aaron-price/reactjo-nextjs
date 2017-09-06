@@ -1,7 +1,7 @@
 export default props => (
     <div>
         <h4>Login</h4>
-        <form id="login_form" name="login_form" action="/login/" method="post">
+        <form id="login_form" name="login_form" action="/login" method="post">
             <label id="name" htmlFor="name">Name: </label>
             <input type="text" name="name" required></input><br/><br/>
 
