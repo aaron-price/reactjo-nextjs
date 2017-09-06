@@ -15,11 +15,24 @@ def build_structure():
     subprocess.run(['npm', 'init', '-y'])
     os.chdir(prev_path)
 
-    f('$out/server.js', 'w', '$assets/server.js')
-    f('$out/pages/index.js', 'w', '$assets/pages/index.js')
-    f('$out/pages/profile.js', 'w', '$assets/pages/profile.js')
+    # Component assets
+    f('$out/components/Header.js', 'w', '$assets/components/Header.js')
+    f('$out/components/Layout.js', 'w', '$assets/components/Layout.js')
     f('$out/components/Login.js', 'w', '$assets/components/Login.js')
+
+    # Pages assets
+    f('$out/pages/index.js', 'w', '$assets/pages/index.js')
+    f('$out/pages/users.js', 'w', '$assets/pages/users.js')
+    f('$out/pages/user.js', 'w', '$assets/pages/user.js')
+
+    # Redux assets
+
+    # Services assets
     f('$out/services/login_service.js', 'w', '$assets/services/login_service.js')
+
+    # Misc assets
+    f('$out/server.js', 'w', '$assets/server.js')
+    
     wl('Build directories and files')
 
     dependencies = [

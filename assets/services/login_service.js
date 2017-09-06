@@ -1,5 +1,8 @@
+const fetch = require('isomorphic-unfetch')
+
 const login_service = (req, res, app) => {
     const LOGIN_URL = 'http://localhost:8000/api/login/'
+
     const request = fetch(LOGIN_URL, {
         method: 'POST',
         headers: {
@@ -14,20 +17,21 @@ const login_service = (req, res, app) => {
     .then(blob => blob.json())
     .then(data => {
         if(data.token) {
-            console.log(data)
-            res.cookie('reactjo_app' , data.token)
-            res.status(200)
-            app.render(req, res, '/profile')
+            res.cookie('reactjo_app', {
+                "token": data.token,
+                "id": data.id,
+                "name": data.name
+            })
+            app.render(req, res, '/user', {id: data.id})
         } else {
-            res.status(400)
-            app.render(req, res, '/')
+            return Promise.reject('Couldn\'t get an auth token')
         }
     })
     .catch(err => {
-        console.log(err)
-        res.status(200)
-        app.render(req, res, '/') // Should change this in the future
+      console.error(err)
+        app.render(req, res, '/login')
     })
+
 }
 
 module.exports = { login_service }
