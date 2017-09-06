@@ -32,28 +32,11 @@ def build_structure():
 
     # Misc assets
     f('$out/server.js', 'w', '$assets/server.js')
-
+    f('$out/package.json', 'w', '$assets/package.js')
     wl('Build directories and files')
-
-    dependencies = [
-        'react',
-        'react-dom',
-        'next',
-        'express',
-        'isomorphic-fetch',
-        'isomorphic-unfetch',
-        'cookie-parser',
-        'express-validator',
-        'body-parser'
-    ]
 
     print('Installing node dependencies. This will take a while.')
     os.chdir(f('$out', '$'))
-    subprocess.run(['npm', 'install'] + dependencies)
+    subprocess.run(['npm', 'install'])
     os.chdir(prev_path)
     wl('Installed node dependencies')
-
-    # Add npm scripts
-    package = f('$out/package.json', 'r')
-    package['scripts']['dev'] = "node server.js"
-    f('$out/package.json', 'w', package)
