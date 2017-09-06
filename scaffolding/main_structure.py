@@ -23,6 +23,7 @@ def build_structure():
     f('$out/pages/index.js', 'w', '$assets/pages/index.js')
     f('$out/pages/users.js', 'w', '$assets/pages/users.js')
     f('$out/pages/user.js', 'w', '$assets/pages/user.js')
+    f('$out/pages/login.js', 'w', '$assets/pages/login.js')
 
     # Redux assets
 
@@ -51,3 +52,8 @@ def build_structure():
     subprocess.run(['npm', 'install'] + dependencies)
     os.chdir(prev_path)
     wl('Installed node dependencies')
+
+    # Add npm scripts
+    package = f('$out/package.json', 'r')
+    package['scripts']['dev'] = "node server.js"
+    f('$out/package.json', 'w', package)
