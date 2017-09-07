@@ -1,14 +1,14 @@
-import Layout from '../components/Layout.js'
 import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
 import React from 'react'
+import Header from '../components/Head'
 
 const User = (props) => (
-    <Layout>
+    <Header>
         <h1>User</h1>
         <p>{props.user.id} - {props.user.name}</p>
         <p>{props.user.email}</p>
-    </Layout>
+    </Header>
 )
 User.getInitialProps = async function(context) {
     const { id } = context.query

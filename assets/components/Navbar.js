@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
 import React from 'react'
+import RaisedButton from 'material-ui/RaisedButton'
 
 const linkStyle = {
   marginRight: 15
@@ -36,7 +37,7 @@ const SignupLink = props => (
 		</Link>
 )
 
-class Header extends React.Component {
+class Navbar extends React.Component {
     constructor(props){
         super(props)
         this.state = {
@@ -77,7 +78,10 @@ class Header extends React.Component {
         ? (
           <div>
               <UserLink id={this.state.id} name={this.state.name} />
-              <button onClick={() => this.logout(this.update_user)}>Logout</button>
+              <RaisedButton
+                  onClick={() => this.logout(this.update_user)}
+                  label="Logout">
+              </RaisedButton>
               <br/><br/>
               <HomeLink />
               <UsersLink />
@@ -93,4 +97,4 @@ class Header extends React.Component {
     }
 }
 
-export default Header
+export default Navbar

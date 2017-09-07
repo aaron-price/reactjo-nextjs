@@ -1,18 +1,19 @@
-import Layout from '../components/Layout.js'
 import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
+import Header from '../components/Head'
+import { Button } from 'reactstrap'
 
 const Users = (props) => (
-    <Layout>
+    <Header>
         <h1>Users</h1>
             <ul>
                 {props.users.map((user, key) => (
-                    <li><Link as={`/user/${user.id}`} href={`/user/?id=${user.id}`} key={key}>
+                    <li key={key}><Link as={`/user/${user.id}`} href={`/user/?id=${user.id}`}>
                         <a>{user.name}</a>
                     </Link></li>
                 ))}
             </ul>
-    </Layout>
+    </Header>
 )
 Users.getInitialProps = async function() {
     const res = await fetch('http://localhost:8000/api/profile/', {

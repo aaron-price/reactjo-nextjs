@@ -1,7 +1,7 @@
-import Layout from '../components/Layout.js'
+import Header from '../components/Head'
 
 const signup = (props) => (
-    <Layout>
+    <Header>
         <h4>Signup</h4>
         <form id="signup_form" name="signup_form" action="/signup" method="post">
             <label id="name" htmlFor="name">Name: </label>
@@ -15,7 +15,7 @@ const signup = (props) => (
 
             <input type="submit" name="submit" value="Signup"></input><br/><br/>
         </form>
-    </Layout>
+    </Header>
 )
 
 export default signup
