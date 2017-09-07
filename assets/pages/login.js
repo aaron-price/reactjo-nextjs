@@ -1,7 +1,7 @@
-import Layout from '../components/Layout.js'
+import Header from '../components/Head'
 
 const login = (props) => (
-    <Layout>
+    <Header>
         <h4>Login</h4>
         <form id="login_form" name="login_form" action="/login" method="post">
             <label id="name" htmlFor="name">Name: </label>
@@ -12,7 +12,7 @@ const login = (props) => (
 
             <input type="submit" name="submit" value="Login"></input><br/><br/>
         </form>
-    </Layout>
+    </Header>
 )
 
 export default login

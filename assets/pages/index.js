@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import 'isomorphic-fetch'
 import React, { Component } from 'react'
-import Layout from '../components/Layout.js'
+import Header from '../components/Head'
 
 class Index extends Component {
 		constructor(props) {
@@ -11,9 +11,9 @@ class Index extends Component {
 
 		render() {
 				return (
-						<Layout>
+						<Header>
 								<h1>Index Component</h1>
-						</Layout>
+						</Header>
 				)
 		}
 }
