@@ -5,11 +5,13 @@ import Link from 'next/link'
 const Users = (props) => (
     <Layout>
         <h1>Users</h1>
-          {props.users.map((user, key) => (
-              <Link as={`/user/${user.id}`} href={`/user/?id=${user.id}`} key={key}>
-                  <a>{user.name}</a>
-              </Link>
-          ))}
+            <ul>
+                {props.users.map((user, key) => (
+                    <li><Link as={`/user/${user.id}`} href={`/user/?id=${user.id}`} key={key}>
+                        <a>{user.name}</a>
+                    </Link></li>
+                ))}
+            </ul>
     </Layout>
 )
 Users.getInitialProps = async function() {

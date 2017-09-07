@@ -7,6 +7,7 @@ const handle = app.getRequestHandler()
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
 const { login_service } = require('./services/login_service.js')
+const { signup_service } = require('./services/signup_service.js')
 const morgan = require('morgan')
 
 app.prepare().then(() => {
@@ -25,6 +26,9 @@ app.prepare().then(() => {
 
 		server.post('/login', (req, res) => {
 				login_service(req, res, app)
+		})
+		server.post('/signup', (req, res) => {
+				signup_service(req, res, app)
 		})
 		server.post('/logout', (req, res) => {
 				res.clearCookie('reactjo_app')

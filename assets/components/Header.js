@@ -29,12 +29,12 @@ const LoginLink = props => (
 				<a style={linkStyle}>Login</a>
 		</Link>
 )
-const LogOutLink = props => (
-		<Link href="/logout">
-				<a style={linkStyle}>Logout</a>
+
+const SignupLink = props => (
+		<Link href="/signup">
+				<a style={linkStyle}>Signup</a>
 		</Link>
 )
-
 
 class Header extends React.Component {
     constructor(props){
@@ -87,6 +87,7 @@ class Header extends React.Component {
               <HomeLink />
               <UsersLink />
               <LoginLink />
+              <SignupLink />
           </div>
         )
     }
