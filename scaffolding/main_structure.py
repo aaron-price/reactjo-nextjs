@@ -18,12 +18,12 @@ def build_structure():
     # Component assets
     f('$out/components/Header.js', 'w', '$assets/components/Header.js')
     f('$out/components/Layout.js', 'w', '$assets/components/Layout.js')
-    f('$out/components/Login.js', 'w', '$assets/components/Login.js')
 
     # Pages assets
     f('$out/pages/index.js', 'w', '$assets/pages/index.js')
     f('$out/pages/users.js', 'w', '$assets/pages/users.js')
     f('$out/pages/user.js', 'w', '$assets/pages/user.js')
+    f('$out/pages/login.js', 'w', '$assets/pages/login.js')
 
     # Redux assets
 
@@ -32,23 +32,11 @@ def build_structure():
 
     # Misc assets
     f('$out/server.js', 'w', '$assets/server.js')
-    
+    f('$out/package.json', 'w', '$assets/package.js')
     wl('Build directories and files')
-
-    dependencies = [
-        'react',
-        'react-dom',
-        'next',
-        'express',
-        'isomorphic-fetch',
-        'isomorphic-unfetch',
-        'cookie-parser',
-        'express-validator',
-        'body-parser'
-    ]
 
     print('Installing node dependencies. This will take a while.')
     os.chdir(f('$out', '$'))
-    subprocess.run(['npm', 'install'] + dependencies)
+    subprocess.run(['npm', 'install'])
     os.chdir(prev_path)
     wl('Installed node dependencies')

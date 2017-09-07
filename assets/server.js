@@ -1,16 +1,18 @@
+const cookieParser = require('cookie-parser')
 const express = require('express')
 const next = require('next')
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
-const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
 const { login_service } = require('./services/login_service.js')
+const morgan = require('morgan')
 
 app.prepare().then(() => {
 		const server = express()
 		server.use(cookieParser())
+
 		server.use(bodyParser.json())
 		server.use(bodyParser.urlencoded({ extended: false }))
 		server.use(expressValidator())
@@ -23,6 +25,18 @@ app.prepare().then(() => {
 
 		server.post('/login', (req, res) => {
 				login_service(req, res, app)
+		})
+		server.post('/logout', (req, res) => {
+				res.clearCookie('reactjo_app')
+				res.redirect('/')
+		})
+
+		server.get('/me', (req, res) => {
+				const cookie = req.cookies.reactjo_app ? req.cookies.reactjo_app : null
+				user = cookie
+						? {name: cookie.name, id: cookie.id}
+						: {name: null, id: null}
+				res.send(user)
 		})
 
 		server.get('*', (req, res) => {
