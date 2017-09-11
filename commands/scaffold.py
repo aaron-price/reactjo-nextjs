@@ -35,7 +35,7 @@ def scaffold_details_page():
         'title_lower', title_lower).replace(
         'string_method', string_method)
 
-    f('$pages/' + title_singular.lower() + '.js', 'w', details_page)
+    f('$pages/' + title_lower + '.js', 'w', details_page)
     print('Built the details page!')
 
 def scaffold():
