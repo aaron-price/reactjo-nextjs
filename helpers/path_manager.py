@@ -14,7 +14,7 @@ def parse_shortcuts(path):
         '$extension': os.path.join(su_path, 'reactjorc/extensions', RC_HOME),
         '$out': out_path,
         '$output': out_path,
-        '$pages': os.path.join(out_path, 'pages')
+        '$pages': os.path.join(out_path, 'pages'),
         '$project': prj_path,
         '$prj': prj_path,
         '$rc': os.path.join(su_path, 'reactjorc'),
