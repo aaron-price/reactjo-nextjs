@@ -28,11 +28,12 @@ def scaffold_details_page():
     title = cfg['current_scaffold']['model']['title']
     title_upper = title.capitalize()
     title_lower = title.lower()
+    string_method = cfg['current_scaffold']['model']['str']
 
     details_page = f('$assets/pages/content_details.js', 'r').replace(
         'title_upper', title_upper).replace(
-        'title_lower', title_lower)
-    )
+        'title_lower', title_lower).replace(
+        'string_method', string_method)
 
     $(f'$pages/' + title_singular.lower() + '.js', 'w', details_page)
     print('Built the details page!')

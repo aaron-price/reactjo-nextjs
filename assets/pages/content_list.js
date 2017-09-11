@@ -9,7 +9,7 @@ const plural_upper = (props) => (
             <ul>
                 {props.plural_lower.map((singular_lower, key) => (
                     <li key={key}><Link as={`/singular_lower/${singular_lower.id}`} href={`/singular_lower/?id=${singular_lower.id}`}>
-                        <a>{singular_lower.str_method}</a>
+                        <a>{singular_lower.string_method}</a>
                     </Link></li>
                 ))}
             </ul>
@@ -24,7 +24,6 @@ plural_upper.getInitialProps = async function() {
         }
     })
     const data = await res.json()
-    console.log(data)
     return {
         plural_lower: data
     }
