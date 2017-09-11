@@ -7,8 +7,8 @@ const title_upper = (props) => (
     <Header>
         <h1>{props.title_lower.string_method}</h1>
         <ul>
-            {props.title_lower.fields.map((field, key) => {
-                return <li key={key}>{field.title}</li>
+            {props.title_lower.keys().map((field, key) => {
+                return <li key={key}>{field}: {title_lower.field}</li>
             })}
         </ul>
     </Header>
