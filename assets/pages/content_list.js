@@ -16,7 +16,7 @@ const plural_upper = (props) => (
     </Header>
 )
 plural_upper.getInitialProps = async function() {
-    const res = await fetch('http://localhost:8000/api/plural_lower/', {
+    const res = await fetch('http://localhost:8000/api/singular_lower/', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
