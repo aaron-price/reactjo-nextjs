@@ -13,11 +13,12 @@ const current_user = require('./middleware/current_user.js')
 
 app.prepare().then(() => {
 		const server = express()
-		server.use(cookieParser())
+		server.use(cookieParser(random_string))
 
 		server.use(bodyParser.json())
 		server.use(bodyParser.urlencoded({ extended: false }))
 		server.use(expressValidator())
+		server.use(current_user)
 
 		server.get('/user/:id', (req, res) => {
 				const actualPage = '/user'

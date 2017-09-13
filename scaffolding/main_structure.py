@@ -2,6 +2,10 @@ from helpers.path_manager import mkdir
 from helpers.file_manager import file_manager as f
 from helpers.worklist import worklist as wl
 import os, subprocess
+import string
+import random
+def id_generator(size=16, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
 
 def build_structure():
     prev_path = os.getcwd()
@@ -20,7 +24,9 @@ def build_structure():
 
     # Misc assets
     f('$out/package.json', 'w', '$assets/package.js')
-    f('$out/server.js', 'w', '$assets/server.js')
+
+    server = f('$assets/server.js', 'r').replace('random_string', id_generator())
+    f('$out/server.js', 'w', server)
 
     # Pages assets
     f('$out/pages/index.js', 'w', '$assets/pages/index.js')
