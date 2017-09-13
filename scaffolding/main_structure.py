@@ -6,7 +6,7 @@ import string
 import random
 def id_generator():
     signature = ''.join(random.choice(string.hexdigits) for _ in range(32))
-    return "'{signature}'"
+    return f"'{signature}'"
 
 def build_structure():
     prev_path = os.getcwd()
