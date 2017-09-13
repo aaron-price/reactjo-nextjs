@@ -5,7 +5,7 @@ import os, subprocess
 import string
 import random
 def id_generator():
-    signature = ''.join(random.choice(string.hexdigits) for _ in range(16))
+    signature = ''.join(random.choice(string.hexdigits) for _ in range(32))
     return "'{signature}'"
 
 def build_structure():
