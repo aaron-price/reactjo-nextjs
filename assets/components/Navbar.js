@@ -41,45 +41,33 @@ class Navbar extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            name: this.props.user.name,
-            id: this.props.user.id
+            name: this.props.current_user.name,
+            id: this.props.current_user.id
         }
         this.update_user = this.update_user.bind(this)
         this.logout = this.logout.bind(this)
     }
-    update_user(user) {
+    update_user(current_user) {
         this.setState({
-            name: user.name,
-            id: user.id
+            name: current_user.name,
+            id: current_user.id
         })
     }
-    who_am_i(resolve) {
-        fetch('me', {
-            method: 'GET',
-            credentials: 'include'
-        })
-        .then(blob => blob.json())
-        .then(data => resolve(data))
-        .catch(e => console.error(e))
-    }
-    logout(resolve) {
+    logout() {
         fetch('logout', {
             method: 'POST',
             credentials: 'include'
         })
-        .then(data => this.who_am_i(resolve))
+        .then(data => this.update_user({ id: null, name: null }))
         .catch(e => console.error(e))
     }
-    componentDidMount() {
-        this.who_am_i(this.update_user)
-    }
     render() {
-        return this.state.id
+        return this.state.id && this.state.name
         ? (
           <div>
               <UserLink id={this.state.id} name={this.state.name} />
               <RaisedButton
-                  onClick={() => this.logout(this.update_user)}
+                  onClick={() => this.logout()}
                   label="Logout">
               </RaisedButton>
               <br/><br/>

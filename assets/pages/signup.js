@@ -1,7 +1,8 @@
 import Header from '../components/Head'
+import { return_current_user } from '../services/current_user.js'
 
-const signup = (props) => (
-    <Header>
+const Signup = (props) => (
+    <Header current_user={props.current_user}>
         <h4>Signup</h4>
         <form id="signup_form" name="signup_form" action="/signup" method="post">
             <label id="name" htmlFor="name">Name: </label>
@@ -18,4 +19,8 @@ const signup = (props) => (
     </Header>
 )
 
-export default signup
+Signup.getInitialProps = async function(context) {
+		return { current_user: await return_current_user(context)}
+}
+
+export default Signup

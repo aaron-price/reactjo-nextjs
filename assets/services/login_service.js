@@ -17,11 +17,10 @@ const login_service = (req, res, app) => {
     .then(blob => blob.json())
     .then(data => {
         if(data.token) {
-            res.cookie('reactjo_app', {
-                "token": data.token,
-                "id": data.id,
-                "name": data.name
-            })
+            res.cookie('reactjo_id', data.id)
+            res.cookie('reactjo_name', data.name)
+            res.cookie('reactjo_token', data.token)
+
             app.render(req, res, '/user', {id: data.id})
         } else {
             return Promise.reject('Couldn\'t get an auth token')

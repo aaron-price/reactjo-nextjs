@@ -9,11 +9,11 @@ const expressValidator = require('express-validator')
 const { login_service } = require('./services/login_service.js')
 const { signup_service } = require('./services/signup_service.js')
 const morgan = require('morgan')
-const { current_user } = require('./middleware/current_user.js')
+const { current_user } = require('./middleware/res_current_user.js')
 
 app.prepare().then(() => {
 		const server = express()
-		server.use(cookieParser(random_string))
+		server.use(cookieParser('cD8ccC760E78887D3Ca15B0dD01ccD0A'))
 
 		server.use(bodyParser.json())
 		server.use(bodyParser.urlencoded({ extended: false }))
@@ -32,8 +32,11 @@ app.prepare().then(() => {
 		server.post('/signup', (req, res) => {
 				signup_service(req, res, app)
 		})
+
 		server.post('/logout', (req, res) => {
 				res.clearCookie('reactjo_app')
+				res.clearCookie('reactjo_id')
+				res.clearCookie('reactjo_name')
 				res.redirect('/')
 		})
 
