@@ -4,7 +4,7 @@ import Header from '../components/Head'
 import { Button } from 'reactstrap'
 
 const plural_upper = (props) => (
-    <Header>
+    <Header current_user={props.current_user}>
         <h1>plural_upper</h1>
             <ul>
                 {props.plural_lower.map((singular_lower, key) => (
@@ -25,7 +25,8 @@ plural_upper.getInitialProps = async function() {
     })
     const data = await res.json()
     return {
-        plural_lower: data
+        plural_lower: data,
+        current_user: await return_current_user(context)
     }
 }
 

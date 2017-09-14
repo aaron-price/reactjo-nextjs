@@ -7,13 +7,25 @@ import { return_current_user } from '../services/current_user.js'
 const User = (props) => (
     <Header current_user={props.current_user}>
         <h1>User</h1>
-        <p>{props.current_user.id} - {props.current_user.name}</p>
-        <p>{props.current_user.email}</p>
+        <p>{props.profile.id} - {props.profile.name}</p>
+        <p>{props.profile.email}</p>
     </Header>
 )
 
 User.getInitialProps = async function(context) {
-		return { current_user: await return_current_user(context)}
+    const { id } = context.query
+    const profile_blob = await fetch(`http://localhost:8000/api/profile/${id}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+
+		return {
+        current_user: await return_current_user(context),
+        profile: await profile_blob.json()
+    }
 }
 
 export default User

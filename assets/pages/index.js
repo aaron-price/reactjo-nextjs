@@ -11,6 +11,7 @@ const index = props => (
 )
 
 index.getInitialProps = async function(context) {
-		return { current_user: await return_current_user(context)}
+		const current_user = await return_current_user(context)
+		return { current_user }
 }
 export default index

@@ -13,7 +13,7 @@ const { current_user } = require('./middleware/res_current_user.js')
 
 app.prepare().then(() => {
 		const server = express()
-		server.use(cookieParser('cD8ccC760E78887D3Ca15B0dD01ccD0A'))
+		server.use(cookieParser(random_string))
 
 		server.use(bodyParser.json())
 		server.use(bodyParser.urlencoded({ extended: false }))
@@ -26,18 +26,19 @@ app.prepare().then(() => {
 				app.render(req, res, actualPage, queryParams)
 		})
 
-		server.post('/login', (req, res) => {
-				login_service(req, res, app)
+		server.post('/login', (req, res, next) => {
+				login_service(req, res, next, app)
 		})
 		server.post('/signup', (req, res) => {
-				signup_service(req, res, app)
+				signup_service(req, res, next, app)
 		})
 
 		server.post('/logout', (req, res) => {
 				res.clearCookie('reactjo_app')
 				res.clearCookie('reactjo_id')
 				res.clearCookie('reactjo_name')
-				res.redirect('/')
+				// res.redirect('/')
+				app.render(req, res, '/')
 		})
 
 		server.get('*', (req, res) => {

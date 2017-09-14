@@ -8,7 +8,7 @@ async function return_current_user(context) {
 						id = null
 						name = null
 				}
-				return {id, name}
+				return { id, name }
 		}
 }
 
