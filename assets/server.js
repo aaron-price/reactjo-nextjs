@@ -9,14 +9,16 @@ const expressValidator = require('express-validator')
 const { login_service } = require('./services/login_service.js')
 const { signup_service } = require('./services/signup_service.js')
 const morgan = require('morgan')
+const current_user = require('./middleware/current_user.js')
 
 app.prepare().then(() => {
 		const server = express()
-		server.use(cookieParser())
+		server.use(cookieParser(random_string))
 
 		server.use(bodyParser.json())
 		server.use(bodyParser.urlencoded({ extended: false }))
 		server.use(expressValidator())
+		server.use(current_user)
 
 		server.get('/user/:id', (req, res) => {
 				const actualPage = '/user'
@@ -33,14 +35,6 @@ app.prepare().then(() => {
 		server.post('/logout', (req, res) => {
 				res.clearCookie('reactjo_app')
 				res.redirect('/')
-		})
-
-		server.get('/me', (req, res) => {
-				const cookie = req.cookies.reactjo_app ? req.cookies.reactjo_app : null
-				user = cookie
-						? {name: cookie.name, id: cookie.id}
-						: {name: null, id: null}
-				res.send(user)
 		})
 
 		server.get('*', (req, res) => {

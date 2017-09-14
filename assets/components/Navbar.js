@@ -41,8 +41,8 @@ class Navbar extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            name: null,
-            id: null
+            name: this.props.user.name,
+            id: this.props.user.id
         }
         this.update_user = this.update_user.bind(this)
         this.logout = this.logout.bind(this)

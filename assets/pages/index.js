@@ -11,11 +11,13 @@ class Index extends Component {
 
 		render() {
 				return (
-						<Header>
+						<Header user={this.props.user}>
 								<h1>Index Component</h1>
 						</Header>
 				)
 		}
 }
-
+Index.getInitialProps = async function(context) {
+    return { user } = context.res.current_user
+}
 export default Index

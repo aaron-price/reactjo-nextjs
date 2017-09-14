@@ -11,7 +11,7 @@ def scaffold_list_page():
     title = cfg['current_scaffold']['model']['title']
     title_singular = title.capitalize()
     title_plural = pluralize(title.capitalize())
-    string_method = cfg['current_scaffold']['model']['str']
+    string_method = cfg['current_scaffold']['model']['__str__']
 
     list_page = f('$assets/pages/content_list.js', 'r').replace(
         'singular_lower', title_singular.lower()).replace(
@@ -20,7 +20,7 @@ def scaffold_list_page():
         'string_method', string_method
     )
 
-    $(f'$pages/' + title_plural.lower() + '.js', 'w', list_page)
+    f('$pages/' + title_plural.lower() + '.js', 'w', list_page)
     print('Built the list page!')
 
 def scaffold_details_page():
@@ -28,14 +28,14 @@ def scaffold_details_page():
     title = cfg['current_scaffold']['model']['title']
     title_upper = title.capitalize()
     title_lower = title.lower()
-    string_method = cfg['current_scaffold']['model']['str']
+    string_method = cfg['current_scaffold']['model']['__str__']
 
     details_page = f('$assets/pages/content_details.js', 'r').replace(
         'title_upper', title_upper).replace(
         'title_lower', title_lower).replace(
         'string_method', string_method)
 
-    $(f'$pages/' + title_singular.lower() + '.js', 'w', details_page)
+    f('$pages/' + title_lower + '.js', 'w', details_page)
     print('Built the details page!')
 
 def scaffold():
