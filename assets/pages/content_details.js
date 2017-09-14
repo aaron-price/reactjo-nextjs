@@ -2,13 +2,14 @@ import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
 import React from 'react'
 import Header from '../components/Head'
+import { return_current_user } from '../services/current_user.js'
 
 const title_upper = (props) => (
     <Header current_user={props.current_user}>
         <h1>{props.title_lower.string_method}</h1>
         <ul>
-            {props.title_lower.keys().map((field, key) => {
-                return <li key={key}>{field}: {title_lower.field}</li>
+            {Object.keys(props.title_lower).map((field, key) => {
+                return <li key={key}>{field}: {props.title_lower[field]}</li>
             })}
         </ul>
     </Header>
@@ -28,5 +29,3 @@ title_upper.getInitialProps = async function(context) {
         current_user: await return_current_user(context)
     }
 }
-
-export default title_upper
