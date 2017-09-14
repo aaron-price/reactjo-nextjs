@@ -1,15 +1,20 @@
-from helpers.path_manager import mkdir
-from helpers.file_manager import file_manager as f
-from helpers.worklist import worklist as wl
 import os, subprocess
 import string
 import random
+
+from helpers.path_manager import mkdir
+from helpers.file_manager import file_manager as f
+from helpers.worklist import worklist as wl
+from helpers.config_manager import get_cfg
+
 def id_generator():
     signature = ''.join(random.choice(string.hexdigits) for _ in range(32))
     return f"'{signature}'"
 
 def build_structure():
     prev_path = os.getcwd()
+    cfg = get_cfg()
+    project_name = cfg['project_name']
 
     # directories
     mkdir('$out')
@@ -30,7 +35,9 @@ def build_structure():
     # Misc assets
     f('$out/package.json', 'w', '$assets/package.js')
 
-    server = f('$assets/server.js', 'r').replace('random_string', id_generator())
+    server = f('$assets/server.js', 'r').replace(
+        'random_string', id_generator()).replace(
+        'reactjo', project_name)
     f('$out/server.js', 'w', server)
 
     # Pages assets
@@ -44,8 +51,13 @@ def build_structure():
     # @TODO
 
     # Services assets
-    f('$out/services/login_service.js', 'w', '$assets/services/login_service.js')
+    login_service = f('$assets/services/login_service.js', 'r').replace(
+        'reactjo', project_name)
+    f('$out/services/login_service.js', 'w', login_service)
     f('$out/services/signup_service.js', 'w', '$assets/services/signup_service.js')
+    current_user_service = f('$assets/services/current_user.js', 'r').replace(
+        'reactjo', project_name)
+    f('$out/services/current_user.js', 'w', current_user_service)
 
     # Style assets
     f('$out/styles/styles.js', 'w', '$assets/styles/styles.js')
