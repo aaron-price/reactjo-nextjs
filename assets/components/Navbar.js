@@ -2,38 +2,47 @@ import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
 import React from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
+import Router from 'next/router'
 
 const linkStyle = {
   marginRight: 15
 }
 
 const UserLink = props => (
-    <Link as={`/user/${props.id}`} href={`/profile/?id=${props.id}`}>
+    <Link href={{
+          pathname: '/user/',
+          asPath: `/user/`,
+          query: { id: props.id }
+    }}>
 				<a style={linkStyle}>Hi, {props.name}!</a>
 		</Link>
 )
 
 const HomeLink = props => (
 		<Link href="/">
-				<a style={linkStyle}>Home</a>
+				<RaisedButton style={linkStyle}>Home</RaisedButton>
 		</Link>
 )
 
 const UsersLink = props => (
 		<Link href="/users">
-				<a style={linkStyle}>Users list</a>
+				<RaisedButton style={linkStyle}>Users list</RaisedButton>
 		</Link>
 )
 
 const LoginLink = props => (
 		<Link href="/login">
-				<a style={linkStyle}>Login</a>
+				<RaisedButton style={linkStyle}>Login</RaisedButton>
 		</Link>
+)
+const LogoutLink = props => (
+		<RaisedButton style={linkStyle} onClick={() => props.logout()}
+    >Logout</RaisedButton>
 )
 
 const SignupLink = props => (
 		<Link href="/signup">
-				<a style={linkStyle}>Signup</a>
+				<RaisedButton style={linkStyle}>Signup</RaisedButton>
 		</Link>
 )
 
@@ -41,58 +50,47 @@ class Navbar extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            name: this.props.user.name,
-            id: this.props.user.id
+            name: this.props.current_user.name,
+            id: this.props.current_user.id
         }
         this.update_user = this.update_user.bind(this)
         this.logout = this.logout.bind(this)
     }
-    update_user(user) {
+    update_user(current_user) {
         this.setState({
-            name: user.name,
-            id: user.id
+            name: current_user.name,
+            id: current_user.id
         })
     }
-    who_am_i(resolve) {
-        fetch('me', {
-            method: 'GET',
-            credentials: 'include'
-        })
-        .then(blob => blob.json())
-        .then(data => resolve(data))
-        .catch(e => console.error(e))
-    }
-    logout(resolve) {
-        fetch('logout', {
+    logout() {
+        fetch('/logout', {
             method: 'POST',
             credentials: 'include'
         })
-        .then(data => this.who_am_i(resolve))
+        .then(data => {
+            this.update_user({ id: null, name: null })
+            Router.push({pathname: '/', as: '/'})
+
+        })
         .catch(e => console.error(e))
     }
-    componentDidMount() {
-        this.who_am_i(this.update_user)
-    }
     render() {
-        return this.state.id
+        return this.state.id && this.state.name
         ? (
-          <div>
-              <UserLink id={this.state.id} name={this.state.name} />
-              <RaisedButton
-                  onClick={() => this.logout(this.update_user)}
-                  label="Logout">
-              </RaisedButton>
-              <br/><br/>
-              <HomeLink />
-              <UsersLink />
-          </div>
+            <div>
+                <UserLink id={this.state.id} name={this.state.name} />
+                <LogoutLink logout={this.logout} />
+                <br/><br/>
+                <HomeLink />
+                <UsersLink />
+            </div>
         ) : (
-          <div>
-              <HomeLink />
-              <UsersLink />
-              <LoginLink />
-              <SignupLink />
-          </div>
+            <div>
+                <HomeLink />
+                <UsersLink />
+                <LoginLink />
+                <SignupLink />
+            </div>
         )
     }
 }

@@ -2,26 +2,29 @@ import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
 import React from 'react'
 import Header from '../components/Head'
+import { return_current_user } from '../services/current_user.js'
 
 const User = (props) => (
-    <Header>
+    <Header current_user={props.current_user}>
         <h1>User</h1>
-        <p>{props.user.id} - {props.user.name}</p>
-        <p>{props.user.email}</p>
+        <p>{props.profile.id} - {props.profile.name}</p>
+        <p>{props.profile.email}</p>
     </Header>
 )
+
 User.getInitialProps = async function(context) {
     const { id } = context.query
-    const res = await fetch(`http://localhost:8000/api/profile/${id}`, {
+    const profile_blob = await fetch(`http://localhost:8000/api/profile/${id}`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
     })
-    const data = await res.json()
-    return {
-        user: data
+
+		return {
+        current_user: await return_current_user(context),
+        profile: await profile_blob.json()
     }
 }
 

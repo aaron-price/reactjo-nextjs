@@ -4,7 +4,7 @@ import React from 'react'
 import Header from '../components/Head'
 
 const title_upper = (props) => (
-    <Header>
+    <Header current_user={props.current_user}>
         <h1>{props.title_lower.string_method}</h1>
         <ul>
             {props.title_lower.keys().map((field, key) => {
@@ -24,7 +24,8 @@ title_upper.getInitialProps = async function(context) {
     })
     const data = await res.json()
     return {
-        title_lower: data
+        title_lower: data,
+        current_user: await return_current_user(context)
     }
 }
 

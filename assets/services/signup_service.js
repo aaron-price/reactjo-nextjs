@@ -1,10 +1,10 @@
 const fetch = require('isomorphic-unfetch')
 const { login_service } = require('./login_service.js')
 
-const signup_service = (req, res, app) => {
+const signup_service = (req, res, next, app) => {
     const SIGNUP_URL = 'http://localhost:8000/api/profile/'
 
-    const request = fetch(SIGNUP_URL, {
+    fetch(SIGNUP_URL, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -18,7 +18,7 @@ const signup_service = (req, res, app) => {
     })
     .then(blob => blob.json())
     .then(data => {
-            login_service(req, res, app)
+        login_service(req, res, next, app)
     })
     .catch(err => {
       console.error(err)

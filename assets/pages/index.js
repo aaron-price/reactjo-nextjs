@@ -2,22 +2,16 @@ import Link from 'next/link'
 import 'isomorphic-fetch'
 import React, { Component } from 'react'
 import Header from '../components/Head'
+import { return_current_user } from '../services/current_user.js'
 
-class Index extends Component {
-		constructor(props) {
-				super(props)
-				this.state = {}
-		}
+const index = props => (
+		<Header current_user={props.current_user}>
+				<h1>Index Component</h1>
+		</Header>
+)
 
-		render() {
-				return (
-						<Header user={this.props.user}>
-								<h1>Index Component</h1>
-						</Header>
-				)
-		}
+index.getInitialProps = async function(context) {
+		const current_user = await return_current_user(context)
+		return { current_user }
 }
-Index.getInitialProps = async function(context) {
-    return { user } = context.res.current_user
-}
-export default Index
+export default index
