@@ -14,6 +14,7 @@ def build_structure():
     # directories
     mkdir('$out')
     mkdir('$out/components')
+    mkdir('$out/middleware')
     mkdir('$out/pages')
     mkdir('$out/redux')
     mkdir('$out/services')
@@ -22,6 +23,9 @@ def build_structure():
     # Component assets
     f('$out/components/Head.js', 'w', '$assets/components/Head.js')
     f('$out/components/Navbar.js', 'w', '$assets/components/Navbar.js')
+
+    # Middleware
+    f('$out/middleware/current_user.js', 'w', '$assets/middleware/current_user.js')
 
     # Misc assets
     f('$out/package.json', 'w', '$assets/package.js')

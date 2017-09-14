@@ -9,7 +9,7 @@ const expressValidator = require('express-validator')
 const { login_service } = require('./services/login_service.js')
 const { signup_service } = require('./services/signup_service.js')
 const morgan = require('morgan')
-const current_user = require('./middleware/current_user.js')
+const { current_user } = require('./middleware/current_user.js')
 
 app.prepare().then(() => {
 		const server = express()

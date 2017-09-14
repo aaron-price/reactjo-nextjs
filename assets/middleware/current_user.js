@@ -1,4 +1,4 @@
-export default function(req, res, next) {
+function current_user(req, res, next) {
 		const cookie = req.cookies.reactjo_app ? req.cookies.reactjo_app : null
 		user = cookie
 				? {name: cookie.name, id: cookie.id}
@@ -6,3 +6,4 @@ export default function(req, res, next) {
 		res.current_user = user
 		next()
 }
+module.exports = { current_user }
