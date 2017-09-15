@@ -24,7 +24,7 @@ class Login extends React.Component {
         this.setState({ form: entry })
     }
     submit_form(e) {
-        e.preventdefault()
+        e.preventDefault()
         fetch('/login', {
             method: 'POST',
             credentials: 'include',

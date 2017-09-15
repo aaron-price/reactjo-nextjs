@@ -25,7 +25,7 @@ class Signup extends React.Component {
         this.setState({ form: entry })
     }
     submit_form(e) {
-        e.preventdefault()
+        e.preventDefault()
         fetch('/signup', {
             method: 'POST',
             credentials: 'include',
