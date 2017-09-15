@@ -54,13 +54,20 @@ def build_structure():
     f('$out/server.js', 'w', server_string)
 
     # Pages assets
-    f('$out/pages/index.js', 'w', '$assets/pages/index.js')
-
     if users:
         f('$out/pages/login.js', 'w', '$assets/pages/login.js')
         f('$out/pages/signup.js', 'w', '$assets/pages/signup.js')
         f('$out/pages/user.js', 'w', '$assets/pages/user.js')
         f('$out/pages/users.js', 'w', '$assets/pages/users.js')
+        index_string = f('$assets/pages/index.js', 'r')
+    else:
+        index_string = f('$assets/pages/index.js', 'r').replace(
+            'current_user: await return_current_user(context)', '').replace(
+                "import { return_current_user } from '../services/current_user.js'",
+                ''
+            )
+
+    f('$out/pages/index.js', 'w', index_string)
 
     # Services assets
     f('$out/services/content_create.js', 'w', '$assets/services/content_create.js')
