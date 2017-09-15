@@ -49,7 +49,7 @@ def scaffold_list_page():
 def scaffold_details_page():
     cfg = get_cfg()
     title = cfg['current_scaffold']['model']['title']
-    title_singular = title.capitalize()
+    title_singular = title.lower()
     details_page = parse_content(f('$assets/pages/content_details.js', 'r'))
 
     f('$pages/' + title_singular + '.js', 'w', details_page)
