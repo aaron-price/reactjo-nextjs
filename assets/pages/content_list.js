@@ -13,8 +13,6 @@ const CreateForm = (props) => (
     <div>
         <h4>Create a new singular_upper</h4>
         <form
-            id="create_singular_lower_form"
-            name="create_singular_lower_form"
             onSubmit={props.submit_form}
             method="POST">
 
