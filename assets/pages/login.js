@@ -46,10 +46,7 @@ class Login extends React.Component {
         return (
             <Header current_user={this.state.current_user}>
                 <h4>Login</h4>
-                <form
-                    id="login_form"
-                    name="login_form"
-                    method="POST">
+                <form method="POST">
 
                     <label id="name" htmlFor="name">Name: &nbsp; </label>
                     <input

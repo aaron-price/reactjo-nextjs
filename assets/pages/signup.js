@@ -48,10 +48,7 @@ class Signup extends React.Component {
         return (
             <Header current_user={this.state.current_user}>
                 <h4>Signup</h4>
-                <form
-                    id="signup_form"
-                    name="signup_form"
-                    method="POST">
+                <form method="POST">
 
                     <label id="name" htmlFor="name">Name: &nbsp; </label>
                     <input
