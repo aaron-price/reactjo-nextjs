@@ -43,7 +43,7 @@ def scaffold_menu_item():
     title = cfg['current_scaffold']['model']['title']
     title_plural = pluralize(title.capitalize())
     data = {
-        'target': ['content_types'],
+        'target': ['const content_types'],
         'content': f"\n    '{title_plural}',"
     }
     f('$out/components/Navbar.js', 'a', data)
@@ -51,5 +51,6 @@ def scaffold_menu_item():
 def scaffold():
     if boolean_input('Do you need a list page?'):
         scaffold_list_page()
+        scaffold_menu_item()
     if boolean_input('Do you need a details page?'):
         scaffold_details_page()
