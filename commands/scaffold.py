@@ -70,8 +70,8 @@ def scaffold_menu_item():
     f('$out/components/Navbar.js', 'a', data)
 
 def scaffold():
-    if boolean_input('Do you need a list page?'):
+    if boolean_input('Do you need a list page?', 'y'):
         scaffold_list_page()
         scaffold_menu_item()
-    if boolean_input('Do you need a details page?'):
+    if boolean_input('Do you need a details page?', 'y'):
         scaffold_details_page()
