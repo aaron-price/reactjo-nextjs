@@ -6,6 +6,9 @@ from helpers.config_manager import get_cfg
 from helpers.ui import boolean_input
 from helpers.file_manager import file_manager as f
 
+def quote(string):
+    return "'" + string + "'"
+
 def scaffold_list_page():
     cfg = get_cfg()
     title = cfg['current_scaffold']['model']['title']
@@ -16,19 +19,25 @@ def scaffold_list_page():
     else:
         string_method = 'pk'
 
+    all_fields = cfg['current_scaffold']['model']['fields']]
+    all_titles = [quote(field['title']) for field in all_fields]
+    fields_string = ', '.join(all_titles)
+
     list_page = f('$assets/pages/content_list.js', 'r').replace(
         'singular_lower', title_singular.lower()).replace(
         'plural_lower', title_plural.lower()).replace(
         'plural_upper', title_plural).replace(
         'string_method', string_method).replace(
-        'singular_upper', title_singular)
+        'singular_upper', title_singular).replace(
+        'const fields = []', 'const fields = [' + fields_string + ']'
+        )
 
     f('$pages/' + title_plural.lower() + '.js', 'w', list_page)
     print('Built the list page!')
 
     data = {
         'target': ['const content_types'],
-        'content': title_singular.lower()
+        'content': quote(title_singular.lower()) + ','
     }
     f('$out/server.js', 'a', data)
 

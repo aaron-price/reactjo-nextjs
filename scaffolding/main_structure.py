@@ -30,7 +30,9 @@ def build_structure():
     f('$out/components/Navbar.js', 'w', '$assets/components/Navbar.js')
 
     # Middleware
-    f('$out/middleware/res_current_user.js', 'w', '$assets/middleware/res_current_user.js')
+    res_current_user = ('$assets/middleware/res_current_user.js').replace(
+        'reactjo', project_name)
+    f('$out/middleware/res_current_user.js', 'w', res_current_user)
 
     # Misc assets
     f('$out/package.json', 'w', '$assets/package.js')

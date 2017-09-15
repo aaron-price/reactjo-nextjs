@@ -29,3 +29,4 @@ title_upper.getInitialProps = async function(context) {
         current_user: await return_current_user(context)
     }
 }
+export default title_upper

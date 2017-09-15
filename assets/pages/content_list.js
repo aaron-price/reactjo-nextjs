@@ -19,17 +19,18 @@ const CreateForm = (props) => (
             method="POST">
 
             { fields.map((f, key) => {
-                <div key={key}>
-                    <label id={f} htmlFor={f}>{capitalize(f)}: &nbsp; </label>
-                    <input
-                        onChange={(e) => props.update_form(f, e)}
-                        type="text"
-                        name={f}
-                        value={props.form_fields[f]}
-                        required>
-                    </input><br/><br/>
-                </div>
-            })}
+                return (
+                    <div key={key}>
+                        <label id={f} htmlFor={f}>{capitalize(f)}: &nbsp; </label>
+                        <input
+                            onChange={(e) => props.update_form(f, e)}
+                            type="text"
+                            name={f}
+                            value={props.form_fields[f]}
+                            required>
+                        </input><br/><br/>
+                    </div>
+            )})}
 
             <input type="submit" value="Create singular_upper">
             </input><br/><br/>
