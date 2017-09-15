@@ -30,7 +30,7 @@ def build_structure():
     f('$out/components/Navbar.js', 'w', '$assets/components/Navbar.js')
 
     # Middleware
-    f('$out/middleware/current_user.js', 'w', '$assets/middleware/current_user.js')
+    f('$out/middleware/res_current_user.js', 'w', '$assets/middleware/res_current_user.js')
 
     # Misc assets
     f('$out/package.json', 'w', '$assets/package.js')
