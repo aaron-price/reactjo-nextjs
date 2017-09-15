@@ -30,7 +30,7 @@ def scaffold_list_page():
         'target': ['const content_types'],
         'content': title_singular.lower()
     }
-    f('$out/server.js'. 'a', data)
+    f('$out/server.js', 'a', data)
 
 def scaffold_details_page():
     cfg = get_cfg()
