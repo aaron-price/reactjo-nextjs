@@ -1,3 +1,4 @@
+const cookieParser = require('cookie-parser')
 const express = require('express')
 const next = require('next')
 const dev = process.env.NODE_ENV !== 'production'
@@ -5,19 +6,26 @@ const app = next({ dev })
 const handle = app.getRequestHandler()
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
+const { login_service } = require('./services/login_service.js')
+const { signup_service } = require('./services/signup_service.js')
 const morgan = require('morgan')
+const { current_user } = require('./middleware/res_current_user.js')
 const { create_content_service } = require('./services/content_create.js')
 const { delete_content_service } = require('./services/content_delete.js')
 const { update_content_service } = require('./services/content_update.js')
 
 app.prepare().then(() => {
 		const server = express()
+		server.use(cookieParser(random_string))
 
 		server.use(bodyParser.json())
 		server.use(bodyParser.urlencoded({ extended: false }))
 		server.use(expressValidator())
+		server.use(current_user)
 
-		const content_types = []
+		const content_types = [
+				'user',
+		]
 		content_types.map(type => {
 				// Details page
 				server.get(`/${type}/:id`, (req, res) => {
@@ -37,6 +45,20 @@ app.prepare().then(() => {
 				server.put(`/${type}/`, (req, res) => {
 						update_content_service(req, res, app, type)
 				})
+		})
+
+		server.post('/login', (req, res, next) => {
+				login_service(req, res, next, app)
+		})
+		server.post('/signup', (req, res) => {
+				signup_service(req, res, next, app)
+		})
+
+		server.post('/logout', (req, res) => {
+				res.clearCookie('reactjo_app')
+				res.clearCookie('reactjo_id')
+				res.clearCookie('reactjo_name')
+				app.render(req, res, '/')
 		})
 
 		server.get('*', (req, res) => {

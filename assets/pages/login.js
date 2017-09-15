@@ -24,7 +24,7 @@ class Login extends React.Component {
         this.setState({ form: entry })
     }
     submit_form(e) {
-        e.preventdefault()
+        e.preventDefault()
         fetch('/login', {
             method: 'POST',
             credentials: 'include',
@@ -46,10 +46,7 @@ class Login extends React.Component {
         return (
             <Header current_user={this.state.current_user}>
                 <h4>Login</h4>
-                <form
-                    id="login_form"
-                    name="login_form"
-                    method="POST">
+                <form method="POST">
 
                     <label id="name" htmlFor="name">Name: &nbsp; </label>
                     <input
@@ -78,8 +75,7 @@ class Login extends React.Component {
 }
 
 Login.getInitialProps = async function(context) {
-		const current_user = await return_current_user(context)
-    return { current_user }
+    return { current_user: await return_current_user(context) }
 }
 
 export default Login

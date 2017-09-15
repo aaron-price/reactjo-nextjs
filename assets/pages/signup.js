@@ -25,7 +25,7 @@ class Signup extends React.Component {
         this.setState({ form: entry })
     }
     submit_form(e) {
-        e.preventdefault()
+        e.preventDefault()
         fetch('/signup', {
             method: 'POST',
             credentials: 'include',
@@ -48,10 +48,7 @@ class Signup extends React.Component {
         return (
             <Header current_user={this.state.current_user}>
                 <h4>Signup</h4>
-                <form
-                    id="signup_form"
-                    name="signup_form"
-                    method="POST">
+                <form method="POST">
 
                     <label id="name" htmlFor="name">Name: &nbsp; </label>
                     <input
@@ -89,8 +86,7 @@ class Signup extends React.Component {
 }
 
 Signup.getInitialProps = async function(context) {
-		const current_user = await return_current_user(context)
-    return { current_user }
+		return { current_user: await return_current_user(context) }
 }
 
 export default Signup
