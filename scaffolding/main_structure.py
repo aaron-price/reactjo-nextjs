@@ -30,7 +30,7 @@ def build_structure():
     f('$out/components/Navbar.js', 'w', '$assets/components/Navbar.js')
 
     # Middleware
-    res_current_user = ('$assets/middleware/res_current_user.js').replace(
+    res_current_user = ('$assets/middleware/res_current_user.js', 'r').replace(
         'reactjo', project_name)
     f('$out/middleware/res_current_user.js', 'w', res_current_user)
 
