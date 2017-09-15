@@ -1,34 +1,23 @@
 # Installation
-
-Start with this if you haven't already
+This is a default extension for reactjo, so just install reactjo.
 
 ```bash
-virtualenv venv
-source venv/bin/activate
 pip install reactjo
 reactjo init
 ```
 
-2. In reactjorc/config.json, add this to the extensions array:
-
-```
-{
-    "uri": "https://github.com/aaron-price/nextjs_trial.git",
-    "rc_home": "reactjo_nextjs",
-    "branch": "master"
-}
-```
-Note that branch is optional and defaults to master.
-
-3. Back in your terminal, run:
-```
-reactjo update
-```
-This clones the extension into reactjorc/extensions/nextjs_trial
-It will be listening for the commands listed below, in Usage.
-
 # Usage
 
 ```bash
-reactjo new # prints "hello world"
+reactjo new
 ```
+
+Creates the project.
+
+```bash
+reactjo c
+// or
+reactjo content
+```
+Creates list page, details page, create form, update form, and delete button for
+a given model.
