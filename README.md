@@ -12,7 +12,8 @@ reactjo init
 reactjo new
 ```
 
-Creates the project.
+Creates the expressjs/nextjs/reactjs project.
+If you need user authentication, it automatically gives you signup, login, list, and detail pages for users.
 
 ```bash
 reactjo c
