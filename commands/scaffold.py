@@ -23,7 +23,7 @@ def parse_content(string):
     all_titles = [quote(field['title']) for field in all_fields]
     fields_string = ', '.join(all_titles)
 
-    list_page = f('$assets/pages/content_list.js', 'r').replace(
+    return f('$assets/pages/content_list.js', 'r').replace(
         'singular_lower', title_singular.lower()).replace(
         'plural_lower', title_plural.lower()).replace(
         'plural_upper', title_plural).replace(
@@ -43,7 +43,7 @@ def scaffold_list_page():
     # Add content type to server.js
     data = {
         'target': ['const content_types'],
-        'content': quote(title_singular.lower()) + ','
+        'content': quote(title.lower()) + ','
     }
     f('$out/server.js', 'a', data)
 
