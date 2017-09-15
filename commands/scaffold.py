@@ -9,7 +9,7 @@ from helpers.file_manager import file_manager as f
 def quote(string):
     return "'" + string + "'"
 
-def scaffold_list_page():
+def parse_content(string):
     cfg = get_cfg()
     title = cfg['current_scaffold']['model']['title']
     title_singular = title.capitalize()
@@ -32,9 +32,15 @@ def scaffold_list_page():
         'const fields = []', 'const fields = [' + fields_string + ']'
         )
 
-    f('$pages/' + title_plural.lower() + '.js', 'w', list_page)
+def scaffold_list_page():
+    cfg = get_cfg()
+    title = cfg['current_scaffold']['model']['title']
+    title_plural = pluralize(title.lower())
+    list_page = parse_content(f('$assets/pages/content_list.js', 'r'))
+    f('$pages/' + title_plural + '.js', 'w', list_page)
     print('Built the list page!')
 
+    # Add content type to server.js
     data = {
         'target': ['const content_types'],
         'content': quote(title_singular.lower()) + ','
@@ -44,19 +50,10 @@ def scaffold_list_page():
 def scaffold_details_page():
     cfg = get_cfg()
     title = cfg['current_scaffold']['model']['title']
-    title_upper = title.capitalize()
-    title_lower = title.lower()
-    if '__str__' in cfg['current_scaffold']['model']:
-        string_method = cfg['current_scaffold']['model']['__str__']
-    else:
-        string_method = 'pk'
+    title_singular = title.capitalize()
+    details_page = parse_content(f('$assets/pages/content_details.js', 'r'))
 
-    details_page = f('$assets/pages/content_details.js', 'r').replace(
-        'title_upper', title_upper).replace(
-        'title_lower', title_lower).replace(
-        'string_method', string_method)
-
-    f('$pages/' + title_lower + '.js', 'w', details_page)
+    f('$pages/' + title_singular + '.js', 'w', details_page)
     print('Built the details page!')
 
 def scaffold_menu_item():

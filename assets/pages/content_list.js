@@ -78,7 +78,7 @@ class plural_upper extends React.Component {
         let body_fields = { content_type: 'singular_lower', fields }
         fields.forEach(f => body_fields[f] = this.state.form[f])
 
-        fetch('/create_content', {
+        fetch('/singular_lower', {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -107,7 +107,7 @@ class plural_upper extends React.Component {
                     ? (
                         <div>
                         <FlatButton
-                           label="Create singular_upper"
+                           label="Hide Form"
                            primary={true}
                            onClick={() => this.show_hide_form()}/>
                         <br />
