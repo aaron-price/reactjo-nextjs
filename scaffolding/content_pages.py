@@ -22,7 +22,7 @@ def parse_content(string):
     all_titles = [quote(field['title']) for field in all_fields]
     fields_string = ', '.join(all_titles)
 
-    return f('$assets/pages/content_list.js', 'r').replace(
+    return string.replace(
         'singular_lower', title_singular.lower()).replace(
         'plural_lower', title_plural.lower()).replace(
         'plural_upper', title_plural).replace(
