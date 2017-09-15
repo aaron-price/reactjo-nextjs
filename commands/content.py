@@ -17,7 +17,7 @@ def scaffold_menu_item():
     }
     f('$out/components/Navbar.js', 'a', data)
 
-def build():
+def content():
     if boolean_input('Do you need a list page?', 'y'):
         scaffold_list_page()
         scaffold_menu_item()
