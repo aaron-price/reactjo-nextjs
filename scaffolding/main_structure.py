@@ -58,6 +58,8 @@ def build_structure():
     f('$out/services/login_service.js', 'w', login_service)
     f('$out/services/signup_service.js', 'w', '$assets/services/signup_service.js')
     f('$out/services/content_create.js', 'w', '$assets/services/content_create.js')
+    f('$out/services/content_update.js', 'w', '$assets/services/content_update.js')
+    f('$out/services/content_delete.js', 'w', '$assets/services/content_delete.js')
     current_user_service = f('$assets/services/current_user.js', 'r').replace(
         'reactjo', project_name)
     f('$out/services/current_user.js', 'w', current_user_service)

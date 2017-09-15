@@ -12,6 +12,7 @@ const morgan = require('morgan')
 const { current_user } = require('./middleware/res_current_user.js')
 const { create_content_service } = require('./services/content_create.js')
 const { delete_content_service } = require('./services/content_delete.js')
+const { update_content_service } = require('./services/content_update.js')
 
 app.prepare().then(() => {
 		const server = express()
@@ -39,6 +40,10 @@ app.prepare().then(() => {
 				// Delete
 				server.delete(`/${type}/`, (req, res) => {
 						delete_content_service(req, res, app, type)
+				})
+				// Update
+				server.put(`/${type}/`, (req, res) => {
+						update_content_service(req, res, app, type)
 				})
 		})
 
