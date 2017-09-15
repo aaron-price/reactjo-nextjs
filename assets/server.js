@@ -26,7 +26,7 @@ app.prepare().then(() => {
 		]
 		content_types.map(type => {
 				server.get(`/${type}/:id`, (req, res) => {
-						const actualPage = `/type`
+						const actualPage = `/${type}`
 						const queryParams = { id: req.params.id }
 						app.render(req, res, actualPage, queryParams)
 				})
