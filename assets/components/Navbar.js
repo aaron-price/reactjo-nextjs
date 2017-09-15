@@ -4,19 +4,10 @@ import React from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 import Router from 'next/router'
 
+// Styles
 const linkStyle = {
   marginRight: 15
 }
-
-const UserLink = props => (
-    <Link href={{
-          pathname: '/user/',
-          asPath: `/user/`,
-          query: { id: props.id }
-    }}>
-				<a style={linkStyle}>Hi, {props.name}!</a>
-		</Link>
-)
 
 const HomeLink = props => (
 		<Link href="/">
@@ -24,9 +15,14 @@ const HomeLink = props => (
 		</Link>
 )
 
-const UsersLink = props => (
-		<Link href="/users">
-				<RaisedButton style={linkStyle}>Users list</RaisedButton>
+// User Auth
+const UserLink = props => (
+    <Link href={{
+          pathname: '/user/',
+          asPath: `/user/`,
+          query: { id: props.id }
+    }}>
+				<a style={linkStyle}>Hi, {props.name}!</a>
 		</Link>
 )
 
@@ -45,6 +41,25 @@ const SignupLink = props => (
 				<RaisedButton style={linkStyle}>Signup</RaisedButton>
 		</Link>
 )
+
+// Content
+const content_types = [
+    'Users',
+]
+const ContentLinks = props => {    
+    return (
+      <span>
+          {content_types.map((item, key) => {
+              const lower = item.toLowerCase()
+              return (
+                  <Link key={key} href={`/${lower}`}>
+                      <RaisedButton style={linkStyle}>{item}</RaisedButton>
+                  </Link>
+              )
+          })}
+      </span>
+    )
+}
 
 class Navbar extends React.Component {
     constructor(props){
@@ -70,7 +85,6 @@ class Navbar extends React.Component {
         .then(data => {
             this.update_user({ id: null, name: null })
             Router.push({pathname: '/', as: '/'})
-
         })
         .catch(e => console.error(e))
     }
@@ -82,14 +96,14 @@ class Navbar extends React.Component {
                 <LogoutLink logout={this.logout} />
                 <br/><br/>
                 <HomeLink />
-                <UsersLink />
+                <ContentLinks />
             </div>
         ) : (
             <div>
                 <HomeLink />
-                <UsersLink />
                 <LoginLink />
                 <SignupLink />
+                <ContentLinks />
             </div>
         )
     }

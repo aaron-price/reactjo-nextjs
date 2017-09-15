@@ -38,6 +38,16 @@ def scaffold_details_page():
     f('$pages/' + title_lower + '.js', 'w', details_page)
     print('Built the details page!')
 
+def scaffold_menu_item():
+    cfg = get_cfg()
+    title = cfg['current_scaffold']['model']['title']
+    title_plural = pluralize(title.capitalize())
+    data = {
+        'target': ['content_types'],
+        'content': f"\n    '{title_plural}',"
+    }
+    f('$out/components/Navbar.js', 'a', data)
+
 def scaffold():
     if boolean_input('Do you need a list page?'):
         scaffold_list_page()
