@@ -19,7 +19,7 @@ def scaffold_list_page():
     else:
         string_method = 'pk'
 
-    all_fields = cfg['current_scaffold']['model']['fields']]
+    all_fields = cfg['current_scaffold']['model']['fields']
     all_titles = [quote(field['title']) for field in all_fields]
     fields_string = ', '.join(all_titles)
 
