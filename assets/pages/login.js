@@ -78,8 +78,7 @@ class Login extends React.Component {
 }
 
 Login.getInitialProps = async function(context) {
-		const current_user = await return_current_user(context)
-    return { current_user }
+    return { current_user: await return_current_user(context) }
 }
 
 export default Login

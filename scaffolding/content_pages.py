@@ -36,6 +36,12 @@ def scaffold_list_page():
     title = cfg['current_scaffold']['model']['title']
     title_plural = pluralize(title.lower())
     list_page = parse_content(f('$assets/pages/content_list.js', 'r'))
+    if not need_users:
+        list_page = list_page.replace(
+            'current_user: await return_current_user(context)', '').replace(
+                "import { return_current_user } from '../services/current_user.js'",
+                ''
+            )
     f('$pages/' + title_plural + '.js', 'w', list_page)
     print('Built the list page!')
 
@@ -51,6 +57,13 @@ def scaffold_details_page():
     title = cfg['current_scaffold']['model']['title']
     title_singular = title.lower()
     details_page = parse_content(f('$assets/pages/content_details.js', 'r'))
+    if not details_page:
+        details_page = details_page.replace(
+            'current_user: await return_current_user(context)', ''
+        ).replace(
+            "import { return_current_user } from '../services/current_user.js'",
+            ''
+        )
 
     f('$pages/' + title_singular + '.js', 'w', details_page)
     print('Built the details page!')
