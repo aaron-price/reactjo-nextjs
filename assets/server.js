@@ -10,6 +10,7 @@ const { login_service } = require('./services/login_service.js')
 const { signup_service } = require('./services/signup_service.js')
 const morgan = require('morgan')
 const { current_user } = require('./middleware/res_current_user.js')
+const { create_content_service } = require('./services/content_create.js')
 
 app.prepare().then(() => {
 		const server = express()
@@ -20,10 +21,19 @@ app.prepare().then(() => {
 		server.use(expressValidator())
 		server.use(current_user)
 
-		server.get('/user/:id', (req, res) => {
-				const actualPage = '/user'
-				const queryParams = { id: req.params.id }
-				app.render(req, res, actualPage, queryParams)
+		const content_types = [
+				'user',
+		]
+		content_types.map(type => {
+				server.get(`/${type}/:id`, (req, res) => {
+						const actualPage = `/type`
+						const queryParams = { id: req.params.id }
+						app.render(req, res, actualPage, queryParams)
+				})
+		})
+
+		server.post('/create_content', (req, res) => {
+				create_content_service(req, res)
 		})
 
 		server.post('/login', (req, res, next) => {
