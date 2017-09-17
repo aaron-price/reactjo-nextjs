@@ -4,6 +4,7 @@ from inflection import pluralize
 
 from helpers.config_manager import get_cfg
 from helpers.file_manager import file_manager as f
+from helpers.worklist import worklist as wl
 
 def quote(string):
     return "'" + string + "'"
@@ -45,7 +46,7 @@ def scaffold_list_page():
                 ' current_user={props.current_user}', ''
                 )
     f('$pages/' + title_plural + '.js', 'w', list_page)
-    print('Built the list page!')
+    wl('Built the list page')
 
     # Add content type to server.js
     data = {
@@ -53,6 +54,7 @@ def scaffold_list_page():
         'content': quote(title.lower()) + ','
     }
     f('$out/server.js', 'a', data)
+    wl('Add frontend CRUD routes')
 
 def scaffold_details_page():
     cfg = get_cfg()
@@ -70,4 +72,4 @@ def scaffold_details_page():
             )
 
     f('$pages/' + title_singular + '.js', 'w', details_page)
-    print('Built the details page!')
+    wl('Built the details page')
