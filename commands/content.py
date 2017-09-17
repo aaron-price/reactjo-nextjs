@@ -24,4 +24,4 @@ def content():
     if boolean_input('Do you need frontend components?', 'y'):
         scaffold_list_page()
         scaffold_menu_item()
-        scaffold_details_page())
+        scaffold_details_page()
