@@ -4,10 +4,10 @@ import Header from '../components/Head'
 import { return_current_user } from '../services/current_user.js'
 import Router from 'next/router'
 const details_singular_lower_permission = require('../services/permissions.js').details_singular_lower_permission
-const fields = ['owner', 'name']
 import { UpdateFormWrapper } from '../components/plural_lower/Update.js'
 import { DeleteButton } from '../components/plural_lower/Delete.js'
 import { Details } from '../components/plural_lower/Details.js'
+const fields = []
 
 class singular_upper extends React.Component {
     constructor(props) {
