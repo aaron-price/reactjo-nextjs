@@ -8,7 +8,7 @@ from helpers.file_manager import file_manager as f
 from helpers.worklist import worklist as wl
 from scaffolding.content_pages import scaffold_list_page, scaffold_details_page
 from scaffolding.permissions import new_permissionset
-
+from scaffolding.content_components import scaffold_content_components
 def scaffold_menu_item():
     cfg = get_cfg()
     title = cfg['current_scaffold']['model']['title']
