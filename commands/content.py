@@ -27,3 +27,4 @@ def content():
         scaffold_list_page()
         scaffold_menu_item()
         scaffold_details_page()
+        scaffold_content_components()

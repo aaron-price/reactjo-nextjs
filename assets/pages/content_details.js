@@ -2,59 +2,13 @@ import fetch from 'isomorphic-unfetch'
 import React from 'react'
 import Header from '../components/Head'
 import { return_current_user } from '../services/current_user.js'
-import FlatButton from 'material-ui/FlatButton'
 import Router from 'next/router'
+const details_singular_lower_permission = require('../services/permissions.js').details_singular_lower_permission
+const fields = ['owner', 'name']
+import { UpdateFormWrapper } from '../components/plural_lower/Update.js'
+import { DeleteButton } from '../components/plural_lower/Delete.js'
+import { Details } from '../components/plural_lower/Details.js'
 
-const fields = []
-const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1)
-
-const Details = (props) => (
-    <div>
-        <h1>{props.singular_lower.string_method}</h1>
-        <ul>
-            {Object.keys(props.singular_lower).map((field, key) => {
-                return <li key={key}>{field}: {props.singular_lower[field]}</li>
-            })}
-        </ul>
-    </div>
-)
-
-const UpdateForm = (props) => (
-    <div>
-        <h4>Edit</h4>
-        <form
-            onSubmit={props.submit_form}
-            method="PUT">
-
-            { fields.map((f, key) => {
-                return (
-                    <div key={key}>
-                        <label id={f} htmlFor={f}>{capitalize(f)}: &nbsp; </label>
-                        <input
-                            onChange={(e) => props.update_form(f, e)}
-                            type="text"
-                            name={f}
-                            value={props.form_fields[f]}
-                            required>
-                        </input><br/><br/>
-                    </div>
-            )})}
-
-            <input type="submit" value="Update singular_upper">
-            </input><br/><br/>
-        </form>
-    </div>
-)
-
-const DeleteButton = (props) => (
-    <div>
-        <FlatButton
-           label="Delete singular_upper"
-           secondary={true}
-           onClick={(e) => props.delete_item(e)}/>
-        <br />
-    </div>
-)
 class singular_upper extends React.Component {
     constructor(props) {
         super(props)
@@ -91,16 +45,22 @@ class singular_upper extends React.Component {
         })
         .catch(e => console.error(e))
     }
+
+    // Fires on every keystroke in the 'Update' form, updating the state.
     update_form(field, value) {
         let entry = this.state.form
         entry[field] = value.target.value
         this.setState({ form: entry })
     }
+
+    // Hidden by default, toggles the 'Update' form.
     show_hide_form() {
         this.setState(prevState => {
             return { show_form: !prevState.show_form }
         })
     }
+
+    // Take all the data in state.form and update the singular_lower with it.
     submit_form(e) {
         e.preventDefault()
         let body_fields = { id: this.props.singular_lower.pk, fields }
@@ -129,37 +89,32 @@ class singular_upper extends React.Component {
         let form_fields = {}
         fields.forEach(f => form_fields[f] = this.state.form[f])
         return (
-            <Header current_user={this.state.current_user}>
-                {
-                    this.state.show_form ? (
-                        <div>
-                            <FlatButton
-                               label="Hide Form"
-                               primary={true}
-                               onClick={() => this.show_hide_form()}/>
-                            <br /><br />
-                            <UpdateForm
-                                submit_form={this.submit_form}
-                                update_form={this.update_form}
-                                form_fields={form_fields} />
-                        </div>
-                    ) : (
-                      <div>
-                          <FlatButton
-                             label="Update singular_upper"
-                             primary={true}
-                             onClick={() => this.show_hide_form()}/>
-                          <br /><br />
-                      </div>
-                    )
-                }
-                <DeleteButton delete_item={this.delete_item}/>
-                <Details singular_lower={this.props.singular_lower}/>
+            <Header current_user={ this.state.current_user }>
+
+                <UpdateFormWrapper
+                    show_form={ this.state.show_form }
+                    submit_form={ this.submit_form }
+                    update_form={ this.update_form }
+                    form_fields={ form_fields }
+                    all_fields={ fields }
+                    singular_lower={ this.props.singular_lower }
+                    current_user={ this.state.current_user }
+                    show_hide_form={ this.show_hide_form } />
+
+                <DeleteButton
+                    current_user={ this.state.current_user }
+                    delete_item={ this.delete_item }
+                    singular_lower={ this.props.singular_lower } />
+
+                <Details
+                    singular_lower={ this.props.singular_lower } />
+
             </Header>
         )
     }
 }
 
+// Gets the current user, the singular_lower, and checks permission
 singular_upper.getInitialProps = async function(context) {
     const { id } = context.query
     const res = await fetch(`http://localhost:8000/api/singular_lower/${id}`, {
@@ -170,9 +125,24 @@ singular_upper.getInitialProps = async function(context) {
         }
     })
     const data = await res.json()
-    return {
-        singular_lower: data,
-        current_user: await return_current_user(context)
+    const current_user = await return_current_user(context)
+    const has_permission = details_singular_lower_permission(current_user, data)
+
+    if (!has_permission) {
+        if (context.res) {
+            context.res.writeHead(301, {
+            Location: '/plural_lower'
+        })
+            context.res.end()
+            context.res.finished = true
+        } else {
+            Router.replace('/plural_lower')
+        }
+    } else {
+        return {
+            singular_lower: data,
+            current_user: current_user
+        }
     }
 }
 export default singular_upper

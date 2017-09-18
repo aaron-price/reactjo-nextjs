@@ -5,6 +5,9 @@ const update_content_service = (req, res, app, content_type) => {
     let fields = {}
     req.body.fields.forEach(f => fields[f] = req.body[f])
 
+    // Automatically provide the owner field
+    if ('owner' in fields) { fields.owner = res.current_user.id }
+
     const request = fetch(CONTENT_URL, {
         method: 'PUT',
         headers: {
