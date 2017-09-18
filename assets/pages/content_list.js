@@ -108,9 +108,6 @@ class plural_upper extends React.Component {
         super(props)
         let form = {}
         fields.forEach(f => form[f] = '')
-        if (fields.indexOf('owner') !== -1) {
-            form.owner = this.props.current_user.id
-        }
 
         this.state = {
             current_user: this.props.current_user,
