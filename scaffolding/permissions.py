@@ -11,14 +11,14 @@ def new_permissionset():
     ).replace(
         'upper', cfg['current_scaffold']['model']['title']
     ).replace(
-        'create_permission', perm['post'] + '(user, obj)'.lower()
+        'create_permission', perm['post'].lower() + '(user, obj)'
     ).replace(
-        'list_permission', perm['list'] + '(user, obj)'.lower()
+        'list_permission', perm['list'].lower() + '(user, obj)'
     ).replace(
-        'details_permission', perm['details'] + '(user, obj)'.lower()
+        'details_permission', perm['details'].lower() + '(user, obj)'
     ).replace(
-        'update_permission', perm['update'] + '(user, obj)'.lower()
+        'update_permission', perm['update'].lower() + '(user, obj)'
     ).replace(
-        'delete_permission', perm['delete'] + '(user, obj)'.lower()
+        'delete_permission', perm['delete'].lower() + '(user, obj)'
     )
     f('$out/services/permissions.js', 'a', new_permissions)
