@@ -69,6 +69,7 @@ def build_structure():
     f('$out/services/content_create.js', 'w', '$assets/services/content_create.js')
     f('$out/services/content_update.js', 'w', '$assets/services/content_update.js')
     f('$out/services/content_delete.js', 'w', '$assets/services/content_delete.js')
+    f('$out/services/permissions.js', 'w', '$assets/services/permissions.js')
 
     if users:
         login_service = f('$assets/services/login_service.js', 'r').replace(

@@ -7,7 +7,7 @@ from helpers.ui import boolean_input
 from helpers.file_manager import file_manager as f
 from helpers.worklist import worklist as wl
 from scaffolding.content_pages import scaffold_list_page, scaffold_details_page
-
+from scaffolding.permissions import new_permissionset
 
 def scaffold_menu_item():
     cfg = get_cfg()
@@ -21,6 +21,8 @@ def scaffold_menu_item():
     wl(f'Added {title} menu item')
 
 def content():
+    new_permissionset()
+
     if boolean_input('Do you need frontend components?', 'y'):
         scaffold_list_page()
         scaffold_menu_item()

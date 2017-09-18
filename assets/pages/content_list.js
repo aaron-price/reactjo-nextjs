@@ -5,9 +5,43 @@ import { return_current_user } from '../services/current_user.js'
 import React from 'react'
 import Router from 'next/router'
 import FlatButton from 'material-ui/FlatButton'
+import { create_singular_lower_permission, details_singular_lower_permission } from '../services/permissions.js'
 
 const fields = []
 const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1)
+
+const CreateWrapper = (props) => {
+    if (create_singular_lower_permission(props.current_user)) {
+        return (<div>{
+            props.show_form
+            ? (
+                <div>
+                <FlatButton
+                   label="Hide Form"
+                   primary={true}
+                   onClick={() => this.show_hide_form()}/>
+                <br />
+
+                <CreateForm
+                    submit_form={this.submit_form}
+                    update_form={this.update_form}
+                    form_fields={form_fields}
+                />
+                </div>
+            )
+            : (
+              <div>
+               <FlatButton
+                  label="Create singular_upper"
+                  primary={true}
+                  onClick={() => this.show_hide_form()}/>
+              </div>
+            )
+        }</div>)
+    } else {
+        return <span></span>
+    }
+}
 
 const CreateForm = (props) => (
     <div>
@@ -35,16 +69,36 @@ const CreateForm = (props) => (
         </form>
     </div>
 )
+const singular_upperListItem = (props) => {
+    if (details_post_permission(props.current_user, props.singular_lower)) {
+        return (
+            <li>
+                <Link
+                    as={`/post/${props.singular_lower.pk}`}
+                    href={`/post/?id=${props.singular_lower.pk}`}>
+                    <a>{props.singular_lower.string_method}</a>
+                </Link>
+            </li>
+        )
+    } else {
+        return <li>{props.singular_lower.string_method}</li>
+    }
+}
 
-const plural_upperList = (props) => (
-    <ul>
-        {props.plural_lower.map((singular_lower, key) => (
-            <li key={key}><Link as={`/singular_lower/${singular_lower.pk}`} href={`/singular_lower/?id=${singular_lower.pk}`} prefetch>
-                <a>{singular_lower.string_method}</a>
-            </Link></li>
-        ))}
-    </ul>
-)
+const plural_upperList = (props) => {
+        return (
+            <ul>
+                {props.plural_lower.map((singular_lower, key) => {
+                    return (
+                        <singular_upperListItem
+                            current_user={props.current_user}
+                            singular_lower={singular_lower}
+                            key={key}
+                        />
+                )})}
+            </ul>
+        )
+}
 
 class plural_upper extends React.Component {
     constructor(props) {
@@ -100,32 +154,9 @@ class plural_upper extends React.Component {
         fields.forEach(f => form_fields[f] = this.state.form[f])
         return (
             <Header current_user={this.props.current_user}>
-                {
-                    this.state.show_form
-                    ? (
-                        <div>
-                        <FlatButton
-                           label="Hide Form"
-                           primary={true}
-                           onClick={() => this.show_hide_form()}/>
-                        <br />
-
-                        <CreateForm
-                            submit_form={this.submit_form}
-                            update_form={this.update_form}
-                            form_fields={form_fields}
-                        />
-                        </div>
-                    )
-                    : (
-                        <div>
-                         <FlatButton
-                            label="Create singular_upper"
-                            primary={true}
-                            onClick={() => this.show_hide_form()}/>
-                        </div>
-                    )
-                }
+            <CreateWrapper
+                current_user={this.props.current_user}
+                show_form={this.state.show_form} />
                 <h1>plural_upper</h1>
                     <plural_upperList plural_lower={this.props.plural_lower} />
             </Header>
