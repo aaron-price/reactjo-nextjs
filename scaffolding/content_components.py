@@ -37,20 +37,19 @@ def scaffold_content_components():
     # Get the directory
     mkdir('$out/components/' + content_plural)
     comps = f('$out/components/' + content_plural, '$')
-    asset = f('$asset/' + content_plural, '$')
 
     # Make the files
-    create_asset  = parse_content(f(asset + '/Create.js', 'r'))
+    create_asset  = parse_content(f('$asset/content_plural/Create.js', 'r'))
     f(comps + '/Create.js', 'w', create_asset)
 
-    details_asset = parse_content(f(asset + '/Details.js', 'r'))
+    details_asset = parse_content(f('$asset/content_plural/Details.js', 'r'))
     f(comps + '/Details.js', 'w', details_asset)
 
-    list_asset    = parse_content(f(asset + '/List.js', 'r'))
+    list_asset    = parse_content(f('$asset/content_plural/List.js', 'r'))
     f(comps + '/List.js', 'w', list_asset)
 
-    update_asset  = parse_content(f(asset + '/Update.js', 'r'))
+    update_asset  = parse_content(f('$asset/content_plural/Update.js', 'r'))
     f(comps + '/Update.js', 'w', update_asset)
 
-    delete_asset  = parse_content(f(asset + '/Delete.js', 'r'))
+    delete_asset  = parse_content(f('$asset/content_plural/Delete.js', 'r'))
     f(comps + '/Delete.js', 'w', delete_asset)
