@@ -7,6 +7,9 @@ from helpers.file_manager import file_manager as f
 from helpers.worklist import worklist as wl
 from helpers.path_manager import mkdir
 
+def quote(string):
+    return "'" + string + "'"
+
 def parse_content(string):
     cfg = get_cfg()
     title = cfg['current_scaffold']['model']['title']
