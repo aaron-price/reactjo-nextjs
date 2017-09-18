@@ -6,13 +6,6 @@ def new_permissionset():
     cfg = get_cfg()
     perm = cfg['current_scaffold']['permissions']
 
-    cfg['current_scaffold']['permissions'] = {
-        'post': post_users,
-        'list': list_users,
-        'details': details_users,
-        'update': update_users,
-        'delete': delete_users
-    }
     new_permissions = f('$assets/services/new_permissionset.js', 'r').replace(
         'title', cfg['current_scaffold']['model']['title'].lower()
     ).replace(
