@@ -19,13 +19,14 @@ const CreateWrapper = (props) => {
                 <FlatButton
                    label="Hide Form"
                    primary={true}
-                   onClick={() => this.show_hide_form()}/>
+                   onClick={() => props.show_hide_form()}/>
                 <br />
 
                 <CreateForm
-                    submit_form={this.submit_form}
-                    update_form={this.update_form}
-                    form_fields={form_fields}
+                    submit_form={props.submit_form}
+                    update_form={props.update_form}
+                    form_fields={props.form_fields}
+                    current_user={props.current_user}
                 />
                 </div>
             )
@@ -34,7 +35,7 @@ const CreateWrapper = (props) => {
                <FlatButton
                   label="Create singular_upper"
                   primary={true}
-                  onClick={() => this.show_hide_form()}/>
+                  onClick={() => props.show_hide_form()}/>
               </div>
             )
         }</div>)
@@ -51,6 +52,8 @@ const CreateForm = (props) => (
             method="POST">
 
             { fields.map((f, key) => {
+                if (f === 'owner') { return <span key={key}></span> }
+
                 return (
                     <div key={key}>
                         <label id={f} htmlFor={f}>{capitalize(f)}: &nbsp; </label>
@@ -70,12 +73,12 @@ const CreateForm = (props) => (
     </div>
 )
 const singular_upperListItem = (props) => {
-    if (details_post_permission(props.current_user, props.singular_lower)) {
+    if (details_singular_lower_permission(props.current_user, props.singular_lower)) {
         return (
             <li>
                 <Link
-                    as={`/post/${props.singular_lower.pk}`}
-                    href={`/post/?id=${props.singular_lower.pk}`}>
+                    as={`/singular_lower/${props.singular_lower.pk}`}
+                    href={`/singular_lower/?id=${props.singular_lower.pk}`}>
                     <a>{props.singular_lower.string_method}</a>
                 </Link>
             </li>
@@ -105,6 +108,9 @@ class plural_upper extends React.Component {
         super(props)
         let form = {}
         fields.forEach(f => form[f] = '')
+        if (fields.indexOf('owner') !== -1) {
+            form.owner = this.props.current_user.id
+        }
 
         this.state = {
             current_user: this.props.current_user,
@@ -156,7 +162,11 @@ class plural_upper extends React.Component {
             <Header current_user={this.props.current_user}>
             <CreateWrapper
                 current_user={this.props.current_user}
-                show_form={this.state.show_form} />
+                show_form={this.state.show_form}
+                show_hide_form={this.show_hide_form}
+                submit_form={this.submit_form}
+                update_form={this.update_form}
+                form_fields={form_fields} />
                 <h1>plural_upper</h1>
                     <plural_upperList plural_lower={this.props.plural_lower} />
             </Header>
