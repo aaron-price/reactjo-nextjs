@@ -5,6 +5,7 @@ from inflection import pluralize
 from helpers.config_manager import get_cfg
 from helpers.file_manager import file_manager as f
 from helpers.worklist import worklist as wl
+from helpers.path_manager import mkdir
 
 def parse_content(string):
     cfg = get_cfg()
@@ -27,14 +28,14 @@ def parse_content(string):
         'string_method', string_method).replace(
         'singular_upper', title_singular).replace(
         'const fields = []', 'const fields = [' + fields_string + ']'
-        )
+    )
 
 def scaffold_content_components():
     cfg = get_cfg()
     title = cfg['current_scaffold']['model']['title']
     content_plural = pluralize(title.lower())
     # Get the directory
-    f('$out/components/' + content_plural, 'mkdir')
+    mkdir('$out/components/' + content_plural)
     comps = f('$out/components/' + content_plural, '$')
     asset = f('$asset/' + content_plural, '$')
 
