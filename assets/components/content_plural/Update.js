@@ -63,7 +63,7 @@ const UpdateForm = (props) => (
                     </div>
             )})}
 
-            <RaisedButton primary={true} type="submit" value="Update singular_upper" />
+            <RaisedButton primary={true} type="submit" label="Update singular_upper" />
             <br/><br/>
         </form>
     </div>
