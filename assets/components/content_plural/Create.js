@@ -1,3 +1,4 @@
+import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import { create_singular_lower_permission } from '../../services/permissions.js'
 const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1)
@@ -10,7 +11,7 @@ const CreateWrapper = (props) => {
                 <div>
                 <FlatButton
                    label="Hide Form"
-                   primary={true}
+                   secondary={true}
                    onClick={() => props.show_hide_form()}/>
                 <br />
 
@@ -25,7 +26,7 @@ const CreateWrapper = (props) => {
             )
             : (
               <div>
-               <FlatButton
+               <RaisedButton
                   label="Create singular_upper"
                   primary={true}
                   onClick={() => props.show_hide_form()}/>
@@ -60,8 +61,8 @@ const CreateForm = (props) => (
                     </div>
             )})}
 
-            <input type="submit" value="Create singular_upper">
-            </input><br/><br/>
+            <RaisedButton primary={true} type="submit" value="Create singular_upper" />
+            <br/><br/>
         </form>
     </div>
 )

@@ -101,12 +101,12 @@ class singular_upper extends React.Component {
                     current_user={ this.state.current_user }
                     show_hide_form={ this.show_hide_form } />
 
+                <Details
+                    singular_lower={ this.props.singular_lower } />
+
                 <DeleteButton
                     current_user={ this.state.current_user }
                     delete_item={ this.delete_item }
-                    singular_lower={ this.props.singular_lower } />
-
-                <Details
                     singular_lower={ this.props.singular_lower } />
 
             </Header>

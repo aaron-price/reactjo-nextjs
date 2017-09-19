@@ -20,7 +20,16 @@ const login_service = (req, res, next, app) => {
             res.cookie('reactjo_id', data.id)
             res.cookie('reactjo_name', data.name)
             res.cookie('reactjo_token', data.token)
-            res.current_user = { id: data.id, name: data.name }
+            res.cookie('reactjo_is_staff', data.is_staff)
+            res.cookie('reactjo_is_superuser', data.is_superuser)
+            res.cookie('reactjo_is_active', data.is_active)
+            res.current_user = {
+                id: data.id,
+                name: data.name,
+                is_staff: data.is_staff,
+                is_superuser: data.is_superuser,
+                is_active: data.is_active,
+            }
             res.redirect('/')
         } else {
             return Promise.reject('Couldn\'t get an auth token')

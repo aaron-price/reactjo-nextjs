@@ -1,4 +1,5 @@
 import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
 import {
     update_singular_lower_permission,
     delete_singular_lower_permission } from '../../services/permissions.js'
@@ -12,7 +13,7 @@ const UpdateFormWrapper = (props) => {
                 <div>
                     <FlatButton
                        label="Hide Form"
-                       primary={true}
+                       secondary={true}
                        onClick={() => props.show_hide_form()}/>
                     <br /><br />
                     <UpdateForm
@@ -28,7 +29,7 @@ const UpdateFormWrapper = (props) => {
             // 'show form' button
             return (
                 <div>
-                    <FlatButton
+                    <RaisedButton
                        label="Update singular_upper"
                        primary={true}
                        onClick={() => props.show_hide_form()}/>
@@ -62,8 +63,8 @@ const UpdateForm = (props) => (
                     </div>
             )})}
 
-            <input type="submit" value="Update singular_upper">
-            </input><br/><br/>
+            <RaisedButton primary={true} type="submit" value="Update singular_upper" />
+            <br/><br/>
         </form>
     </div>
 )

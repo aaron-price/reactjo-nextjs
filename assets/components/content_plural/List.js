@@ -2,18 +2,22 @@ import { details_singular_lower_permission } from '../../services/permissions.js
 import Link from 'next/link'
 
 const List = (props) => {
-    return (
-        <ul>
-            {props.plural_lower.map((singular_lower, key) => {
-                return (
-                    <ListItem
-                        current_user={props.current_user}
-                        singular_lower={singular_lower}
-                        key={key}
-                    />
-            )})}
-        </ul>
-    )
+    if (props.plural_lower.length === 0) {
+        return <div>Sorry, there are no plural_lower yet.</div>
+    } else {
+        return (
+            <ul>
+                {props.plural_lower.map((singular_lower, key) => {
+                    return (
+                        <ListItem
+                            current_user={props.current_user}
+                            singular_lower={singular_lower}
+                            key={key}
+                        />
+                )})}
+            </ul>
+        )
+    }
 }
 
 const ListItem = (props) => {

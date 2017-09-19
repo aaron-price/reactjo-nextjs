@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
 import React from 'react'
-import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
 import Router from 'next/router'
 
 // Styles
@@ -11,7 +11,7 @@ const linkStyle = {
 
 const HomeLink = props => (
 		<Link href="/">
-				<RaisedButton style={linkStyle}>Home</RaisedButton>
+				<FlatButton primary={true} style={linkStyle}>Home</FlatButton>
 		</Link>
 )
 
@@ -22,23 +22,23 @@ const UserLink = props => (
           asPath: `/user/`,
           query: { id: props.id }
     }}>
-				<a style={linkStyle}>Hi, {props.name}!</a>
+				<FlatButton primary={true} style={linkStyle}>Hi, {props.name}!</FlatButton>
 		</Link>
 )
 
 const LoginLink = props => (
 		<Link href="/login">
-				<RaisedButton style={linkStyle}>Login</RaisedButton>
+				<FlatButton primary={true} style={linkStyle}>Login</FlatButton>
 		</Link>
 )
 const LogoutLink = props => (
-		<RaisedButton style={linkStyle} onClick={() => props.logout()}
-    >Logout</RaisedButton>
+		<FlatButton secondary={true} style={linkStyle} onClick={() => props.logout()}
+    >Logout</FlatButton>
 )
 
 const SignupLink = props => (
 		<Link href="/signup">
-				<RaisedButton style={linkStyle}>Signup</RaisedButton>
+				<FlatButton primary={true} style={linkStyle}>Signup</FlatButton>
 		</Link>
 )
 
@@ -53,7 +53,7 @@ const ContentLinks = props => {
               const lower = item.toLowerCase()
               return (
                   <Link key={key} href={`/${lower}`}>
-                      <RaisedButton style={linkStyle}>{item}</RaisedButton>
+                      <FlatButton primary={true} style={linkStyle}>{item}</FlatButton>
                   </Link>
               )
           })}
@@ -92,10 +92,9 @@ class Navbar extends React.Component {
         return this.state.id && this.state.name
         ? (
             <div>
+                <HomeLink />
                 <UserLink id={this.state.id} name={this.state.name} />
                 <LogoutLink logout={this.logout} />
-                <br/><br/>
-                <HomeLink />
                 <ContentLinks />
             </div>
         ) : (

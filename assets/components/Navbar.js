@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
 import React from 'react'
-import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
 import Router from 'next/router'
 
 // Styles
@@ -11,7 +11,7 @@ const linkStyle = {
 
 const HomeLink = props => (
 		<Link href="/">
-				<RaisedButton style={linkStyle}>Home</RaisedButton>
+				<FlatButton primary={true} style={linkStyle}>Home</FlatButton>
 		</Link>
 )
 
@@ -24,7 +24,7 @@ const ContentLinks = props => {
               const lower = item.toLowerCase()
               return (
                   <Link key={key} href={`/${lower}`}>
-                      <RaisedButton style={linkStyle}>{item}</RaisedButton>
+                      <FlatButton primary={true} style={linkStyle}>{item}</FlatButton>
                   </Link>
               )
           })}
