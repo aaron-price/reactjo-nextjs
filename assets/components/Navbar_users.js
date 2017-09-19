@@ -17,11 +17,7 @@ const HomeLink = props => (
 
 // User Auth
 const UserLink = props => (
-    <Link href={{
-          pathname: '/user/',
-          asPath: `/user/`,
-          query: { id: props.id }
-    }}>
+    <Link as={`/user/${props.id}`} href={`/user/?id=${props.id}`}>
 				<FlatButton primary={true} style={linkStyle}>Hi, {props.name}!</FlatButton>
 		</Link>
 )
