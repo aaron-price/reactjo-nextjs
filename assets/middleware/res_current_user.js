@@ -2,9 +2,9 @@
 function current_user(req, res, next) {
 		let id = req.cookies.reactjo_id
 		let name = req.cookies.reactjo_name
-		let is_staff = req.cookies.reactjo_is_staff
-		let is_superuser = req.cookies.reactjo_is_superuser
-		let is_active = req.cookies.reactjo_is_active
+		let is_staff = req.cookies.reactjo_is_staff === 'true'
+		let is_superuser = req.cookies.reactjo_is_superuser === 'true'
+		let is_active = req.cookies.reactjo_is_active === 'true'
 
 		// If one is null, they both should be.
 		if (!name || !id) {
