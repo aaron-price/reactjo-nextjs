@@ -11,11 +11,11 @@ async function return_current_user(context) {
 						id = null
 						name = null
 				}
-				if (!staff || staff === '') { staff = false }
-				if (!superuser || superuser === '') { superuser = false }
-				if (!active || active === '') { active = false }
+				if (!is_staff || is_staff === '') { is_staff = false }
+				if (!is_superuser || is_superuser === '') { is_superuser = false }
+				if (!is_active || is_active === '') { is_active = false }
 
-				return { id, name, staff, superuser, active }
+				return { id, name, is_staff, is_superuser, is_active }
 		}
 }
 

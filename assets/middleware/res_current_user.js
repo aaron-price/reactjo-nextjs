@@ -11,11 +11,11 @@ function current_user(req, res, next) {
 				name = null
 				id = null
 		}
-		if (!staff || staff === '') { staff = false }
-		if (!superuser || superuser === '') { superuser = false }
-		if (!active || active === '') { active = false }
+		if (!is_staff || is_staff === '') { is_staff = false }
+		if (!is_superuser || is_superuser === '') { is_superuser = false }
+		if (!is_active || is_active === '') { is_active = false }
 
-		res.current_user = { id, name, staff, superuser, active }
+		res.current_user = { id, name, is_staff, is_superuser, is_active }
 		next()
 }
 module.exports = { current_user }
