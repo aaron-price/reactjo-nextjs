@@ -7,7 +7,7 @@ import { List } from '../components/plural_lower/List.js'
 import { CreateWrapper } from '../components/plural_lower/Create.js'
 import { list_singular_lower_permission } from '../services/permissions.js'
 
-const fields = ['owner', 'name']
+const fields = []
 
 class plural_upper extends React.Component {
     constructor(props) {
