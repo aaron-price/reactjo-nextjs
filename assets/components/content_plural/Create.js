@@ -61,7 +61,7 @@ const CreateForm = (props) => (
                     </div>
             )})}
 
-            <RaisedButton primary={true} type="submit" value="Create singular_upper" />
+            <RaisedButton primary={true} type="submit" label="Create singular_upper" />
             <br/><br/>
         </form>
     </div>
