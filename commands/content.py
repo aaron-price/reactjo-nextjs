@@ -9,6 +9,7 @@ from helpers.worklist import worklist as wl
 from scaffolding.content_pages import scaffold_list_page, scaffold_details_page
 from scaffolding.permissions import new_permissionset
 from scaffolding.content_components import scaffold_content_components
+
 def scaffold_menu_item():
     cfg = get_cfg()
     title = cfg['current_scaffold']['model']['title']
@@ -17,7 +18,10 @@ def scaffold_menu_item():
     st = "import { list_type_permission } from '../services/permissions.js'\n"
     f('$out/components/Navbar.js', 'p', st.replace('type', title.lower()))
 
-    st = f"\n    {title: '{title_plural}', permissions: list_type_permission},"
+    st = "\n    {title: 'title_plural', permissions: list_type_permission},"
+    st = st.replace(
+        'title_plural', title_plural).replace(
+        'type', title.lower())
     data = {
         'target': ['const content_types'],
         'content': st
