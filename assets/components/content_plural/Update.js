@@ -29,7 +29,7 @@ const UpdateFormWrapper = (props) => {
             // 'show form' button
             return (
                 <div>
-                    <RaisedButton
+                    <FlatButton
                        label="Update singular_upper"
                        primary={true}
                        onClick={() => props.show_hide_form()}/>

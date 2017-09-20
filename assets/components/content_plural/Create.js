@@ -13,7 +13,7 @@ const CreateWrapper = (props) => {
                    label="Hide Form"
                    secondary={true}
                    onClick={() => props.show_hide_form()}/>
-                <br />
+                <br /><br/>
 
                 <CreateForm
                     submit_form={ props.submit_form }
@@ -26,10 +26,10 @@ const CreateWrapper = (props) => {
             )
             : (
               <div>
-               <RaisedButton
+               <FlatButton
                   label="Create singular_upper"
                   primary={true}
-                  onClick={() => props.show_hide_form()}/>
+                  onClick={() => props.show_hide_form()}/><br/><br/>
               </div>
             )
         }</div>)

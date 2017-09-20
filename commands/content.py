@@ -13,11 +13,17 @@ def scaffold_menu_item():
     cfg = get_cfg()
     title = cfg['current_scaffold']['model']['title']
     title_plural = pluralize(title.capitalize())
+
+    st = "import { list_type_permission } from '../services/permissions.js'\n"
+    f('$out/components/Navbar.js', 'p', st.replace('type', title.lower()))
+
+    st = f"\n    {title: '{title_plural}', permissions: list_type_permission},"
     data = {
         'target': ['const content_types'],
-        'content': f"\n    '{title_plural}',"
+        'content': st
     }
     f('$out/components/Navbar.js', 'a', data)
+
     wl(f'Added {title} menu item')
 
 def content():

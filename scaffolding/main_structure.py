@@ -72,6 +72,16 @@ def build_structure():
     f('$out/services/permissions.js', 'w', '$assets/services/permissions.js')
 
     if users:
+        user_permissions = f('$assets/services/new_permissionset.js', 'r')
+        user_permissions = user_permissions.replace(
+            'title', 'user').replace(
+            'create_permission', 'anonymous(user, obj)').replace(
+            'list_permission', 'anyone(user, obj)').replace(
+            'details_permission', 'anyone(user, obj)').replace(
+            'update_permission', 'owner(user, obj)').replace(
+            'delete_permission', 'owner(user, obj)')
+        permissions = f('$assets/services/permissions.js', 'a', user_permissions)
+
         login_service = f('$assets/services/login_service.js', 'r').replace(
             'reactjo', project_name)
         f('$out/services/login_service.js', 'w', login_service)
