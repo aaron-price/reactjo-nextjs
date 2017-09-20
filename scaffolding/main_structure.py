@@ -89,6 +89,11 @@ def build_structure():
 
     print('Installing node dependencies. This will take a while.')
     os.chdir(f('$out', '$'))
-    subprocess.run(['npm', 'install'])
+
+    if os.name == 'nt':
+        subprocess.run('npm install', shell=True)
+    else:
+        subprocess.run(['npm', 'install'])
+
     os.chdir(prev_path)
     wl('Installed node dependencies')
