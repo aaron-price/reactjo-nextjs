@@ -59,9 +59,9 @@ class plural_upper extends React.Component {
         .then(data => {
             // If successful, redirect to the newly created details page
             Router.push({
-                pathname: '/singular_lower',
+                pathname: `/singular_lower`,
                 query: { id: data.pk },
-                as: `/singular_lower/${data.pk}`
+                asPath: `/singular_lower/${data.pk}`
             })
         })
         .catch(e => console.error(e))
