@@ -1,5 +1,8 @@
 export default {
-  margin: 20,
-  padding: 20,
-  border: '1px solid #DDD'
+  // Css goes here
+}
+export const body_middle = {
+  margin: '2em',
+  padding: '2em',
+  minHeight: '50vh'
 }

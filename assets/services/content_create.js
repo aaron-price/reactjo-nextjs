@@ -6,6 +6,9 @@ const create_content_service = (req, res, next, app) => {
     let fields = {}
     req.body.fields.forEach(f => fields[f] = req.body[f])
 
+    // Automatically provide the owner field
+    if ('owner' in fields) { fields.owner = res.current_user.id }
+
     const request = fetch(CONTENT_URL, {
         method: 'POST',
         headers: {
