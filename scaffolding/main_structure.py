@@ -73,7 +73,7 @@ def build_structure():
 
     if users:
         user_permissions = f('$assets/services/user_permissions.js', 'r')
-        f('$assets/services/permissions.js', 'a', user_permissions)
+        f('$out/services/permissions.js', 'a', user_permissions)
 
         login_service = f('$assets/services/login_service.js', 'r').replace(
             'reactjo', project_name)
