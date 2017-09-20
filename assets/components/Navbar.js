@@ -69,6 +69,7 @@ class NavContainer extends React.Component {
         super(props)
         this.state = {
             isOpen: false,
+            mobile_determined: false,
             isMobile: true
         }
         this.toggle = this.toggle.bind(this)
@@ -81,6 +82,7 @@ class NavContainer extends React.Component {
     }
     componentDidMount() {
         this.check_mobile()
+        this.setState({ mobile_determined: true })
         window.addEventListener('resize', this.check_mobile)
     }
     toggle() {
@@ -90,15 +92,19 @@ class NavContainer extends React.Component {
     }
     render() {
         let authenticated = !!this.state.id && !!this.state.name
-        return (
-            <div style={{backgroundColor:'#0097A7', minHeight: '3.5em'}}>
-                <MobileMenubar
-                    toggle={this.toggle}
-                    isOpen={this.state.isOpen}
-                    isMobile={this.state.isMobile} />
-                <DesktopMenubar isMobile={this.state.isMobile} />
-            </div>
-        )
+        if (!this.state.mobile_determined) {
+            return <div style={{backgroundColor:'#0097A7', minHeight: '3.5em'}}></div>
+        } else {
+            return (
+                <div style={{backgroundColor:'#0097A7', minHeight: '3.5em'}}>
+                    <MobileMenubar
+                        toggle={this.toggle}
+                        isOpen={this.state.isOpen}
+                        isMobile={this.state.isMobile} />
+                    <DesktopMenubar isMobile={this.state.isMobile} />
+                </div>
+            )
+        }
     }
 }
 
