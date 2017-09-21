@@ -91,6 +91,7 @@ def build_structure():
         cfg = get_cfg()
         user_fields = cfg['current_scaffold']['model']['fields']
         user_titles = [field['title'] for field in user_fields]
+        quote_titles = [quote(title) for title in user_titles]
 
         # Permissions
         user_permissions = f('$assets/services/user_permissions.js', 'r')
@@ -102,12 +103,10 @@ def build_structure():
         f('$out/services/login_service.js', 'w', login_service)
 
         # Signup
-        # body_strs = ['name: req.body.name,','email: req.body.email,']
-        body_strs = [f'{title}: req.body.{title},' for title in user_titles]
         signup_service = f('$assets/services/signup_service.js', 'r').replace(
-            'fields',
-            '\n            '.join(body_strs))
-        f('$out/services/signup_service.js', 'w', '$assets/services/signup_service.js')
+            'let fields = []',
+            'let fields = [' + ', '.join(quote_titles) + ']'
+        f('$out/services/signup_service.js', 'w', signup_service)
 
         # Check current_user
         current_user_service = f('$assets/services/current_user.js', 'r').replace(

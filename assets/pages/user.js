@@ -12,7 +12,6 @@ const User = (props) => (
             return f === 'name'
                 ? <span></span>
                 : <p key={key}>{f}: {props.profile[f]}</p>
-            }
         })}
     </Header>
 )
