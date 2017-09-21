@@ -7,16 +7,17 @@ import fetch from 'isomorphic-unfetch'
 import TextField from "material-ui/TextField"
 import Divider from "material-ui/Divider"
 
+const form_fields = []
 class Signup extends React.Component {
     constructor(props) {
         super(props)
+        let form = { password: '' }
+        form_fields.forEach(f => {
+          form[f] = ''
+        })
         this.state = {
             current_user: this.props.current_user,
-            form: {
-                name: '',
-                email: '',
-                password: ''
-            }
+            form
         }
         this.update_form = this.update_form.bind(this)
         this.submit_form = this.submit_form.bind(this)
@@ -28,6 +29,10 @@ class Signup extends React.Component {
     }
     submit_form(e) {
         e.preventDefault()
+        body_fields = { password: this.state.form.password }
+        form_fields.forEach(f => {
+          body_fields[f] = this.state.form[f]
+        })
         fetch('/signup', {
             method: 'POST',
             credentials: 'include',
@@ -35,11 +40,7 @@ class Signup extends React.Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                name: this.state.form.name,
-                email: this.state.form.email,
-                password: this.state.form.password
-            })
+            body: JSON.stringify(body_fields)
         })
         .then(data => {
             Router.push({pathname: '/', as: '/'})
@@ -51,6 +52,18 @@ class Signup extends React.Component {
         return (
             <Header current_user={this.state.current_user}>
                 <form method="POST">
+                    {form_fields.map((title, key) => {
+                        const low = title.toLowerCase()
+                        return (
+                            <TextField
+                                key={key}
+                                floatingLabelText={title}
+                                floatingLabelFixed={true}
+                                style={field_styles}
+                                onChange={e => this.update_form(low, e)}/>
+                            <Divider /><br />
+                        )
+                    })}
                     <TextField
                         floatingLabelText="Name"
                         floatingLabelFixed={true}
@@ -58,12 +71,6 @@ class Signup extends React.Component {
                         onChange={e => this.update_form('name', e)}/>
                     <Divider />
 
-                    <TextField
-                        floatingLabelText="Email"
-                        floatingLabelFixed={true}
-                        style={field_styles}
-                        onChange={e => this.update_form('email', e)}/>
-                    <Divider /><br />
 
                     <TextField
                         floatingLabelText="Password"

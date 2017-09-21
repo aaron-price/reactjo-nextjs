@@ -11,9 +11,7 @@ const signup_service = (req, res, next, app) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password
+            fieldspassword: req.body.password
         })
     })
     .then(blob => blob.json())
