@@ -55,22 +55,16 @@ class Signup extends React.Component {
                     {form_fields.map((title, key) => {
                         const low = title.toLowerCase()
                         return (
-                            <TextField
-                                key={key}
-                                floatingLabelText={title}
-                                floatingLabelFixed={true}
-                                style={field_styles}
-                                onChange={e => this.update_form(low, e)}/>
-                            <Divider /><br />
+                            <div key={key}>
+                                <TextField
+                                    floatingLabelText={title}
+                                    floatingLabelFixed={true}
+                                    style={field_styles}
+                                    onChange={e => this.update_form(low, e)}/>
+                                <Divider /><br />
+                            </div>
                         )
                     })}
-                    <TextField
-                        floatingLabelText="Name"
-                        floatingLabelFixed={true}
-                        style={field_styles}
-                        onChange={e => this.update_form('name', e)}/>
-                    <Divider />
-
 
                     <TextField
                         floatingLabelText="Password"
