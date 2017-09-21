@@ -33,12 +33,12 @@ const UserLink = props => {
         if (props.isMobile) {
             return (
                 <Link as={`/user/${props.current_user.id}`} href={`/user/?id=${props.current_user.id}`}>
-                    <a style={link_style}>My Profile</a>
+                    <a style={link_style}>{props.current_user.name}</a>
                 </Link>
             )
         } else {
             return (
-                <RaisedButton style={link_style} label={'My Profile'} href={`/user/${props.current_user.id}`}/>
+                <RaisedButton style={link_style} label={props.current_user.name} href={`/user/${props.current_user.id}`}/>
             )
         }
     } else {
