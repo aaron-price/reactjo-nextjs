@@ -12,7 +12,8 @@ const update_content_service = (req, res, app, content_type) => {
         method: 'PUT',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `token ${res.token}`
         },
         body: JSON.stringify(fields)
     })

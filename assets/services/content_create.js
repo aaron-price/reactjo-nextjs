@@ -13,7 +13,8 @@ const create_content_service = (req, res, next, app) => {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `token ${res.token}`
         },
         body: JSON.stringify(fields)
     })
