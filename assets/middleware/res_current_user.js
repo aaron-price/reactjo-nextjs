@@ -12,11 +12,14 @@ function current_user(req, res, next) {
 				name = null
 				id = null
 		}
+
 		if (!is_staff || is_staff === '') { is_staff = false }
 		if (!is_superuser || is_superuser === '') { is_superuser = false }
 		if (!is_active || is_active === '') { is_active = false }
 
 		res.current_user = { id, name, is_staff, is_superuser, is_active }
+
+		if (!token) { token = 'false' }
 		res.token = token
 		next()
 }
