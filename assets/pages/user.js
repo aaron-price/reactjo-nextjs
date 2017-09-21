@@ -7,7 +7,7 @@ import { return_current_user } from '../services/current_user.js'
 const fields = []
 const User = (props) => (
     <Header current_user={props.current_user}>
-        <h1>{props.profile.id} - {props.profile.name}</h1>
+        <h1>{props.profile.name}</h1>
         {form_fields.map((f, key) => {
             return f === 'name'
                 ? <span key={key}></span>
