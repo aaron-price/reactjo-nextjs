@@ -10,7 +10,7 @@ const User = (props) => (
         <h1>{props.profile.id} - {props.profile.name}</h1>
         {form_fields.map((f, key) => {
             return f === 'name'
-                ? <span></span>
+                ? <span key={key}></span>
                 : <p key={key}>{f}: {props.profile[f]}</p>
         })}
     </Header>
