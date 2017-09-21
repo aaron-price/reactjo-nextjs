@@ -58,7 +58,7 @@ def build_structure():
     if users:
         # Vars
         cfg = get_cfg()
-        user_fields = cfg['current_user']['model']['fields']
+        user_fields = cfg['current_scaffold']['model']['fields']
         user_titles = [field['title'] for field in user_fields]
         fields_arr = [quote(title) for title in user_titles]
         form_fields = ', '.join(fields_arr)
@@ -89,7 +89,7 @@ def build_structure():
     if users:
         # Vars
         cfg = get_cfg()
-        user_fields = cfg['current_user']['model']['fields']
+        user_fields = cfg['current_scaffold']['model']['fields']
         user_titles = [field['title'] for field in user_fields]
 
         # Permissions
