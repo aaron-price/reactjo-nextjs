@@ -105,7 +105,7 @@ def build_structure():
         # Signup
         signup_service = f('$assets/services/signup_service.js', 'r').replace(
             'let fields = []',
-            'let fields = [' + ', '.join(quote_titles) + ']'
+            'let fields = [' + ', '.join(quote_titles) + ']')
         f('$out/services/signup_service.js', 'w', signup_service)
 
         # Check current_user
