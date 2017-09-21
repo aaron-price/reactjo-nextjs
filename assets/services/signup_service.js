@@ -3,18 +3,18 @@ const { login_service } = require('./login_service.js')
 
 const signup_service = (req, res, next, app) => {
     const SIGNUP_URL = 'http://localhost:8000/api/profile/'
-
+    let fields = []
+    let body_fields = { password: req.body.password }
+    fields.forEach(f => {
+        body_fields[f] = req.body[f]
+    })
     fetch(SIGNUP_URL, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password
-        })
+        body: JSON.stringify(body_fields)
     })
     .then(blob => blob.json())
     .then(data => {

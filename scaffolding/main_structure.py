@@ -6,6 +6,7 @@ from helpers.path_manager import mkdir
 from helpers.file_manager import file_manager as f
 from helpers.worklist import worklist as wl
 from helpers.config_manager import get_cfg
+from helpers.compose import quote
 
 def id_generator():
     signature = ''.join(random.choice(string.hexdigits) for _ in range(32))
@@ -55,9 +56,23 @@ def build_structure():
 
     # Pages assets
     if users:
+        # Vars
+        cfg = get_cfg()
+        user_fields = cfg['current_scaffold']['model']['fields']
+        user_titles = [field['title'] for field in user_fields]
+        fields_arr = [quote(title) for title in user_titles]
+        form_fields = ', '.join(fields_arr)
+        form_fields = 'const form_fields = ['+ form_fields +']'
+        fields = 'const fields = ['+ form_fields +']'
+
+        signup_page = f('$assets/pages/signup.js', 'r').replace(
+            'const form_fields = []', form_fields)
+        user_page = f('$assets/pages/user.js', 'r').replace(
+            'const fields = []', form_fields)
+
         f('$out/pages/login.js', 'w', '$assets/pages/login.js')
-        f('$out/pages/signup.js', 'w', '$assets/pages/signup.js')
-        f('$out/pages/user.js', 'w', '$assets/pages/user.js')
+        f('$out/pages/signup.js', 'w', signup_page)
+        f('$out/pages/user.js', 'w', user_page)
         f('$out/pages/users.js', 'w', '$assets/pages/users.js')
         f('$out/pages/index.js', 'w', '$assets/pages/index_users.js')
     else:
@@ -72,13 +87,28 @@ def build_structure():
     f('$out/services/permissions.js', 'w', '$assets/services/permissions.js')
 
     if users:
+        # Vars
+        cfg = get_cfg()
+        user_fields = cfg['current_scaffold']['model']['fields']
+        user_titles = [field['title'] for field in user_fields]
+        quote_titles = [quote(title) for title in user_titles]
+
+        # Permissions
         user_permissions = f('$assets/services/user_permissions.js', 'r')
         f('$out/services/permissions.js', 'a', user_permissions)
 
+        # Login
         login_service = f('$assets/services/login_service.js', 'r').replace(
             'reactjo', project_name)
         f('$out/services/login_service.js', 'w', login_service)
-        f('$out/services/signup_service.js', 'w', '$assets/services/signup_service.js')
+
+        # Signup
+        signup_service = f('$assets/services/signup_service.js', 'r').replace(
+            'let fields = []',
+            'let fields = [' + ', '.join(quote_titles) + ']')
+        f('$out/services/signup_service.js', 'w', signup_service)
+
+        # Check current_user
         current_user_service = f('$assets/services/current_user.js', 'r').replace(
             'reactjo', project_name)
         f('$out/services/current_user.js', 'w', current_user_service)
