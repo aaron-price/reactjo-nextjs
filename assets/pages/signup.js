@@ -29,9 +29,9 @@ class Signup extends React.Component {
     }
     submit_form(e) {
         e.preventDefault()
-        body_fields = { password: this.state.form.password }
+        let body_fields = { password: this.state.form.password }
         form_fields.forEach(f => {
-          body_fields[f] = this.state.form[f]
+            body_fields[f] = this.state.form[f]
         })
         fetch('/signup', {
             method: 'POST',

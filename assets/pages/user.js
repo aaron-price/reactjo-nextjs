@@ -8,10 +8,10 @@ const fields = []
 const User = (props) => (
     <Header current_user={props.current_user}>
         <h1>{props.profile.id} - {props.profile.name}</h1>
-        {fields.map((f, key) => {
+        {form_fields.map((f, key) => {
             return f === 'name'
-                ? <span></span> 
-                : <p key={key}>{props.profile[f]}</p>
+                ? <span></span>
+                : <p key={key}>{f}: {props.profile[f]}</p>
             }
         })}
     </Header>
