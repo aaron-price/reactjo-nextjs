@@ -5,6 +5,7 @@ function current_user(req, res, next) {
 		let is_staff = req.cookies.reactjo_is_staff === 'true'
 		let is_superuser = req.cookies.reactjo_is_superuser === 'true'
 		let is_active = req.cookies.reactjo_is_active === 'true'
+		let token = req.cookies.reactjo_token
 
 		// If one is null, they both should be.
 		if (!name || !id) {
@@ -16,6 +17,7 @@ function current_user(req, res, next) {
 		if (!is_active || is_active === '') { is_active = false }
 
 		res.current_user = { id, name, is_staff, is_superuser, is_active }
+		res.token = token
 		next()
 }
 module.exports = { current_user }

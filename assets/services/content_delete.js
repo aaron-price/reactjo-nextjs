@@ -7,7 +7,8 @@ const delete_content_service = (req, res, app, content_type) => {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `token ${res.token}`
         }
     })
     .then(data => res.end())
