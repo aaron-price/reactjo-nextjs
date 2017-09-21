@@ -46,7 +46,7 @@ class plural_upper extends React.Component {
         let body_fields = { content_type: 'singular_lower', fields }
         fields.forEach(f => body_fields[f] = this.state.form[f])
 
-        fetch('/singular_lower', {
+        fetch('/singular_lower/', {
             method: 'POST',
             credentials: 'include',
             headers: {

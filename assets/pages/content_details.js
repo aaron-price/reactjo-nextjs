@@ -28,7 +28,7 @@ class singular_upper extends React.Component {
     delete_item(e) {
         e.preventDefault()
 
-        fetch('/singular_lower', {
+        fetch('/singular_lower/', {
             method: 'DELETE',
             credentials: 'include',
             headers: {
@@ -66,7 +66,7 @@ class singular_upper extends React.Component {
         let body_fields = { id: this.props.singular_lower.pk, fields }
         fields.forEach(f => body_fields[f] = this.state.form[f])
 
-        fetch('/singular_lower', {
+        fetch('/singular_lower/', {
             method: 'PUT',
             credentials: 'include',
             headers: {
