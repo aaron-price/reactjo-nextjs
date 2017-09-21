@@ -5,9 +5,7 @@ from inflection import pluralize
 from helpers.config_manager import get_cfg
 from helpers.file_manager import file_manager as f
 from helpers.worklist import worklist as wl
-
-def quote(string):
-    return "'" + string + "'"
+from helpers.compose import quote
 
 def parse_content(string):
     cfg = get_cfg()
