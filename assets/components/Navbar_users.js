@@ -32,15 +32,13 @@ const UserLink = props => {
     if (props.authenticated) {
         if (props.isMobile) {
             return (
-                <Link as={`/user/${props.id}`} href={`/user/?id=${props.id}`}>
+                <Link as={`/user/${props.current_user.id}`} href={`/user/?id=${props.current_user.id}`}>
                     <a style={link_style}>My Profile</a>
                 </Link>
             )
         } else {
             return (
-                <Link as={`/user/${props.id}`} href={`/user/?id=${props.id}`}>
-                    <RaisedButton style={link_style} label={'My Profile'}/>
-                </Link>
+                <RaisedButton style={link_style} label={'My Profile'} href={`/user/${props.current_user.id}`}/>
             )
         }
     } else {
@@ -149,6 +147,7 @@ class NavContainer extends React.Component {
             name: this.props.current_user.name,
             id: this.props.current_user.id,
             isOpen: false,
+            mobile_determined: false,
             isMobile: true
         }
         this.update_user = this.update_user.bind(this)
@@ -163,6 +162,7 @@ class NavContainer extends React.Component {
     }
     componentDidMount() {
         this.check_mobile()
+        this.setState({ mobile_determined: true })
         window.addEventListener('resize', this.check_mobile)
     }
     toggle() {
@@ -193,20 +193,26 @@ class NavContainer extends React.Component {
     }
     render() {
         let authenticated = !!this.state.id && !!this.state.name
-        return (
-          <div style={{backgroundColor:'#0097A7', minHeight: '3.5em'}}>
-              <MobileMenubar
-                  toggle={this.toggle}
-                  isOpen={this.state.isOpen}
-                  logout={this.logout}
-                  authenticated={authenticated}
-                  isMobile={this.state.isMobile} />
-              <DesktopMenubar
-                  authenticated={authenticated}
-                  logout={this.logout}
-                  isMobile={this.state.isMobile} />
-          </div>
-        )
+        if (!this.state.mobile_determined) {
+            return <div style={{backgroundColor:'#0097A7', minHeight: '3.5em'}}></div>
+        } else {
+            return (
+              <div style={{backgroundColor:'#0097A7', minHeight: '3.5em'}}>
+                  <MobileMenubar
+                      current_user={this.props.current_user}
+                      toggle={this.toggle}
+                      isOpen={this.state.isOpen}
+                      logout={this.logout}
+                      authenticated={authenticated}
+                      isMobile={this.state.isMobile} />
+                  <DesktopMenubar
+                      current_user={this.props.current_user}
+                      authenticated={authenticated}
+                      logout={this.logout}
+                      isMobile={this.state.isMobile} />
+              </div>
+            )
+        }
     }
 }
 
@@ -235,6 +241,7 @@ const MobileMenubar = (props) => {
                       onClick={props.toggle} />
                   <HomeLink isMobile={props.isMobile} />
                   <UserLink
+                      current_user={props.current_user}
                       authenticated={props.authenticated}
                       isMobile={props.isMobile} />
                   <LoginLink
@@ -267,6 +274,7 @@ const DesktopMenubar = (props) => {
                         </NavItem>
                         <NavItem>
                             <UserLink
+                                current_user={props.current_user}
                                 authenticated={props.authenticated}
                                 isMobile={props.isMobile}/>
                         </NavItem>

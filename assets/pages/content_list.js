@@ -46,7 +46,7 @@ class plural_upper extends React.Component {
         let body_fields = { content_type: 'singular_lower', fields }
         fields.forEach(f => body_fields[f] = this.state.form[f])
 
-        fetch('/singular_lower', {
+        fetch('/singular_lower/', {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -59,9 +59,9 @@ class plural_upper extends React.Component {
         .then(data => {
             // If successful, redirect to the newly created details page
             Router.push({
-                pathname: '/singular_lower',
+                pathname: `/singular_lower`,
                 query: { id: data.pk },
-                as: `/singular_lower/${data.pk}`
+                asPath: `/singular_lower/${data.pk}`
             })
         })
         .catch(e => console.error(e))
