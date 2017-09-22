@@ -13,7 +13,10 @@ const update_content_service = (req, res, app, content_type) => {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
     }
-    if (res.token !== 'false') { headers.Authorization = `token ${res.token}` }
+
+    if (res.token !== 'false' && !!res.token) {
+        headers.Authorization = `token ${res.token}`
+    }
 
     // Request
     const request = fetch(CONTENT_URL, {
