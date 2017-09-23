@@ -3,23 +3,24 @@ import Navbar from './Navbar.js'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import global_styles, { body_middle } from '../styles/styles.js'
 import Paper from 'material-ui/Paper'
+import stylesheet from 'styles/index.scss'
 
 try { injectTapEventPlugin() } catch(e) {}
 const muiTheme = getMuiTheme({ userAgent: false })
 
 export default (props) => (
     <MuiThemeProvider muiTheme={muiTheme}>
-        <div style={global_styles}>
+        <div>
             <Head>
                 <title>Reactjo!</title>
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossOrigin="anonymous"/>
             </Head>
+            <style dangerouslySetInnerHTML={{ __html: stylesheet }} />
 
             <div className='body'>
                 <Navbar className='body_top' current_user={props.current_user} />
-                <Paper className='body_middle' style={body_middle}>
+                <Paper className='body_middle'>
                     {props.children}
                 </Paper>
                 <Footer />

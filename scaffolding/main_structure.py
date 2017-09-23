@@ -42,6 +42,9 @@ def build_structure():
 
     # Misc assets
     f('$out/package.json', 'w', '$assets/package.js')
+    f('$out/.babelrc', 'w', '$assets/babel.js')
+    f('$out/next.config.js', 'w', '$assets/next.config.js')
+    f('$out/postcss.config.js', 'w', '$assets/postcss.config.js')
 
     if users:
         server_string = f('$assets/server_users.js', 'r')
@@ -114,7 +117,7 @@ def build_structure():
         f('$out/services/current_user.js', 'w', current_user_service)
 
     # Style assets
-    f('$out/styles/styles.js', 'w', '$assets/styles/styles.js')
+    f('$out/styles/index.scss', 'w', '$assets/styles/index.scss')
     wl('Build front end directories and files')
 
     print('Installing node dependencies. This will take a while.')

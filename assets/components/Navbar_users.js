@@ -7,95 +7,107 @@ import Paper from 'material-ui/Paper'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
 import Router from 'next/router'
-import isMobile from 'ismobilejs'
 import { Navbar, Nav, NavItem } from 'reactstrap'
 
-// Styles
-let link_style = {
-    marginRight: 15,
-    minHeight: 15,
-    color: '#000000',
-    fontWeight: '300',
-}
-
 // Home
-const HomeLink = (props) => {
-    if (props.isMobile) {
-        return (<MenuItem href='/'>Home</MenuItem>)
-    } else {
-        return (<RaisedButton style={link_style} label="Home" href="/" />)
-    }
+const HomeLinkMobile = (props) => {
+    return <MenuItem className='homelink--mobile' href='/'>Home</MenuItem>
+}
+const HomeLinkDesktop = (props) => {
+    return <RaisedButton
+                className='homelink--desktop menubar__button--link'
+                label="Home"
+                href="/" />
 }
 
 // User Auth
-const UserLink = props => {
+const UserLinkMobile = props => {
     if (props.authenticated) {
-        if (props.isMobile) {
-            return (
-                <Link as={`/user/${props.current_user.id}`} href={`/user/?id=${props.current_user.id}`}>
-                    <a style={link_style}>{props.current_user.name}</a>
-                </Link>
-            )
-        } else {
-            return (
-                <RaisedButton style={link_style} label={props.current_user.name} href={`/user/${props.current_user.id}`}/>
-            )
-        }
+        return (
+            <Link
+                as={`/user/${props.current_user.id}`}
+                href={`/user/?id=${props.current_user.id}`}>
+                <a className='menubar__button--link userlink--mobile'>
+                    {props.current_user.name}
+                </a>
+            </Link>
+        )
     } else {
       return <span></span>
     }
 }
-
-const LoginLink = props => {
-    if (!props.authenticated) {
-        if (props.isMobile) {
-            return (
-                <MenuItem href='/login' style={link_style}>Login</MenuItem>
-            )
-        } else {
-            return (
-    				    <RaisedButton href='/login' label='login' style={link_style} />
-            )
-        }
-
-    } else {
-      return <span></span>
-    }
-}
-const LogoutLink = props => {
+const UserLinkDesktop = props => {
     if (props.authenticated) {
-        if (!props.isMobile) {
-            return (
-                <RaisedButton
-                    style={link_style}
-                    label='Logout'
-                    onClick={() => props.logout()} />
-            )
-        } else {
-            return (
-                <MenuItem
-                  onClick={() => props.logout()}
-                  style={link_style}>Logout</MenuItem>
-            )
-        }
+        return (
+            <RaisedButton
+                className='menubar__button--link userlink--desktop'
+                label={props.current_user.name}
+                href={`/user/${props.current_user.id}`}/>
+        )
+    } else {
+      return <span></span>
+    }
+}
+
+const LoginLinkMobile = props => {
+    if (!props.authenticated) {
+        return <MenuItem href='/login' className='menubar__button--link'>Login</MenuItem>
+    } else {
+      return <span></span>
+    }
+}
+const LoginLinkDesktop = props => {
+    if (!props.authenticated) {
+        return (
+				    <RaisedButton
+                href='/login'
+                label='login'
+                className='menubar__button--link' />
+        )
+    } else {
+      return <span></span>
+    }
+}
+
+const LogoutLinkMobile = props => {
+    if (props.authenticated) {
+        return (
+            <MenuItem
+              onClick={() => props.logout()}
+              className='menubar__button--link'>Logout</MenuItem>
+        )
+    } else {
+      return <span></span>
+    }
+}
+const LogoutLinkDesktop = props => {
+    if (props.authenticated) {
+        return (
+            <RaisedButton
+                className='menubar__button--link'
+                label='Logout'
+                onClick={() => props.logout()} />
+        )
     } else {
       return <span></span>
     }
 }
 
 
-const SignupLink = props => {
+const SignupLinkMobile = props => {
     if (!props.authenticated) {
-        if (props.isMobile) {
-            return (
-                <MenuItem href="/signup" style={link_style}>Signup</MenuItem>
-            )
-        } else {
-            return (
-                <RaisedButton href="/signup" style={link_style} label='Signup'/>
-            )
-        }
-
+        return (
+            <MenuItem href="/signup" className='menubar__button--link'>Signup</MenuItem>
+        )
+    } else {
+      return <span></span>
+    }
+}
+const SignupLinkDesktop = props => {
+    if (!props.authenticated) {
+        return (
+            <RaisedButton href="/signup" className='menubar__button--link' label='Signup'/>
+        )
     } else {
       return <span></span>
     }
@@ -105,7 +117,8 @@ const SignupLink = props => {
 const content_types = [
     {title: 'Users', permissions: list_user_permission},
 ]
-const ContentLinks = (props) => (
+
+const ContentLinksMobile = (props) => (
     <ul className="navbar-nav mr-auto">
         { content_types.map((item, key) => {
           let has_permission = true
@@ -114,25 +127,37 @@ const ContentLinks = (props) => (
           }
           if (has_permission) {
               const lower = item.title.toLowerCase()
-              if (props.isMobile) {
                   return (
                       <li key={key}>
                           <MenuItem
                               href={`/${lower}`}
-                              style={link_style}
+                              className='menubar__button--link'
                               >{item.title}</MenuItem>
                       </li>
                   )
-              } else {
-                  return (
-                      <li key={key}>
-                          <RaisedButton
-                              href={`/${lower}`}
-                              style={link_style}
-                              label={item.title} />
-                      </li>
-                  )
-              }
+          } else {
+            return <span key={key}></span>
+          }
+        })}
+    </ul>
+)
+const ContentLinksDesktop = (props) => (
+    <ul className="navbar-nav mr-auto">
+        { content_types.map((item, key) => {
+          let has_permission = true
+          if ('permissions' in item) {
+              has_permission = item.permissions(props.current_user)
+          }
+          if (has_permission) {
+              const lower = item.title.toLowerCase()
+              return (
+                  <li key={key}>
+                      <RaisedButton
+                          href={`/${lower}`}
+                          className='menubar__button--link'
+                          label={item.title} />
+                  </li>
+              )
           } else {
             return <span key={key}></span>
           }
@@ -147,23 +172,10 @@ class NavContainer extends React.Component {
             name: this.props.current_user.name,
             id: this.props.current_user.id,
             isOpen: false,
-            mobile_determined: false,
-            isMobile: true
         }
         this.update_user = this.update_user.bind(this)
         this.logout = this.logout.bind(this)
         this.toggle = this.toggle.bind(this)
-        this.check_mobile = this.check_mobile.bind(this)
-    }
-    check_mobile() {
-        this.setState({
-            isMobile: isMobile.any || window.innerWidth < 960
-        })
-    }
-    componentDidMount() {
-        this.check_mobile()
-        this.setState({ mobile_determined: true })
-        window.addEventListener('resize', this.check_mobile)
     }
     toggle() {
         this.setState({
@@ -193,117 +205,93 @@ class NavContainer extends React.Component {
     }
     render() {
         let authenticated = !!this.state.id && !!this.state.name
-        if (!this.state.mobile_determined) {
-            return <div style={{backgroundColor:'#0097A7', minHeight: '3.5em'}}></div>
-        } else {
-            return (
-              <div style={{backgroundColor:'#0097A7', minHeight: '3.5em'}}>
-                  <MobileMenubar
-                      current_user={this.props.current_user}
-                      toggle={this.toggle}
-                      isOpen={this.state.isOpen}
-                      logout={this.logout}
-                      authenticated={authenticated}
-                      isMobile={this.state.isMobile} />
-                  <DesktopMenubar
-                      current_user={this.props.current_user}
-                      authenticated={authenticated}
-                      logout={this.logout}
-                      isMobile={this.state.isMobile} />
-              </div>
-            )
-        }
+
+        return (
+          <div className='menubar--wrapper'>
+              <MobileMenubar
+                  current_user={this.props.current_user}
+                  toggle={this.toggle}
+                  isOpen={this.state.isOpen}
+                  logout={this.logout}
+                  authenticated={authenticated} />
+              <DesktopMenubar
+                  current_user={this.props.current_user}
+                  authenticated={authenticated}
+                  logout={this.logout} />
+          </div>
+        )
+
     }
 }
 
-const menu_button_style = {
-    display: 'flex',
-    justifyContent: 'center'
-}
 const MobileMenubar = (props) => {
-    if (props.isMobile) {
-        return (
-          <div>
-              <Navbar style={menu_button_style} toggleable>
-                  <Nav navbar>
-                      <NavItem>
-                          <RaisedButton
-                              label='Menu'
-                              onClick={props.toggle} />
-                      </NavItem>
-                  </Nav>
-              </Navbar>
-              <Drawer open={props.isOpen}>
-                  <RaisedButton
-                      secondary={true}
-                      label='Close (X)'
-                      style={link_style}
-                      onClick={props.toggle} />
-                  <HomeLink isMobile={props.isMobile} />
-                  <UserLink
-                      current_user={props.current_user}
-                      authenticated={props.authenticated}
-                      isMobile={props.isMobile} />
-                  <LoginLink
-                      authenticated={props.authenticated}
-                      isMobile={props.isMobile} />
-                  <LogoutLink
-                      logout={props.logout}
-                      authenticated={props.authenticated}
-                      isMobile={props.isMobile} />
-                  <SignupLink
-                      authenticated={props.authenticated}
-                      isMobile={props.isMobile} />
-                  <ContentLinks
-                      isMobile={props.isMobile} />
-              </Drawer>
-          </div>
-        )
-    } else {
-        return (<span></span>)
-    }
+    return (
+      <div className='menubar--mobile'>
+          <Navbar className='menubar__button--regular' toggleable>
+              <Nav navbar>
+                  <NavItem>
+                      <RaisedButton
+                          label='Menu'
+                          onClick={props.toggle} />
+                  </NavItem>
+              </Nav>
+          </Navbar>
+          <Drawer open={props.isOpen}>
+              <RaisedButton
+                  secondary={true}
+                  label='Close (X)'
+                  className='menubar__button--link'
+                  onClick={props.toggle} />
+              <HomeLinkMobile />
+              <UserLinkMobile
+                  current_user={props.current_user}
+                  authenticated={props.authenticated} />
+              <LoginLinkMobile
+                  authenticated={props.authenticated} />
+              <LogoutLinkMobile
+                  logout={props.logout}
+                  authenticated={props.authenticated} />
+              <SignupLinkMobile
+                  authenticated={props.authenticated} />
+              <ContentLinksMobile />
+          </Drawer>
+      </div>
+    )
 }
+
 const DesktopMenubar = (props) => {
-    if (!props.isMobile) {
-        return (
-            <div>
-                <Navbar toggleable>
-                    <Nav className='ml-auto' navbar>
-                        <NavItem>
-                            <HomeLink />
-                        </NavItem>
-                        <NavItem>
-                            <UserLink
-                                current_user={props.current_user}
-                                authenticated={props.authenticated}
-                                isMobile={props.isMobile}/>
-                        </NavItem>
-                        <NavItem>
-                            <LoginLink
-                                authenticated={props.authenticated}
-                                isMobile={props.isMobile}/>
-                        </NavItem>
-                        <NavItem>
-                            <LogoutLink
-                                logout={props.logout}
-                                authenticated={props.authenticated}
-                                isMobile={props.isMobile}/>
-                        </NavItem>
-                        <NavItem>
-                            <SignupLink
-                                authenticated={props.authenticated}
-                                isMobile={props.isMobile}/>
-                        </NavItem>
-                        <NavItem>
-                            <ContentLinks />
-                        </NavItem>
-                    </Nav>
-                </Navbar>
-            </div>
-        )
-    } else {
-        return (<span></span>)
-    }
+    return (
+        <div className='menubar--desktop'>
+            <Navbar toggleable>
+                <Nav className='ml-auto' navbar>
+                    <NavItem>
+                        <HomeLinkDesktop />
+                    </NavItem>
+                    <NavItem>
+                        <UserLinkDesktop
+                            current_user={props.current_user}
+                            authenticated={props.authenticated} />
+                    </NavItem>
+                    <NavItem>
+                        <LoginLinkDesktop
+                            authenticated={props.authenticated} />
+                    </NavItem>
+                    <NavItem>
+                        <LogoutLinkDesktop
+                            logout={props.logout}
+                            authenticated={props.authenticated} />
+                    </NavItem>
+                    <NavItem>
+                        <SignupLinkDesktop
+                            authenticated={props.authenticated} />
+                    </NavItem>
+                    <NavItem>
+                        <ContentLinksDesktop />
+                    </NavItem>
+                </Nav>
+            </Navbar>
+        </div>
+    )
 }
 
 export default NavContainer

@@ -14,7 +14,10 @@ const create_content_service = (req, res, next, app) => {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
     }
-    if (res.token !== 'false') { headers.Authorization = `token ${res.token}` }
+
+    if (res.token !== 'false' && !!res.token) {
+        headers.Authorization = `token ${res.token}`
+    }
 
     const request = fetch(CONTENT_URL, {
         method: 'POST',
