@@ -1,4 +1,3 @@
-import { list_user_permission } from '../services/permissions.js'
 import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
 import React from 'react'
@@ -74,12 +73,15 @@ class NavContainer extends React.Component {
 
     render() {
         return (
-          <div className='menubar--wrapper'>
+          <Paper style={{
+              backgroundColor: '#0097A7',
+              minHeight: '3.5em' }}
+              className='menubar__wrapper'>
               <MobileMenubar
                   toggle={this.toggle}
                   isOpen={this.state.isOpen} />
               <DesktopMenubar />
-          </div>
+          </Paper>
         )
 
     }
@@ -99,10 +101,10 @@ const MobileMenubar = (props) => {
           </Navbar>
           <Drawer open={props.isOpen}>
               <RaisedButton
-                  secondary={true}
+                  className='menubar__button--link menubar__button--close'
+                  onClick={props.toggle}
                   label='Close (X)'
-                  className='menubar__button--link'
-                  onClick={props.toggle} />
+                  secondary={true} />
               <HomeLinkMobile />
               <ContentLinksMobile />
           </Drawer>
