@@ -26,6 +26,12 @@ def build_structure():
     mkdir('$out/pages')
     mkdir('$out/services')
     mkdir('$out/styles')
+    mkdir('$out/styles/base')
+    mkdir('$out/styles/hacks')
+    mkdir('$out/styles/layout')
+    mkdir('$out/styles/module')
+    mkdir('$out/styles/state')
+    mkdir('$out/styles/vendor')
 
     # Component assets
     f('$out/components/Head.js', 'w', '$assets/components/Head.js')
@@ -118,6 +124,18 @@ def build_structure():
 
     # Style assets
     f('$out/styles/index.scss', 'w', '$assets/styles/index.scss')
+    f('$out/styles/base/_base.scss', 'w', '$assets/styles/base/_base.scss')
+    f('$out/styles/base/_functions.scss', 'w', '$assets/styles/base/_functions.scss')
+    f('$out/styles/base/_mixins.scss', 'w', '$assets/styles/base/_mixins.scss')
+    f('$out/styles/base/_variables.scss', 'w', '$assets/styles/base/_variables.scss')
+    f('$out/styles/hacks/_shame.scss', 'w', '$assets/styles/hacks/_shame.scss')
+    f('$out/styles/layout/_body.scss', 'w', '$assets/styles/layout/_body.scss')
+    f('$out/styles/layout/_header.scss', 'w', '$assets/styles/layout/_header.scss')
+    f('$out/styles/layout/_grid.scss', 'w', '$assets/styles/layout/_grid.scss')
+    f('$out/styles/module/_navigations.scss', 'w', '$assets/styles/module/_navigations.scss')
+    f('$out/styles/module/_forms.scss', 'w', '$assets/styles/module/_forms.scss')
+    f('$out/styles/module/_buttons.scss', 'w', '$assets/styles/module/_buttons.scss')
+    f('$out/styles/state/_state.scss', 'w', '$assets/styles/state/_state.scss')
     wl('Build front end directories and files')
 
     print('Installing node dependencies. This will take a while.')
