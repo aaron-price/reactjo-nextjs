@@ -1,7 +1,36 @@
 @import 'normalize.css';
+$breakpoint: 800px;
 
 .body_middle {
   margin: 2em;
   padding: 2em;
   min-height: 50vh;
+}
+
+.menubar--wrapper {
+  background-color: #0097A7;
+  min-height: 3.5em;
+}
+
+.menubar__button--regular {
+  display: flex;
+  justify-content: center;
+}
+
+.menubar__button--link {
+  margin-right: 15px;
+  min-height: 15px;
+  color: #000000;
+  font-weight: 300;
+}
+
+@media (min-width: $breakpoint) {
+  .menubar--mobile {
+    display: none;
+  }
+}
+@media (max-width: $breakpoint - 1px) {
+  .menubar--desktop {
+    display: none;
+  }
 }
