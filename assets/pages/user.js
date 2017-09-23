@@ -3,8 +3,9 @@ import Link from 'next/link'
 import React from 'react'
 import Header from '../components/Head'
 import { return_current_user } from '../services/current_user.js'
+import { details_user_permission } from '../services/permissions.js'
 
-const fields = []
+const form_fields = ['name', 'email']
 const User = (props) => (
     <Header current_user={props.current_user}>
         <h1>{props.profile.name}</h1>
@@ -26,9 +27,22 @@ User.getInitialProps = async function(context) {
         }
     })
 
-		return {
-        current_user: await return_current_user(context),
-        profile: await profile_blob.json()
+    let current_user = await return_current_user(context)
+    let profile = await profile_blob.json()
+    const has_permission = details_user_permission(current_user, profile)
+
+    if (!has_permission) {
+        if (context.res) {
+            context.res.writeHead(301, {
+            Location: '/users'
+        })
+            context.res.end()
+            context.res.finished = true
+        } else {
+            Router.replace('/users')
+        }
+    } else {
+        return { current_user, profile }
     }
 }
 

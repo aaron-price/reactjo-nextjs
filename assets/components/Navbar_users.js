@@ -16,8 +16,8 @@ const HomeLinkMobile = (props) => {
 const HomeLinkDesktop = (props) => {
     return <RaisedButton
                 className='homelink--desktop menubar__button--link'
-                label="Home"
-                href="/" />
+                label='Home'
+                href='/' />
 }
 
 // User Auth
@@ -207,7 +207,10 @@ class NavContainer extends React.Component {
         let authenticated = !!this.state.id && !!this.state.name
 
         return (
-          <div className='menubar--wrapper'>
+          <Paper style={{
+              backgroundColor: '#0097A7',
+              minHeight: '3.5em' }}
+              className='menubar__wrapper'>
               <MobileMenubar
                   current_user={this.props.current_user}
                   toggle={this.toggle}
@@ -218,9 +221,8 @@ class NavContainer extends React.Component {
                   current_user={this.props.current_user}
                   authenticated={authenticated}
                   logout={this.logout} />
-          </div>
+          </Paper>
         )
-
     }
 }
 
@@ -238,10 +240,10 @@ const MobileMenubar = (props) => {
           </Navbar>
           <Drawer open={props.isOpen}>
               <RaisedButton
-                  secondary={true}
+                  className='menubar__button--link menubar__button--close'
+                  onClick={props.toggle}
                   label='Close (X)'
-                  className='menubar__button--link'
-                  onClick={props.toggle} />
+                  secondary={true} />
               <HomeLinkMobile />
               <UserLinkMobile
                   current_user={props.current_user}
