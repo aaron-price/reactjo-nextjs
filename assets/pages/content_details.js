@@ -89,7 +89,9 @@ class singular_upper extends React.Component {
         let form_fields = {}
         fields.forEach(f => form_fields[f] = this.state.form[f])
         return (
-            <Header current_user={ this.state.current_user }>
+            <Header
+                csrftoken={ this.props.csrftoken } 
+                current_user={ this.state.current_user }>
 
                 <UpdateFormWrapper
                     show_form={ this.state.show_form }
@@ -141,7 +143,8 @@ singular_upper.getInitialProps = async function(context) {
     } else {
         return {
             singular_lower: data,
-            current_user: current_user
+            current_user: current_user,
+            csrftoken: !context.res ? '' : context.res.csrftoken
         }
     }
 }

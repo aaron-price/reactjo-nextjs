@@ -47,7 +47,9 @@ class Login extends React.Component {
     render() {
         const field_styles = { marginLeft: 20 }
         return (
-            <Header current_user={this.state.current_user}>
+            <Header
+                current_user={this.state.current_user}
+                csrftoken={props.csrftoken}>
                 <form method="POST">
                     <TextField
                         floatingLabelText="Name"
@@ -76,7 +78,10 @@ class Login extends React.Component {
 }
 
 Login.getInitialProps = async function(context) {
-    return { current_user: await return_current_user(context) }
+    return {
+        current_user: await return_current_user(context),
+        csrftoken: !context.res ? '' : context.res.csrftoken
+    }
 }
 
 export default Login

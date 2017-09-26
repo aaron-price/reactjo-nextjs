@@ -45,6 +45,7 @@ def build_structure():
         res_current_user = f('$assets/middleware/res_current_user.js', 'r').replace(
             'reactjo', project_name)
         f('$out/middleware/res_current_user.js', 'w', res_current_user)
+        f('$out/middleware/res_csrf.js', 'w', '$assets/middleware/res_csrf.js')
 
     # Misc assets
     f('$out/package.json', 'w', '$assets/package.js')

@@ -13,7 +13,9 @@ const blue = '#2962FF'
 const black = '#000000'
 
 const Users = (props) => (
-    <Header current_user={props.current_user}>
+    <Header
+        csrftoken={props.csrftoken}
+        current_user={props.current_user}>
         <h1>Users</h1>
             <MuiList>
                 {props.users.map((user, key) => {
@@ -61,7 +63,11 @@ Users.getInitialProps = async function(context) {
             }
         })
         const users = await users_blob.json()
-        return { users, current_user }
+        return {
+            users,
+            current_user,
+            csrftoken: !context.res ? '' : context.res.csrftoken
+        }
     }
 }
 export default Users
