@@ -26,6 +26,7 @@ app.prepare().then(() => {
 		server.use(bodyParser.json())
 		server.use(bodyParser.urlencoded({ extended: false }))
 		server.use(expressValidator())
+		server.use(csrf({ cookie: true }))
 		server.use(current_user)
 		server.use(res_csrftoken)
 

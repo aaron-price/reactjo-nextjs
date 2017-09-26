@@ -33,6 +33,8 @@ class Signup extends React.Component {
         form_fields.forEach(f => {
             body_fields[f] = this.state.form[f]
         })
+        ,
+        body_fields._csrf = this.props.csrftoken
         fetch('/signup', {
             method: 'POST',
             credentials: 'include',

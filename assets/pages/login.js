@@ -36,7 +36,8 @@ class Login extends React.Component {
             },
             body: JSON.stringify({
                 name: this.state.form.name,
-                password: this.state.form.password
+                password: this.state.form.password,
+                _csrf: this.props.csrftoken
             })
         })
         .then(data => {
@@ -49,7 +50,7 @@ class Login extends React.Component {
         return (
             <Header
                 current_user={this.state.current_user}
-                csrftoken={props.csrftoken}>
+                csrftoken={this.props.csrftoken}>
                 <form method="POST">
                     <TextField
                         floatingLabelText="Name"
