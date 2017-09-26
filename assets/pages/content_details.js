@@ -35,7 +35,10 @@ class singular_upper extends React.Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ id: this.props.singular_lower.pk })
+            body: JSON.stringify({
+                id: this.props.singular_lower.pk,
+                _csrf: this.props.csrftoken
+            })
         })
         .then(data => {
             Router.push({
@@ -63,7 +66,11 @@ class singular_upper extends React.Component {
     // Take all the data in state.form and update the singular_lower with it.
     submit_form(e) {
         e.preventDefault()
-        let body_fields = { id: this.props.singular_lower.pk, fields }
+        let body_fields = {
+            id: this.props.singular_lower.pk,
+            fields,
+            _csrf: this.props.csrftoken
+        }
         fields.forEach(f => body_fields[f] = this.state.form[f])
 
         fetch('/singular_lower/', {
@@ -90,7 +97,7 @@ class singular_upper extends React.Component {
         fields.forEach(f => form_fields[f] = this.state.form[f])
         return (
             <Header
-                csrftoken={ this.props.csrftoken } 
+                csrftoken={ this.props.csrftoken }
                 current_user={ this.state.current_user }>
 
                 <UpdateFormWrapper

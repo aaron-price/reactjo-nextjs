@@ -43,7 +43,11 @@ class plural_upper extends React.Component {
     // Take all the data in state.form and create a new singular_upper with it.
     submit_form(e) {
         e.preventDefault()
-        let body_fields = { content_type: 'singular_lower', fields }
+        let body_fields = {
+            content_type: 'singular_lower',
+            fields,
+            _csrf: this.props.csrftoken
+        }
         fields.forEach(f => body_fields[f] = this.state.form[f])
 
         fetch('/singular_lower/', {
