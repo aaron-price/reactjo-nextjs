@@ -20,6 +20,7 @@
     "express": "^4.15.4",
     "express-validator": "^4.1.1",
     "glob": "^7.1.2",
+    "helmet": "^3.8.1",
     "ismobilejs": "^0.4.1",
     "isomorphic-fetch": "^2.2.1",
     "isomorphic-unfetch": "^2.0.0",

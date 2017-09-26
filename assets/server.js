@@ -6,13 +6,15 @@ const handle = app.getRequestHandler()
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
 const morgan = require('morgan')
+const helmet = require('helmet')
+
 const { create_content_service } = require('./services/content_create.js')
 const { delete_content_service } = require('./services/content_delete.js')
 const { update_content_service } = require('./services/content_update.js')
 
 app.prepare().then(() => {
 		const server = express()
-
+		server.use(helmet())
 		server.use(bodyParser.json())
 		server.use(bodyParser.urlencoded({ extended: false }))
 		server.use(expressValidator())
