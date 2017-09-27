@@ -31,7 +31,6 @@ class Signup extends React.Component {
         e.preventDefault()
         let body_fields = {
             password: this.state.form.password,
-            _csrf: this.props.csrftoken
         }
         form_fields.forEach(f => {
             body_fields[f] = this.state.form[f]
@@ -55,8 +54,7 @@ class Signup extends React.Component {
         const field_styles = { marginLeft: 20 }
         return (
             <Header
-                current_user={this.state.current_user}
-                csrftoken={this.props.csrftoken}>
+                current_user={this.state.current_user}>
                 <form method="POST">
                     {form_fields.map((title, key) => {
                         const low = title.toLowerCase()
@@ -92,9 +90,8 @@ class Signup extends React.Component {
 
 Signup.getInitialProps = async function(context) {
 		return {
-        current_user: await return_current_user(context),
-        csrftoken: !context.res ? '' : context.res.csrftoken
-    }
+				current_user: await return_current_user(context),
+		}
 }
 
 export default Signup

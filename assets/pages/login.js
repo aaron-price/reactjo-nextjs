@@ -37,7 +37,6 @@ class Login extends React.Component {
             body: JSON.stringify({
                 name: this.state.form.name,
                 password: this.state.form.password,
-                _csrf: this.props.csrftoken
             })
         })
         .then(data => {
@@ -49,8 +48,7 @@ class Login extends React.Component {
         const field_styles = { marginLeft: 20 }
         return (
             <Header
-                current_user={this.state.current_user}
-                csrftoken={this.props.csrftoken}>
+                current_user={this.state.current_user}>
                 <form method="POST">
                     <TextField
                         floatingLabelText="Name"
@@ -81,7 +79,6 @@ class Login extends React.Component {
 Login.getInitialProps = async function(context) {
     return {
         current_user: await return_current_user(context),
-        csrftoken: !context.res ? '' : context.res.csrftoken
     }
 }
 

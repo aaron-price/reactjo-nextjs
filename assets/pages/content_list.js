@@ -46,7 +46,6 @@ class plural_upper extends React.Component {
         let body_fields = {
             content_type: 'singular_lower',
             fields,
-            _csrf: this.props.csrftoken
         }
         fields.forEach(f => body_fields[f] = this.state.form[f])
 
@@ -75,8 +74,7 @@ class plural_upper extends React.Component {
         fields.forEach(f => form_fields[f] = this.state.form[f])
         return (
             <Header
-                current_user={this.props.current_user}
-                csrftoken={this.props.csrftoken}>
+                current_user={this.props.current_user}>
 
             <CreateWrapper
                 current_user={ this.props.current_user }
@@ -124,7 +122,6 @@ plural_upper.getInitialProps = async function(context) {
         return {
             plural_lower: data,
             current_user: await return_current_user(context),
-            csrftoken: !context.res ? '' : context.res.csrftoken
         }
     }
 }
