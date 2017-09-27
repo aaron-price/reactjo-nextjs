@@ -24,13 +24,9 @@ const HomeLinkDesktop = (props) => {
 const UserLinkMobile = props => {
     if (props.authenticated) {
         return (
-            <Link
-                as={`/user/${props.current_user.id}`}
-                href={`/user/?id=${props.current_user.id}`}>
-                <a className='menubar__button--link userlink--mobile'>
+            <MenuItem href={`/user/${props.current_user.id}`}>
                     {props.current_user.name}
-                </a>
-            </Link>
+            </MenuItem>
         )
     } else {
       return <span></span>
