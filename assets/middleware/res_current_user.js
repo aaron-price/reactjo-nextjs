@@ -1,6 +1,6 @@
 // This middleware simply adds a res.current_user object with id and name.
 function current_user(req, res, next) {
-		let src = req.cookies
+		let src = req.signedCookies
 
 		let id 					 = src.reactjo_id ? src.reactjo_id : null
 		let name 				 = src.reactjo_name ? src.reactjo_name : null
