@@ -6,7 +6,6 @@ import { return_current_user } from '../services/current_user.js'
 
 const index = props => (
 		<Header
-		 		 csrftoken={props.csrftoken}
 				 current_user={props.current_user}>
 				<h1>Reactjo Index</h1>
 				<p>To add a new page, go to /frontent/pages/ and add a new file with a react component. You can use index.js as an example template</p>
@@ -19,7 +18,6 @@ const index = props => (
 index.getInitialProps = async function(context) {
 		return {
 				current_user: await return_current_user(context),
-				csrftoken: !context.res ? '' : context.res.csrftoken
 		}
 }
 export default index

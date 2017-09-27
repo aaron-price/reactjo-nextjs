@@ -37,7 +37,6 @@ class singular_upper extends React.Component {
             },
             body: JSON.stringify({
                 id: this.props.singular_lower.pk,
-                _csrf: this.props.csrftoken
             })
         })
         .then(data => {
@@ -69,7 +68,6 @@ class singular_upper extends React.Component {
         let body_fields = {
             id: this.props.singular_lower.pk,
             fields,
-            _csrf: this.props.csrftoken
         }
         fields.forEach(f => body_fields[f] = this.state.form[f])
 
@@ -97,7 +95,6 @@ class singular_upper extends React.Component {
         fields.forEach(f => form_fields[f] = this.state.form[f])
         return (
             <Header
-                csrftoken={ this.props.csrftoken }
                 current_user={ this.state.current_user }>
 
                 <UpdateFormWrapper
@@ -151,7 +148,6 @@ singular_upper.getInitialProps = async function(context) {
         return {
             singular_lower: data,
             current_user: current_user,
-            csrftoken: !context.res ? '' : context.res.csrftoken
         }
     }
 }
