@@ -17,12 +17,12 @@ const login_service = (req, res, next, app) => {
     .then(blob => blob.json())
     .then(data => {
         if(data.token) {
-            res.cookie('reactjo_id', data.id)
-            res.cookie('reactjo_name', data.name)
-            res.cookie('reactjo_token', data.token)
-            res.cookie('reactjo_is_staff', data.is_staff)
-            res.cookie('reactjo_is_superuser', data.is_superuser)
-            res.cookie('reactjo_is_active', data.is_active)
+            res.cookie('reactjo_id', data.id, { maxAge: 86400000, signed: true })
+            res.cookie('reactjo_name', data.name, { maxAge: 86400000, signed: true })
+            res.cookie('reactjo_token', data.token, { maxAge: 86400000, signed: true })
+            res.cookie('reactjo_is_staff', data.is_staff, { maxAge: 86400000, signed: true })
+            res.cookie('reactjo_is_superuser', data.is_superuser,	{ maxAge: 86400000, signed: true })
+            res.cookie('reactjo_is_active', data.is_active, { maxAge: 86400000, signed: true })
             res.current_user = {
                 id: data.id,
                 name: data.name,
