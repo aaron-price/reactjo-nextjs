@@ -7,7 +7,9 @@ import { details_user_permission } from '../services/permissions.js'
 
 const form_fields = ['name', 'email']
 const User = (props) => (
-    <Header current_user={props.current_user}>
+    <Header
+        csrftoken={props.csrftoken}
+        current_user={props.current_user}>
         <h1>{props.profile.name}</h1>
         {form_fields.map((f, key) => {
             return f === 'name'
@@ -42,7 +44,11 @@ User.getInitialProps = async function(context) {
             Router.replace('/users')
         }
     } else {
-        return { current_user, profile }
+        return {
+            current_user,
+            profile,
+            csrftoken: !context.res ? '' : context.res.csrftoken
+        }
     }
 }
 

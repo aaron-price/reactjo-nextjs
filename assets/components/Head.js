@@ -19,7 +19,10 @@ export default (props) => (
             <style dangerouslySetInnerHTML={{ __html: stylesheet }} />
 
             <div className='body'>
-                <Navbar className='body_top' current_user={props.current_user} />
+                <Navbar
+                    className='body_top'
+                    current_user={props.current_user}
+                    csrftoken={props.csrftoken} />
                 <Paper className='body_middle'>
                     {props.children}
                 </Paper>

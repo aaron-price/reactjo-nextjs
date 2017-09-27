@@ -8,10 +8,12 @@ const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
 const morgan = require('morgan')
 const helmet = require('helmet')
+const csrf = require('csurf')
 
+const { current_user } = require('./middleware/res_current_user.js')
+const { res_csrftoken } = require('./middleware/res_csrftoken.js')
 const { login_service } = require('./services/login_service.js')
 const { signup_service } = require('./services/signup_service.js')
-const { current_user } = require('./middleware/res_current_user.js')
 const { create_content_service } = require('./services/content_create.js')
 const { delete_content_service } = require('./services/content_delete.js')
 const { update_content_service } = require('./services/content_update.js')
@@ -24,7 +26,9 @@ app.prepare().then(() => {
 		server.use(bodyParser.json())
 		server.use(bodyParser.urlencoded({ extended: false }))
 		server.use(expressValidator())
+		server.use(csrf({ cookie: true }))
 		server.use(current_user)
+		server.use(res_csrftoken)
 
 		const content_types = [
 				'user',

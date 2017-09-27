@@ -189,9 +189,15 @@ class NavContainer extends React.Component {
         })
     }
     logout() {
+        let body_fields = {_csrf: this.props.csrftoken}
         fetch('/logout', {
             method: 'POST',
-            credentials: 'include'
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body_fields)
         })
         .then(data => {
             this.update_user({

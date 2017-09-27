@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import Header from '../components/Head'
 
 const index = props => (
-		<Header>
+		<Header csrftoken={props.csrftoken}>
 				<h1>Reactjo Index</h1>
 				<p>To add a new page, go to /frontent/pages/ and add a new file with a react component. You can use index.js as an example template</p>
 				<p>To add a menu item, Open /frontend/components/Navbar.js</p>
@@ -13,4 +13,7 @@ const index = props => (
 		</Header>
 )
 
+index.getInitialProps = async function(context) {
+		return { csrftoken: !context.res ? '' : context.res.csrftoken }
+}
 export default index
