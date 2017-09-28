@@ -5,8 +5,9 @@ import random
 from helpers.path_manager import mkdir
 from helpers.file_manager import file_manager as f
 from helpers.worklist import worklist as wl
-from helpers.config_manager import get_cfg
+from helpers.config_manager import get_cfg, set_cfg
 from helpers.compose import quote
+from helpers.ui import string_input
 
 def id_generator():
     signature = ''.join(random.choice(string.hexdigits) for _ in range(32))
@@ -15,6 +16,10 @@ def id_generator():
 def build_structure():
     prev_path = os.getcwd()
     cfg = get_cfg()
+
+    frontend_name = string_input('Name the frontend Node.js app', 'frontend')
+    cfg['frontend_name'] = frontend_name
+    set_cfg(cfg)
     users = cfg['need_users'] == 'True'
     project_name = cfg['project_name']
 

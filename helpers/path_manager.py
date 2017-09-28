@@ -1,9 +1,10 @@
 from helpers.config_manager import get_cfg, set_cfg
-from helpers.extension_constants import OUTPUT_HOME, RC_HOME
+from helpers.extension_constants import RC_HOME
 import os
 
 def parse_shortcuts(path):
     cfg = get_cfg()
+    OUTPUT_HOME = cfg['frontend_name']
     su_path = cfg['paths']['super_root']
     prj_path = cfg['paths']['project_root']
     out_path = os.path.join(prj_path, OUTPUT_HOME)
