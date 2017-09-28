@@ -5,7 +5,7 @@ import random
 from helpers.path_manager import mkdir
 from helpers.file_manager import file_manager as f
 from helpers.worklist import worklist as wl
-from helpers.config_manager import get_cfg
+from helpers.config_manager import get_cfg, set_cfg
 from helpers.compose import quote
 from helpers.ui import string_input
 
