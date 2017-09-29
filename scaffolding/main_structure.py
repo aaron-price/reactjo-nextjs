@@ -56,6 +56,7 @@ def build_structure():
     f('$out/.babelrc', 'w', '$assets/babel.js')
     f('$out/next.config.js', 'w', '$assets/next.config.js')
     f('$out/postcss.config.js', 'w', '$assets/postcss.config.js')
+    f('$out/app.json', 'w', '$assets/app.js')
 
     if users:
         server_string = f('$assets/server_users.js', 'r')
