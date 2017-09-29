@@ -1,3 +1,5 @@
+const { get_cookie } = require('../services/get_cookie.js')
+
 function get_uri(context = false) {
     if(!!process.env.FRONTEND_URI && !!context) {
         context.res.cookie('FRONTEND_URI', process.env.FRONTEND_URI, { signed: true })
