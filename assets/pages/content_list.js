@@ -62,10 +62,10 @@ class plural_upper extends React.Component {
         .then(blob => blob.json())
         .then(data => {
             // If successful, redirect to the newly created details page
-            Router.push({
+            Router.push(
                 `/singular_lower?id=${data.pk}`,
                 `/singular_lower/${data.pk}`
-            })
+            )
         })
         .catch(e => console.error(e))
     }

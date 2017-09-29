@@ -1,6 +1,7 @@
 from textwrap import dedent
 from helpers.ui import paint
 from helpers.file_manager import file_manager as f
+from helpers.config_manager import get_cfg
 
 def production():
     print(' ')
@@ -34,4 +35,4 @@ def production():
             > git commit -m "Update CORS WHITELIST"
             > git push heroku master
 
-    """.format(f('$out', '$'), backend_path)), 'yellow'))
+    """.format(f('$out', '$'))), 'yellow'))
