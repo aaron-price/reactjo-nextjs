@@ -1,8 +1,9 @@
 const fetch = require('isomorphic-unfetch')
+const { get_uri } = require('../services/get_uri.js')
 
 const create_content_service = (req, res, next, app) => {
     const content_type = req.body.content_type
-    const CONTENT_URL = `http://localhost:8000/api/${content_type}/`
+    const CONTENT_URL = `${get_uri({res}).backend}/api/${content_type}/`
 
     // Body
     let fields = {}

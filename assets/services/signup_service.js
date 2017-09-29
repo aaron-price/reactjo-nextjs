@@ -1,8 +1,9 @@
 const fetch = require('isomorphic-unfetch')
 const { login_service } = require('./login_service.js')
+const { get_uri } = require('../services/get_uri.js')
 
 const signup_service = (req, res, next, app) => {
-    const SIGNUP_URL = 'http://localhost:8000/api/profile/'
+    const SIGNUP_URL = `${get_uri({res}).backend}/api/profile/`
     let fields = []
     let body_fields = { password: req.body.password }
     fields.forEach(f => {

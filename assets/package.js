@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node server.js"
+    "dev": "node server.js -p $PORT",
+    "build": "next build",
+    "heroku-postbuild": "next build",
+    "start": "node server.js -p $PORT"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +19,7 @@
     "body-parser": "^1.17.2",
     "bootstrap": "^4.0.0-beta",
     "cookie-parser": "^1.4.3",
+    "dotenv": "^4.0.0",
     "express": "^4.15.4",
     "express-validator": "^4.1.1",
     "glob": "^7.1.2",

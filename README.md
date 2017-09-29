@@ -22,3 +22,10 @@ reactjo content
 ```
 Creates list page, details page, create form, update form, and delete button for
 a given model.
+
+```bash
+reactjo p
+// or
+reactjo production
+```
+Gives you step-by-step instructions for deploying the app to heroku.

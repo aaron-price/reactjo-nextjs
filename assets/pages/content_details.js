@@ -7,6 +7,7 @@ const details_singular_lower_permission = require('../services/permissions.js').
 import { UpdateFormWrapper } from '../components/plural_lower/Update.js'
 import { DeleteButton } from '../components/plural_lower/Delete.js'
 import { Details } from '../components/plural_lower/Details.js'
+import { get_uri } from '../services/get_uri.js'
 const fields = []
 
 class singular_upper extends React.Component {
@@ -40,10 +41,7 @@ class singular_upper extends React.Component {
             })
         })
         .then(data => {
-            Router.push({
-                pathname: '/plural_lower/',
-                as: `/plural_lower/`
-            })
+            Router.push('/plural_lower/')
         })
         .catch(e => console.error(e))
     }
@@ -82,11 +80,10 @@ class singular_upper extends React.Component {
         })
         .then(blob => blob.json())
         .then(data => {
-            Router.push({
-                pathname: '/singular_lower',
-                query: { id: data.pk },
-                as: `/singular_lower/${data.pk}`
-            })
+            Router.push(
+                `/singular_lower?id=${data.pk}`,
+                `/singular_lower/${data.pk}`
+            )
         })
         .catch(e => console.error(e))
     }
@@ -123,7 +120,7 @@ class singular_upper extends React.Component {
 // Gets the current user, the singular_lower, and checks permission
 singular_upper.getInitialProps = async function(context) {
     const { id } = context.query
-    const res = await fetch(`http://localhost:8000/api/singular_lower/${id}`, {
+    const res = await fetch(`${get_uri(context).backend}/api/singular_lower/${id}`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',

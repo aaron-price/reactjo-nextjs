@@ -49,7 +49,7 @@ const UpdateForm = (props) => (
             method="PUT">
 
             { props.all_fields.map((f, key) => {
-                if (f === 'owner') { return <span></span> }
+                if (f === 'owner') { return <span key={key}></span> }
                 return (
                     <div key={key}>
                         <label id={f} htmlFor={f}>{capitalize(f)}: &nbsp; </label>

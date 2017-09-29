@@ -8,6 +8,7 @@ import {
     list_user_permission,
     details_user_permission
 } from '../services/permissions.js'
+import { get_uri } from '../services/get_uri.js'
 
 const blue = '#2962FF'
 const black = '#000000'
@@ -54,7 +55,7 @@ Users.getInitialProps = async function(context) {
             Router.replace('/')
         }
     } else {
-        const users_blob = await fetch('http://localhost:8000/api/profile/', {
+        const users_blob = await fetch(`${get_uri(context).backend}/api/profile/`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

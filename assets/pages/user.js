@@ -4,6 +4,7 @@ import React from 'react'
 import Header from '../components/Head'
 import { return_current_user } from '../services/current_user.js'
 import { details_user_permission } from '../services/permissions.js'
+import { get_uri } from '../services/get_uri.js'
 
 const form_fields = ['name', 'email']
 const User = (props) => (
@@ -20,7 +21,7 @@ const User = (props) => (
 
 User.getInitialProps = async function(context) {
     const { id } = context.query
-    const profile_blob = await fetch(`http://localhost:8000/api/profile/${id}`, {
+    const profile_blob = await fetch(`${get_uri(context).backend}/api/profile/${id}`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',

@@ -1,7 +1,8 @@
 const fetch = require('isomorphic-unfetch')
+const { get_uri } = require('../services/get_uri.js')
 
 const login_service = (req, res, next, app) => {
-    const LOGIN_URL = 'http://localhost:8000/api/login/'
+    const LOGIN_URL = `${get_uri({res}).backend}/api/login/`
 
     const request = fetch(LOGIN_URL, {
         method: 'POST',
