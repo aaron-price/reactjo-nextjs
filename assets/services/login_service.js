@@ -1,5 +1,5 @@
 const fetch = require('isomorphic-unfetch')
-import { get_uri } from '../services/get_uri.js'
+const { get_uri } = require('../services/get_uri.js')
 
 const login_service = (req, res, next, app) => {
     const LOGIN_URL = `${get_uri({res}).backend}/api/login/`

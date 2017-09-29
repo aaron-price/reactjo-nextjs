@@ -1,5 +1,5 @@
 const fetch = require('isomorphic-unfetch')
-import { get_uri } from '../services/get_uri.js'
+const { get_uri } = require('../services/get_uri.js')
 
 const create_content_service = (req, res, next, app) => {
     const content_type = req.body.content_type

@@ -1,4 +1,4 @@
-const get_cookie = require('./get_cookie.js').get_cookie
+const { get_uri } = require('../services/get_uri.js')
 
 function get_uri(context = false) {
     if(!!process.env.FRONTEND_URI && !!context) {
