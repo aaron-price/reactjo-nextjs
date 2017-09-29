@@ -55,6 +55,7 @@ def build_structure():
     # Misc assets
     f('$out/.env', 'w', '$assets/env.txt')
     f('$out/.babelrc', 'w', '$assets/babel.js')
+    f('$out/.gitignore', 'w', '$assets/gitignore.txt')
     f('$out/app.json', 'w', '$assets/app.js')
     f('$out/next.config.js', 'w', '$assets/next.config.js')
     f('$out/package.json', 'w', '$assets/package.js')

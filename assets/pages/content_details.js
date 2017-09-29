@@ -41,10 +41,7 @@ class singular_upper extends React.Component {
             })
         })
         .then(data => {
-            Router.push({
-                pathname: '/plural_lower/',
-                as: `/plural_lower/`
-            })
+            Router.push('/plural_lower/')
         })
         .catch(e => console.error(e))
     }
@@ -83,11 +80,10 @@ class singular_upper extends React.Component {
         })
         .then(blob => blob.json())
         .then(data => {
-            Router.push({
-                pathname: '/singular_lower',
-                query: { id: data.pk },
-                as: `/singular_lower/${data.pk}`
-            })
+            Router.push(
+                `/singular_lower?id=${data.pk}`,
+                `/singular_lower/${data.pk}`
+            )
         })
         .catch(e => console.error(e))
     }
