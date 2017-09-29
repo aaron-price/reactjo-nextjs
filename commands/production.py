@@ -23,6 +23,7 @@ def production():
         8. > heroku config:set BACKEND_URI=https://the-backend-url-from-earlier.herokuapp.com
 
         9. > Add the frontend uri to the backend app's CORS whitelist.
-            In the default django backend, this is at the bottom of settings/production.py
+            In the default django backend, this is at the bottom of settings/production.py.
+            Just uncomment it and replace the URI with your own. Keep the trailing comma.
 
     """.format(f('$out', '$'))), 'yellow'))

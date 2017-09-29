@@ -3,7 +3,7 @@ const { login_service } = require('./login_service.js')
 import { get_uri } from '../services/get_uri.js'
 
 const signup_service = (req, res, next, app) => {
-    const SIGNUP_URL = `${get_uri().backend}/api/profile/`
+    const SIGNUP_URL = `${get_uri({res}).backend}/api/profile/`
     let fields = []
     let body_fields = { password: req.body.password }
     fields.forEach(f => {
