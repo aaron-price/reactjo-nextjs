@@ -6,6 +6,7 @@ import Router from 'next/router'
 import { List } from '../components/plural_lower/List.js'
 import { CreateWrapper } from '../components/plural_lower/Create.js'
 import { list_singular_lower_permission } from '../services/permissions.js'
+import { get_uri } from '../services/get_uri.js'
 
 const fields = []
 
@@ -96,7 +97,7 @@ class plural_upper extends React.Component {
 
 // Gets the current user, list of plural_lower, and checks permission
 plural_upper.getInitialProps = async function(context) {
-    const res = await fetch('http://localhost:8000/api/singular_lower/', {
+    const res = await fetch(`${get_uri(context).backend}/api/singular_lower/`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',

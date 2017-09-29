@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const next = require('next')
 const dev = process.env.NODE_ENV !== 'production'
@@ -9,6 +10,7 @@ const expressValidator = require('express-validator')
 const morgan = require('morgan')
 const helmet = require('helmet')
 
+const { set_uri } = require('./middleware/set_uri.js')
 const { create_content_service } = require('./services/content_create.js')
 const { delete_content_service } = require('./services/content_delete.js')
 const { update_content_service } = require('./services/content_update.js')
@@ -19,6 +21,7 @@ app.prepare().then(() => {
 		server.use(bodyParser.urlencoded({ extended: false }))
 		server.use(helmet())
 		server.use(expressValidator())
+		server.use(set_uri)
 
 		const content_types = []
 		content_types.map(type => {

@@ -1,7 +1,8 @@
 const fetch = require('isomorphic-unfetch')
+import { get_uri } from '../services/get_uri.js'
 
 const delete_content_service = (req, res, app, content_type) => {
-    const CONTENT_URL = `http://localhost:8000/api/${content_type}/${req.body.id}`
+    const CONTENT_URL = `${get_uri().backend}/api/${content_type}/${req.body.id}`
 
     // Head
     let headers = {

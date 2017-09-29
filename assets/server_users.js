@@ -1,3 +1,4 @@
+require('dotenv').config()
 const cookieParser = require('cookie-parser')
 const express = require('express')
 const next = require('next')
@@ -10,6 +11,7 @@ const expressValidator = require('express-validator')
 const morgan = require('morgan')
 const helmet = require('helmet')
 
+const { set_uri } = require('./middleware/set_uri.js')
 const { current_user } = require('./middleware/res_current_user.js')
 const { login_service } = require('./services/login_service.js')
 const { signup_service } = require('./services/signup_service.js')
@@ -25,6 +27,7 @@ app.prepare().then(() => {
 		server.use(bodyParser.json())
 		server.use(bodyParser.urlencoded({ extended: false }))
 		server.use(expressValidator())
+		server.use(set_uri)
 		server.use(current_user)
 
 		const content_types = [

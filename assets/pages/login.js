@@ -6,6 +6,7 @@ import Router from 'next/router'
 import fetch from 'isomorphic-unfetch'
 import Divider from "material-ui/Divider"
 import TextField from "material-ui/TextField"
+import { get_uri } from '../services/get_uri.js'
 
 class Login extends React.Component {
     constructor(props) {

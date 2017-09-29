@@ -46,17 +46,21 @@ def build_structure():
         f('$out/components/Navbar.js', 'w', '$assets/components/Navbar.js')
 
     # Middleware
+    f('$out/middleware/set_uri.js', 'w', '$assets/middleware/set_uri.js')
     if users:
         res_current_user = f('$assets/middleware/res_current_user.js', 'r').replace(
             'reactjo', project_name)
         f('$out/middleware/res_current_user.js', 'w', res_current_user)
 
     # Misc assets
-    f('$out/package.json', 'w', '$assets/package.js')
+    f('$out/.env', 'w', '$assets/env.txt')
     f('$out/.babelrc', 'w', '$assets/babel.js')
-    f('$out/next.config.js', 'w', '$assets/next.config.js')
-    f('$out/postcss.config.js', 'w', '$assets/postcss.config.js')
     f('$out/app.json', 'w', '$assets/app.js')
+    f('$out/next.config.js', 'w', '$assets/next.config.js')
+    f('$out/package.json', 'w', '$assets/package.js')
+    f('$out/postcss.config.js', 'w', '$assets/postcss.config.js')
+
+
 
     if users:
         server_string = f('$assets/server_users.js', 'r')
@@ -100,6 +104,8 @@ def build_structure():
     f('$out/services/content_update.js', 'w', '$assets/services/content_update.js')
     f('$out/services/content_delete.js', 'w', '$assets/services/content_delete.js')
     f('$out/services/permissions.js', 'w', '$assets/services/permissions.js')
+    f('$out/services/get_cookie.js', 'w', '$assets/services/get_cookie.js')
+    f('$out/services/get_uri.js', 'w', '$assets/services/get_uri.js')
 
     if users:
         # Vars
