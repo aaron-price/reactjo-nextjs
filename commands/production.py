@@ -1,7 +1,6 @@
 from textwrap import dedent
 from helpers.ui import paint
 from helpers.file_manager import file_manager as f
-from helpers.config_manager import get_cfg
 
 def production():
     print(' ')
@@ -29,7 +28,9 @@ def production():
             In the default django backend, this is at the bottom of settings/production.py.
             Just uncomment it and replace the URI with your own. Keep the trailing comma.
 
-        10. Redeploy the backend.
+        10. > git push heroku master
+
+        11. Redeploy the backend.
             > cd path/to/backend
             > git add -A
             > git commit -m "Update CORS WHITELIST"
