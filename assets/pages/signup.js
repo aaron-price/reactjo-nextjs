@@ -55,34 +55,10 @@ class Signup extends React.Component {
         return (
             <Header
                 current_user={this.state.current_user}>
-                <form method="POST">
-                    {form_fields.map((title, key) => {
-                        const low = title.toLowerCase()
-                        return (
-                            <div key={key}>
-                                <TextField
-                                    floatingLabelText={title}
-                                    floatingLabelFixed={true}
-                                    style={field_styles}
-                                    onChange={e => this.update_form(low, e)}/>
-                                <Divider /><br />
-                            </div>
-                        )
-                    })}
-
-                    <TextField
-                        floatingLabelText="Password"
-                        floatingLabelFixed={true}
-                        style={field_styles}
-                        type='password'
-                        onChange={e => this.update_form('password', e)}/>
-                    <Divider /><br /><br />
-
-                    <RaisedButton
-                        type="submit"
-                        label="Signup"
-                        onClick={this.submit_form} /><br/><br/>
-                </form>
+                <Signup
+                    update_form={this.update_form}
+                    submit_form={this.submit_form}
+                    form_fields={form_fields} />
             </Header>
         )
     }

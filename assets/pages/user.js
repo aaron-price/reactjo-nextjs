@@ -8,6 +8,10 @@ import Update from '../components/users/Update'
 import { return_current_user } from '../services/current_user.js'
 import { details_user_permission } from '../services/permissions.js'
 import { get_uri } from '../services/get_uri.js'
+import {
+    details_user_permission,
+    update_user_permission,
+    delete_user_permission } from '../../services/permissions.js'
 
 const fields = ['name', 'email']
 class User extends React.Component {
@@ -82,13 +86,22 @@ class User extends React.Component {
         return (
             <Header current_user={this.props.current_user}>
                 <Details form_fields={form_fields} profile={this.props.profile}/>
-                <Update
-                    current_user={this.props.current_user}
-                    form_fields={form_fields}
-                    all_fields={fields}
-                    show_form={this.state.show_form}
-                    show_hide_form={this.show_hide_form}
-                    profile={this.props.profile} />
+                {
+                    this.props.permission.update && (
+                        <Update
+                            current_user={this.props.current_user}
+                            form_fields={form_fields}
+                            all_fields={fields}
+                            show_form={this.state.show_form}
+                            show_hide_form={this.show_hide_form}
+                            profile={this.props.profile} />
+                    )
+                }
+                {
+                    this.props.permission.delete && (
+                        <Delete delete_item={this.delete_item} />
+                    )
+                }
             </Header>
         )
     }
@@ -104,11 +117,15 @@ User.getInitialProps = async function(context) {
         }
     })
 
-    let current_user = await return_current_user(context)
-    let profile = await profile_blob.json()
-    const has_permission = details_user_permission(current_user, profile)
+    const current_user = await return_current_user(context)
+    const profile = await profile_blob.json()
+    const permission = {
+        details: details_user_permission(current_user, { owner: profile.id }),
+        update: update_user_permission(current_user, { owner: profile.id }),
+        delete: delete_user_permission(current_user, { owner: profile.id }),
+    }
 
-    if (!has_permission) {
+    if (!permission.details) {
         if (context.res) {
             context.res.writeHead(301, {
             Location: '/users'
@@ -122,6 +139,7 @@ User.getInitialProps = async function(context) {
         return {
             current_user,
             profile,
+            permissions,
         }
     }
 }

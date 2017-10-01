@@ -1,4 +1,5 @@
 import Header from '../components/Head'
+import Login from '../components/users/Login'
 import { return_current_user } from '../services/current_user.js'
 import React from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -48,30 +49,10 @@ class Login extends React.Component {
     render() {
         const field_styles = { marginLeft: 20 }
         return (
-            <Header
-                current_user={this.state.current_user}>
-                <form method="POST">
-                    <TextField
-                        floatingLabelText="Name"
-                        floatingLabelFixed={true}
-                        style={field_styles}
-                        onChange={e => this.update_form('name', e)}/>
-                    <Divider />
-
-                    <TextField
-                        hintText="Password"
-                        floatingLabelText="Password"
-                        floatingLabelFixed={true}
-                        style={field_styles}
-                        type='password'
-                        onChange={e => this.update_form('password', e)}/>
-                    <Divider /><br/>
-
-                    <RaisedButton
-                        type="submit"
-                        label="Login"
-                        onClick={this.submit_form} /><br/><br/>
-                </form>
+            <Header current_user={this.state.current_user}>
+                <Login
+                    update_form={this.update_form}
+                    submit_form={submit_form} />
             </Header>
         )
     }

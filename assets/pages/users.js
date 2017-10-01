@@ -1,42 +1,17 @@
 import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
 import Header from '../components/Head'
-import { Button } from 'reactstrap'
+import List from '../components/users/List'
 import { return_current_user } from '../services/current_user.js'
-import { List as MuiList, ListItem as MuiListItem } from 'material-ui/List'
-import {
-    list_user_permission,
-    details_user_permission
-} from '../services/permissions.js'
 import { get_uri } from '../services/get_uri.js'
-
-const blue = '#2962FF'
-const black = '#000000'
 
 const Users = (props) => (
     <Header
         current_user={props.current_user}>
         <h1>Users</h1>
-            <MuiList>
-                {props.users.map((user, key) => {
-                    if (details_user_permission(props.current_user)) {
-                        return (
-                            <MuiListItem key={key}
-                                style={{color: blue}}
-                                insetChildren={true}
-                                primaryText={user.name}
-                                href={`/user/${user.id}`} />
-                        )
-                    } else {
-                        return (
-                            <MuiListItem key={key}
-                                style={{color: black}}
-                                insetChildren={true}
-                                primaryText={user.name} />
-                        )
-                    }
-                })}
-            </MuiList>
+            <List
+                current_user={this.props.current_user}
+                plural_lower={this.props.plural_lower} />
     </Header>
 )
 
