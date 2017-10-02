@@ -81,7 +81,6 @@ class User extends React.Component {
         })
         .then(blob => blob.json())
         .then(data => {
-            console.log('Date me', data)
             Router.push(
                 `/user?id=${data.id}`,
                 `/user/${data.id}`
