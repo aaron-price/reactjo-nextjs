@@ -26,6 +26,7 @@ def build_structure():
     # directories
     mkdir('$out')
     mkdir('$out/components')
+    mkdir('$out/components/users')
     if users:
         mkdir('$out/middleware')
     mkdir('$out/pages')
@@ -90,11 +91,20 @@ def build_structure():
         user_page = f('$assets/pages/user.js', 'r').replace(
             'const fields = []', form_fields)
 
+        # User Pages
         f('$out/pages/login.js', 'w', '$assets/pages/login.js')
         f('$out/pages/signup.js', 'w', signup_page)
         f('$out/pages/user.js', 'w', user_page)
         f('$out/pages/users.js', 'w', '$assets/pages/users.js')
         f('$out/pages/index.js', 'w', '$assets/pages/index_users.js')
+
+        # User Components
+        f('$out/components/users/Delete.js', 'w', '$assets/components/users/Delete.js')
+        f('$out/components/users/Details.js', 'w', '$assets/components/users/Details.js')
+        f('$out/components/users/List.js', 'w', '$assets/components/users/List.js')
+        f('$out/components/users/Login.js', 'w', '$assets/components/users/Login.js')
+        f('$out/components/users/Signup.js', 'w', '$assets/components/users/Signup.js')
+        f('$out/components/users/Update.js', 'w', '$assets/components/users/Update.js')
     else:
         f('$out/pages/index.js', 'w', '$assets/pages/index.js')
 
