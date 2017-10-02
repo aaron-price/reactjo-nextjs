@@ -4,16 +4,16 @@ import React from 'react'
 import Header from '../components/Head'
 import Details from '../components/users/Details'
 import Update from '../components/users/Update'
+import Delete from '../components/users/Delete'
 
 import { return_current_user } from '../services/current_user.js'
-import { details_user_permission } from '../services/permissions.js'
 import { get_uri } from '../services/get_uri.js'
 import {
     details_user_permission,
     update_user_permission,
-    delete_user_permission } from '../../services/permissions.js'
+    delete_user_permission } from '../services/permissions.js'
 
-const fields = ['name', 'email']
+const fields = ['name', 'email', 'password']
 class User extends React.Component {
     constructor(props) {
         super(props)
@@ -27,6 +27,13 @@ class User extends React.Component {
         this.show_hide_form = this.show_hide_form.bind(this)
         this.submit_form = this.submit_form.bind(this)
         this.delete_item = this.delete_item.bind(this)
+        this.update_form = this.update_form.bind(this)
+    }
+    // Fires on every keystroke in the 'Update' form, updating the state.
+    update_form(field, value) {
+        let entry = this.state.form
+        entry[field] = value.target.value
+        this.setState({ form: entry })
     }
     delete_item(e) {
         e.preventDefault()
@@ -56,7 +63,7 @@ class User extends React.Component {
     submit_form(e) {
         e.preventDefault()
         let body_fields = {
-            id: this.props.profile.pk,
+            id: this.props.profile.id,
             fields,
         }
         fields.forEach(f => body_fields[f] = this.state.form[f])
@@ -85,23 +92,25 @@ class User extends React.Component {
         fields.forEach(f => form_fields[f] = this.state.form[f])
         return (
             <Header current_user={this.props.current_user}>
-                <Details form_fields={form_fields} profile={this.props.profile}/>
-                {
-                    this.props.permission.update && (
-                        <Update
-                            current_user={this.props.current_user}
-                            form_fields={form_fields}
-                            all_fields={fields}
-                            show_form={this.state.show_form}
-                            show_hide_form={this.show_hide_form}
-                            profile={this.props.profile} />
-                    )
-                }
-                {
-                    this.props.permission.delete && (
-                        <Delete delete_item={this.delete_item} />
-                    )
-                }
+            <Details form_fields={form_fields} profile={this.props.profile}/>
+            <span>{
+                this.props.permission.update && (
+                    <Update
+                        current_user={this.props.current_user}
+                        update_form={this.update_form}
+                        submit_form={this.submit_form}
+                        form_fields={form_fields}
+                        all_fields={fields}
+                        show_form={this.state.show_form}
+                        show_hide_form={this.show_hide_form}
+                        profile={this.props.profile} />
+                )
+            }</span>
+            <span>{
+                this.props.permission.delete && (
+                    <Delete delete_item={this.delete_item} />
+                )
+            }</span>
             </Header>
         )
     }
@@ -139,7 +148,7 @@ User.getInitialProps = async function(context) {
         return {
             current_user,
             profile,
-            permissions,
+            permission,
         }
     }
 }

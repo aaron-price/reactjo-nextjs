@@ -23,7 +23,7 @@ const List = (props) => {
 const ListItem = (props) => {
     const blue = '#2962FF'
     const black = '#000000'
-    if (details_user_permission(props.current_user, {owner: props.user.id)) {
+    if (details_user_permission(props.current_user, {owner: props.user.id})) {
         return (
             <MuiListItem
                 style={{color: blue}}

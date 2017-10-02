@@ -1,15 +1,13 @@
 import FlatButton from 'material-ui/FlatButton'
 
-const DeleteButton = (props) => {
+export default (props) => {
     return (
         <div>
             <FlatButton
-               label="Delete singular_upper"
+               label="Delete user"
                secondary={true}
                onClick={(e) => props.delete_item(e)} />
             <br />
         </div>
     )
 }
-
-module.exports = { DeleteButton }

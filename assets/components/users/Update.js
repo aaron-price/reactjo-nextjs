@@ -47,12 +47,13 @@ const UpdateForm = (props) => (
 
             { props.all_fields.map((f, key) => {
                 if (f === 'owner') { return <span key={key}></span> }
+                const type = f === 'password' ? 'password' : 'text'
                 return (
                     <div key={key}>
                         <label id={f} htmlFor={f}>{capitalize(f)}: &nbsp; </label>
                         <input
                             onChange={(e) => props.update_form(f, e)}
-                            type="text"
+                            type={type}
                             name={f}
                             value={props.form_fields[f]}
                             required>

@@ -4,14 +4,16 @@ import Header from '../components/Head'
 import List from '../components/users/List'
 import { return_current_user } from '../services/current_user.js'
 import { get_uri } from '../services/get_uri.js'
+import {
+    details_user_permission,
+    list_user_permission } from '../../services/permissions.js'
 
 const Users = (props) => (
-    <Header
-        current_user={props.current_user}>
+    <Header current_user={props.current_user}>
         <h1>Users</h1>
-            <List
-                current_user={this.props.current_user}
-                plural_lower={this.props.plural_lower} />
+        <List
+            current_user={props.current_user}
+            users={props.users} />
     </Header>
 )
 
