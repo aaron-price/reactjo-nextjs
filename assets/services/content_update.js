@@ -2,7 +2,7 @@ const fetch = require('isomorphic-unfetch')
 const { get_uri } = require('../services/get_uri.js')
 
 const update_content_service = (req, res, app, content_type) => {
-    const type = content_type === 'user' ? 'profile' : content_type
+    const type = content_type === 'profile' ? 'user' : content_type
     const CONTENT_URL = `${get_uri({res}).backend}/api/${type}/${req.body.id}/`
 
     // Body
