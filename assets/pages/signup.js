@@ -1,5 +1,3 @@
-import Header from '../components/Head'
-import { return_current_user } from '../services/current_user.js'
 import React from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 import Router from 'next/router'
@@ -7,7 +5,12 @@ import fetch from 'isomorphic-unfetch'
 import TextField from "material-ui/TextField"
 import Divider from "material-ui/Divider"
 
+import Signup from '../components/users/Signup'
+import Header from '../components/Head'
+import { return_current_user } from '../services/current_user.js'
+
 const form_fields = []
+
 class SignupPage extends React.Component {
     constructor(props) {
         super(props)

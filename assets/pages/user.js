@@ -1,6 +1,8 @@
 import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
 import React from 'react'
+import Router from 'next/router'
+
 import Header from '../components/Head'
 import Details from '../components/users/Details'
 import Update from '../components/users/Update'
@@ -79,9 +81,10 @@ class User extends React.Component {
         })
         .then(blob => blob.json())
         .then(data => {
+            console.log('Date me', data)
             Router.push(
-                `/user?id=${data.pk}`,
-                `/user/${data.pk}`
+                `/user?id=${data.id}`,
+                `/user/${data.id}`
             )
         })
         .catch(e => console.error(e))

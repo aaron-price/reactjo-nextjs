@@ -6,7 +6,7 @@ import { return_current_user } from '../services/current_user.js'
 import { get_uri } from '../services/get_uri.js'
 import {
     details_user_permission,
-    list_user_permission } from '../../services/permissions.js'
+    list_user_permission } from '../services/permissions.js'
 
 const Users = (props) => (
     <Header current_user={props.current_user}>
