@@ -82,9 +82,9 @@ def build_structure():
         user_fields = cfg['current_scaffold']['model']['fields']
         user_titles = [field['title'] for field in user_fields]
         fields_arr = [quote(title) for title in user_titles]
-        fields_arr.append('password')
+        fields_arr.append(quote('password'))
         form_fields = ', '.join(fields_arr)
-        form_fields = 'const form_fields = ['+ form_fields +']'
+        form_fields = 'const fields = ['+ form_fields +']'
         fields = 'const fields = ['+ form_fields +']'
 
         signup_page = f('$assets/pages/signup.js', 'r').replace(
@@ -134,6 +134,11 @@ def build_structure():
         login_service = f('$assets/services/login_service.js', 'r').replace(
             'reactjo', project_name)
         f('$out/services/login_service.js', 'w', login_service)
+
+        # Logout
+        logout_service = f('$assets/services/logout_service.js', 'r').replace(
+            'reactjo', project_name)
+        f('$out/services/logout_service.js', 'w', logout_service)
 
         # Signup
         signup_service = f('$assets/services/signup_service.js', 'r').replace(

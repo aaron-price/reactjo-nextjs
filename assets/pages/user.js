@@ -49,11 +49,11 @@ class User extends React.Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                id: this.props.post.pk,
+                id: this.props.profile.id,
             })
         })
         .then(data => {
-            Router.push('/users/')
+            Router.push('/')
         })
         .catch(e => console.error(e))
     }

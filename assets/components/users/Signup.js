@@ -8,25 +8,27 @@ export default (props) => (
     <form method="POST">
         {props.form_fields.map((title, key) => {
             const low = title.toLowerCase()
-            return (
+            return low !== 'password' ? (
                 <div key={key}>
                     <TextField
                         floatingLabelText={title}
                         floatingLabelFixed={true}
                         style={field_styles}
                         onChange={e => props.update_form(low, e)}/>
-                    <Divider /><br />
+                    <Divider /><br /><br />
+                </div>
+            ) : (
+                <div key={key}>
+                    <TextField
+                        floatingLabelText="password"
+                        floatingLabelFixed={true}
+                        style={field_styles}
+                        type='password'
+                        onChange={e => props.update_form('password', e)}/>
+                    <Divider /><br /><br />
                 </div>
             )
         })}
-
-        <TextField
-            floatingLabelText="Password"
-            floatingLabelFixed={true}
-            style={field_styles}
-            type='password'
-            onChange={e => props.update_form('password', e)}/>
-        <Divider /><br /><br />
 
         <RaisedButton
             type="submit"
