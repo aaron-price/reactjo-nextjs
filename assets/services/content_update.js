@@ -27,6 +27,20 @@ const update_content_service = (req, res, app, content_type) => {
     })
     .then(blob => blob.json())
     .then(data => {
+        if (content_type === 'user') {
+            res.cookie('myapp_id', data.id, { maxAge: 86400000, signed: true })
+            res.cookie('myapp_name', data.name, { maxAge: 86400000, signed: true })
+            res.cookie('myapp_is_staff', data.is_staff, { maxAge: 86400000, signed: true })
+            res.cookie('myapp_is_superuser', data.is_superuser,	{ maxAge: 86400000, signed: true })
+            res.cookie('myapp_is_active', data.is_active, { maxAge: 86400000, signed: true })
+            res.current_user = {
+                id: data.id,
+                name: data.name,
+                is_staff: data.is_staff,
+                is_superuser: data.is_superuser,
+                is_active: data.is_active,
+            }
+        }
         res.send(data)
         res.end()
     })
