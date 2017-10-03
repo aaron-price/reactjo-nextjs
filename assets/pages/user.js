@@ -15,7 +15,8 @@ import {
     update_user_permission,
     delete_user_permission } from '../services/permissions.js'
 
-const fields = ['name', 'email', 'password']
+const fields = []
+
 class User extends React.Component {
     constructor(props) {
         super(props)
@@ -66,6 +67,9 @@ class User extends React.Component {
         e.preventDefault()
         let body_fields = {
             id: this.props.profile.id,
+            is_staff: this.props.profile.is_staff,
+            is_superuser: this.props.profile.is_superuser,
+            is_active: this.props.profile.is_active,
             fields,
         }
         fields.forEach(f => body_fields[f] = this.state.form[f])

@@ -82,6 +82,7 @@ def build_structure():
         user_fields = cfg['current_scaffold']['model']['fields']
         user_titles = [field['title'] for field in user_fields]
         fields_arr = [quote(title) for title in user_titles]
+        fields_arr.append('password')
         form_fields = ', '.join(fields_arr)
         form_fields = 'const form_fields = ['+ form_fields +']'
         fields = 'const fields = ['+ form_fields +']'
