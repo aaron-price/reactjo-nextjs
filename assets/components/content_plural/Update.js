@@ -1,8 +1,10 @@
+import Divider from 'material-ui/Divider'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
 import {
-    update_singular_lower_permission,
-    delete_singular_lower_permission } from '../../services/permissions.js'
+    update_dog_permission,
+    delete_dog_permission } from '../../services/permissions.js'
 const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1)
 
 const UpdateFormWrapper = (props) => {
@@ -41,6 +43,7 @@ const UpdateFormWrapper = (props) => {
     } else { return <span></span> }
 }
 
+const field_styles = { marginLeft: 20 }
 const UpdateForm = (props) => (
     <div>
         <h4>Edit</h4>
@@ -52,16 +55,16 @@ const UpdateForm = (props) => (
                 if (f === 'owner') { return <span key={key}></span> }
                 return (
                     <div key={key}>
-                        <label id={f} htmlFor={f}>{capitalize(f)}: &nbsp; </label>
-                        <input
-                            onChange={(e) => props.update_form(f, e)}
+                        <TextField
+                            floatingLabelText={f}
+                            floatingLabelFixed={true}
+                            style={field_styles}
                             type="text"
-                            name={f}
-                            value={props.form_fields[f]}
-                            required>
-                        </input><br/><br/>
+                            onChange={e => props.update_form(f, e)}/>
+                        <Divider />
                     </div>
-            )})}
+                )
+            })}
 
             <RaisedButton primary={true} type="submit" label="Update singular_upper" />
             <br/><br/>
