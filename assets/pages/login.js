@@ -1,12 +1,16 @@
+import React from 'react'
+import Router from 'next/router'
+import fetch from 'isomorphic-unfetch'
+
+import Dialog from 'material-ui/Dialog'
+import Divider from 'material-ui/Divider'
+import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
+
 import Header from '../components/Head'
 import Login from '../components/users/Login'
 import { return_current_user } from '../services/current_user.js'
-import React from 'react'
-import RaisedButton from 'material-ui/RaisedButton'
-import Router from 'next/router'
-import fetch from 'isomorphic-unfetch'
-import Divider from "material-ui/Divider"
-import TextField from "material-ui/TextField"
 import { get_uri } from '../services/get_uri.js'
 
 class LoginPage extends React.Component {
@@ -17,6 +21,11 @@ class LoginPage extends React.Component {
             form: {
                 name: '',
                 password: ''
+            },
+            errors: {
+                name: '',
+                password: '',
+                message: ''
             }
         }
         this.update_form = this.update_form.bind(this)
@@ -41,14 +50,34 @@ class LoginPage extends React.Component {
                 password: this.state.form.password,
             })
         })
+        .then(blob => blob.json())
         .then(data => {
-            Router.push({pathname: '/', as: '/'})
+            if (data.status === 200) {
+                // If login successful, redirect to index page
+                Router.push({pathname: '/', as: '/'})
+            }
+            else if (data.status === 422) {
+              // Otherwise, send the errors to the necessary fields.
+              let errors = Object.assign({}, this.state.errors)
+              Object.keys(data.data).forEach(field => {
+                  errors[field] = data.data[field].join('. ')
+              })
+              this.setState({ errors })
+            }
         })
-        .catch(e => console.error(e))
+        .catch(e => {
+            console.error(e)
+            let errors = Object.assign({}, this.state.errors, {
+                message: 'Sorry, we had trouble communicating with the database.'
+            })
+            this.setState({ errors })
+        })
     }
+
     render() {
         return (
             <Header current_user={this.state.current_user}>
+                <div style={{color: '#F44336'}}>{this.state.errors.message}</div>
                 <Login
                     update_form={this.update_form}
                     submit_form={this.submit_form} />

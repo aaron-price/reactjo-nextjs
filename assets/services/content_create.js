@@ -27,14 +27,20 @@ const create_content_service = (req, res, next, app) => {
     })
     .then(blob => blob.json())
     .then(data => {
-        res.send(data)
-        res.end()
+        if (!!data.id || !!data.pk) {
+            res.json({ status: 200, data })
+            res.end()
+        } else {
+            res.json({ status: 422, data })
+            res.end()
+        }
     })
     .catch(err => {
         console.error(err)
-        app.render(req, res, '/')
+        let data = { message: err }
+        res.json({ status: 500, data })
+        res.end()
     })
-
 }
 
 module.exports = { create_content_service }

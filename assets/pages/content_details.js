@@ -14,11 +14,16 @@ class singular_upper extends React.Component {
     constructor(props) {
         super(props)
         let form = {}
-        fields.forEach(f => form[f] = this.props.singular_lower[f])
+        let errors = {}
+        fields.forEach(f => {
+            form[f] = this.props.singular_lower[f]
+            errors[f] = ''
+        })
 
         this.state = {
             current_user: this.props.current_user,
             show_form: false,
+            errors,
             form
         }
         this.delete_item = this.delete_item.bind(this)
@@ -50,7 +55,9 @@ class singular_upper extends React.Component {
     update_form(field, value) {
         let entry = this.state.form
         entry[field] = value.target.value
-        this.setState({ form: entry })
+        let errors = Object.assign({}, this.state.errors)
+        errors[field] = ''
+        this.setState({ form: entry, errors })
     }
 
     // Hidden by default, toggles the 'Update' form.
@@ -80,10 +87,20 @@ class singular_upper extends React.Component {
         })
         .then(blob => blob.json())
         .then(data => {
-            Router.push(
-                `/singular_lower?id=${data.pk}`,
-                `/singular_lower/${data.pk}`
-            )
+            if (data.status === 200){
+                Router.push(
+                    `/singular_lower?id=${data.data.pk}`,
+                    `/singular_lower/${data.data.pk}`
+                )
+            } else {
+                let field_errors = {}
+                Object.keys(data.data).forEach(field => {
+                    field_errors[field] = data.data[field].join('. ')
+                })
+                let errors = Object.assign({}, this.state.errors, field_errors)
+                this.setState({ errors })
+            }
+
         })
         .catch(e => console.error(e))
     }
@@ -100,6 +117,7 @@ class singular_upper extends React.Component {
                     update_form={ this.update_form }
                     form_fields={ form_fields }
                     all_fields={ fields }
+                    errors={ this.state.errors }
                     singular_lower={ this.props.singular_lower }
                     current_user={ this.state.current_user }
                     show_hide_form={ this.show_hide_form } />

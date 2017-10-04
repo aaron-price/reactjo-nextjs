@@ -1,5 +1,8 @@
-import RaisedButton from 'material-ui/RaisedButton'
+import Divider from "material-ui/Divider"
 import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from "material-ui/TextField"
+
 import { create_singular_lower_permission } from '../../services/permissions.js'
 const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1)
 
@@ -9,27 +12,28 @@ const CreateWrapper = (props) => {
             props.show_form
             ? (
                 <div>
-                <FlatButton
-                   label="Hide Form"
-                   secondary={true}
-                   onClick={() => props.show_hide_form()}/>
-                <br /><br/>
+                    <FlatButton
+                       label="Hide Form"
+                       secondary={true}
+                       onClick={() => props.show_hide_form()}/>
+                    <br /><br/>
 
-                <CreateForm
-                    submit_form={ props.submit_form }
-                    update_form={ props.update_form }
-                    form_fields={ props.form_fields }
-                    current_user={ props.current_user }
-                    all_fields={ props.all_fields }
-                />
+                    <CreateForm
+                        submit_form={ props.submit_form }
+                        update_form={ props.update_form }
+                        form_fields={ props.form_fields }
+                        current_user={ props.current_user }
+                        all_fields={ props.all_fields }
+                        errors={ props.errors }
+                    />
                 </div>
             )
             : (
               <div>
-               <FlatButton
-                  label="Create singular_upper"
-                  primary={true}
-                  onClick={() => props.show_hide_form()}/><br/><br/>
+                  <FlatButton
+                      label="Create singular_upper"
+                      primary={true}
+                      onClick={() => props.show_hide_form()}/><br/><br/>
               </div>
             )
         }</div>)
@@ -50,14 +54,14 @@ const CreateForm = (props) => (
 
                 return (
                     <div key={key}>
-                        <label id={f} htmlFor={f}>{capitalize(f)}: &nbsp; </label>
-                        <input
-                            onChange={(e) => props.update_form(f, e)}
-                            type="text"
-                            name={f}
-                            value={props.form_fields[f]}
-                            required>
-                        </input><br/><br/>
+                        <TextField
+                            floatingLabelText={f}
+                            floatingLabelFixed={true}
+                            style={{ marginLeft: 20 }}
+                            type='text'
+                            errorText={props.errors[f]}
+                            onChange={e => props.update_form(f, e)}/>
+                        <Divider /><br /><br />
                     </div>
             )})}
 

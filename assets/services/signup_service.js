@@ -19,13 +19,16 @@ const signup_service = (req, res, next, app) => {
     })
     .then(blob => blob.json())
     .then(data => {
-        login_service(req, res, next, app)
+        if (!!data.id) {
+            login_service(req, res, next, app)
+        } else {
+            res.json({data, status: 400})
+        }
     })
     .catch(err => {
-      console.error(err)
-        app.render(req, res, '/signup')
+        console.error(err)
+        res.json({message: err, status: 500})
     })
-
 }
 
 module.exports = { signup_service }
