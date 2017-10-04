@@ -15,7 +15,11 @@ class plural_upper extends React.Component {
         super(props)
         // Builds the 'Create' form fields.
         let form = {}
-        fields.forEach(f => form[f] = '')
+        let errors = { message: '' }
+        fields.forEach(f => {
+            form[f] = ''
+            errors[f] = ''
+        })
 
         this.state = {
             current_user: this.props.current_user,
@@ -29,9 +33,11 @@ class plural_upper extends React.Component {
 
     // Fires on every keystroke in the 'Create' form, updating the state.
     update_form(field, value) {
-        let entry = this.state.form
-        entry[field] = value.target.value
-        this.setState({ form: entry })
+        let form = this.state.form
+        form[field] = value.target.value
+        errors = Object.assign(this.state.errors)
+        errors[field] = ''
+        this.setState({ form, errors })
     }
 
     // Hidden by default, toggles the 'Create' form.
@@ -61,21 +67,35 @@ class plural_upper extends React.Component {
         })
         .then(blob => blob.json())
         .then(data => {
-            // If successful, redirect to the newly created details page
-            Router.push(
-                `/singular_lower?id=${data.pk}`,
-                `/singular_lower/${data.pk}`
-            )
+            if (data.status === 200){
+                Router.push(
+                  `/singular_lower?id=${data.pk}`,
+                  `/singular_lower/${data.pk}`
+                )
+            } else {
+                let field_errors = {}
+                Object.keys(data.data).forEach(field => {
+                    field_errors[field] = data.data[field].join('. ')
+                })
+                let errors = Object.assign({}, this.state.errors, field_errors)
+                this.setState({ errors })
+            }
+
         })
-        .catch(e => console.error(e))
+        .catch(e => {
+            console.error(e)
+            let errors = Object.assign({}, this.state.errors, {
+                message: 'Sorry, we had trouble communicating with the database.'
+            })
+            this.setState({ errors })
+        })
     }
     render() {
         let form_fields = {}
         fields.forEach(f => form_fields[f] = this.state.form[f])
         return (
-            <Header
-                current_user={this.props.current_user}>
-
+            <Header current_user={this.props.current_user}>
+            <div style={{color: '#F44336'}}>{this.state.errors.message}</div>
             <CreateWrapper
                 current_user={ this.props.current_user }
                 show_form={ this.state.show_form }
@@ -83,6 +103,7 @@ class plural_upper extends React.Component {
                 submit_form={ this.submit_form }
                 update_form={ this.update_form }
                 form_fields={ form_fields }
+                errors={ this.state.errors }
                 all_fields={ fields } />
 
             <h1>plural_upper</h1>

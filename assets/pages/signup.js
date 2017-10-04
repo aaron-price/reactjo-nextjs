@@ -15,11 +15,14 @@ class SignupPage extends React.Component {
     constructor(props) {
         super(props)
         let form = { password: '' }
+        let errors = { message: '' }
         form_fields.forEach(f => {
-          form[f] = ''
+            form[f] = ''
+            errors[f] = ''
         })
         this.state = {
             current_user: this.props.current_user,
+            errors,
             form
         }
         this.update_form = this.update_form.bind(this)
@@ -28,7 +31,9 @@ class SignupPage extends React.Component {
     update_form(field, value) {
         let entry = this.state.form
         entry[field] = value.target.value
-        this.setState({ form: entry })
+        let errors = Object.assign({}, this.state.errors)
+        errors[field] = ''
+        this.setState({ form: entry, errors })
     }
     submit_form(e) {
         e.preventDefault()
@@ -48,17 +53,36 @@ class SignupPage extends React.Component {
             },
             body: JSON.stringify(body_fields)
         })
+        .then(blob => blob.json())
         .then(data => {
-            Router.push({pathname: '/', as: '/'})
+            if (data.status === 200) {
+                // If signup successful, redirect to index
+                Router.push({pathname: '/', as: '/'})
+            } else {
+                // Otherwise, send the errors to the necessary fields.
+                let errors = Object.assign({}, this.state.errors)
+                Object.keys(data.data).forEach(field => {
+                    errors[field] = data.data[field].join('. ')
+                })
+                this.setState({ errors })
+            }
         })
-        .catch(e => console.error(e))
+        .catch(e => {
+            console.error(e)
+            let errors = Object.assign({}, this.state.errors, {
+                message: 'Sorry, we had trouble communicating with the database.'
+            })
+            this.setState({ errors })
+        })
     }
     render() {
         return (
             <Header current_user={this.props.current_user}>
+                <div style={{color: '#F44336'}}>{this.state.errors.message}</div>
                 <Signup
                     update_form={this.update_form}
                     submit_form={this.submit_form}
+                    errors={this.state.errors}
                     form_fields={form_fields} />
             </Header>
         )

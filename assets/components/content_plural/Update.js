@@ -3,8 +3,8 @@ import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import {
-    update_dog_permission,
-    delete_dog_permission } from '../../services/permissions.js'
+    update_singular_lower_permission,
+    delete_singular_lower_permission } from '../../services/permissions.js'
 const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1)
 
 const UpdateFormWrapper = (props) => {
@@ -61,7 +61,7 @@ const UpdateForm = (props) => (
                             floatingLabelFixed={true}
                             style={field_styles}
                             type="text"
-                            errors={props.errors}
+                            errorText={props.errors}
                             onChange={e => props.update_form(f, e)}/>
                         <Divider />
                     </div>

@@ -23,7 +23,7 @@ class singular_upper extends React.Component {
         this.state = {
             current_user: this.props.current_user,
             show_form: false,
-            errors
+            errors,
             form
         }
         this.delete_item = this.delete_item.bind(this)
@@ -89,8 +89,8 @@ class singular_upper extends React.Component {
         .then(data => {
             if (data.status === 200){
                 Router.push(
-                    `/singular_lower?id=${data.data.id}`,
-                    `/singular_lower/${data.data.id}`
+                    `/singular_lower?id=${data.data.pk}`,
+                    `/singular_lower/${data.data.pk}`
                 )
             } else {
                 let field_errors = {}

@@ -26,7 +26,7 @@ const signup_service = (req, res, next, app) => {
         }
     })
     .catch(err => {
-      console.error(err)
+        console.error(err)
         app.render(req, res, '/signup')
     })
 

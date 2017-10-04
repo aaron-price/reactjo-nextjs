@@ -18,13 +18,14 @@ class LoginPage extends React.Component {
         super(props)
         this.state = {
             current_user: this.props.current_user,
-            dialog: {
-                open: false,
-                text: ''
-            },
             form: {
                 name: '',
                 password: ''
+            },
+            errors: {
+                name: '',
+                password: '',
+                message: ''
             }
         }
         this.update_form = this.update_form.bind(this)
@@ -52,45 +53,31 @@ class LoginPage extends React.Component {
         .then(blob => blob.json())
         .then(data => {
             if (data.status === 200) {
+                // If login successful, redirect to index page
                 Router.push({pathname: '/', as: '/'})
             }
             else if (data.status === 422) {
-                this.setState({
-                    dialog: {
-                        open: true,
-                        text: data.message
-                    }
-                })
+              // Otherwise, send the errors to the necessary fields.
+              let errors = Object.assign({}, this.state.errors)
+              Object.keys(data.data).forEach(field => {
+                  errors[field] = data.data[field].join('. ')
+              })
+              this.setState({ errors })
             }
         })
         .catch(e => {
-            this.setState({
-                dialog: {
-                    open: true,
-                    text: e
-                }
+            console.error(e)
+            let errors = Object.assign({}, this.state.errors, {
+                message: 'Sorry, we had trouble communicating with the database.'
             })
+            this.setState({ errors })
         })
-    }
-    handle_close = () => {
-        this.setState({dialog: { open: false }});
     }
 
     render() {
-        const actions = [
-            <FlatButton
-                label="OK"
-                primary={true}
-                onClick={this.handle_close}
-            />,
-        ]
         return (
             <Header current_user={this.state.current_user}>
-                <Dialog
-                    title={this.state.dialog.text}
-                    onRequestClose={this.handle_close}
-                    open={this.state.dialog.open}
-                    actions={actions} />
+                <div style={{color: '#F44336'}}>{this.state.errors.message}</div>
                 <Login
                     update_form={this.update_form}
                     submit_form={this.submit_form} />
