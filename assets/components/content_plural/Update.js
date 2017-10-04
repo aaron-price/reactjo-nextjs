@@ -24,6 +24,7 @@ const UpdateFormWrapper = (props) => {
                         form_fields={props.form_fields}
                         all_fields={props.all_fields}
                         singular_lower={props.singular_lower}
+                        errors={props.errors}
                         current_user={props.current_user} />
                 </div>
             )
@@ -60,6 +61,7 @@ const UpdateForm = (props) => (
                             floatingLabelFixed={true}
                             style={field_styles}
                             type="text"
+                            errors={props.errors}
                             onChange={e => props.update_form(f, e)}/>
                         <Divider />
                     </div>

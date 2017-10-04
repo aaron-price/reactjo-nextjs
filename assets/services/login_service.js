@@ -31,14 +31,20 @@ const login_service = (req, res, next, app) => {
                 is_superuser: data.is_superuser,
                 is_active: data.is_active,
             }
-            res.redirect('/')
+            res.json({ message: 'success', status: 200 })
         } else {
-            return Promise.reject('Couldn\'t get an auth token')
+            res.json({
+                message: 'Your name and/or password was incorrect.',
+                status: 422
+            })
         }
     })
     .catch(err => {
         console.error(err)
-        app.render(req, res, '/login')
+        res.json({
+            message: 'Sorry, we were unable to process your login attempt',
+            status: 500
+        })
     })
 
 }

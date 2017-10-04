@@ -14,6 +14,7 @@ export default (props) => (
                         floatingLabelText={title}
                         floatingLabelFixed={true}
                         style={field_styles}
+                        required
                         onChange={e => props.update_form(low, e)}/>
                     <Divider /><br /><br />
                 </div>
@@ -24,6 +25,7 @@ export default (props) => (
                         floatingLabelFixed={true}
                         style={field_styles}
                         type='password'
+                        required
                         onChange={e => props.update_form('password', e)}/>
                     <Divider /><br /><br />
                 </div>

@@ -1,12 +1,16 @@
+import React from 'react'
+import Router from 'next/router'
+import fetch from 'isomorphic-unfetch'
+
+import Dialog from 'material-ui/Dialog'
+import Divider from 'material-ui/Divider'
+import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
+
 import Header from '../components/Head'
 import Login from '../components/users/Login'
 import { return_current_user } from '../services/current_user.js'
-import React from 'react'
-import RaisedButton from 'material-ui/RaisedButton'
-import Router from 'next/router'
-import fetch from 'isomorphic-unfetch'
-import Divider from "material-ui/Divider"
-import TextField from "material-ui/TextField"
 import { get_uri } from '../services/get_uri.js'
 
 class LoginPage extends React.Component {
@@ -14,6 +18,10 @@ class LoginPage extends React.Component {
         super(props)
         this.state = {
             current_user: this.props.current_user,
+            dialog: {
+                open: false,
+                text: ''
+            },
             form: {
                 name: '',
                 password: ''
@@ -41,14 +49,48 @@ class LoginPage extends React.Component {
                 password: this.state.form.password,
             })
         })
+        .then(blob => blob.json())
         .then(data => {
-            Router.push({pathname: '/', as: '/'})
+            if (data.status === 200) {
+                Router.push({pathname: '/', as: '/'})
+            }
+            else if (data.status === 422) {
+                this.setState({
+                    dialog: {
+                        open: true,
+                        text: data.message
+                    }
+                })
+            }
         })
-        .catch(e => console.error(e))
+        .catch(e => {
+            this.setState({
+                dialog: {
+                    open: true,
+                    text: e
+                }
+            })
+        })
     }
+    handle_close = () => {
+        this.setState({dialog: { open: false }});
+    }
+
     render() {
+        const actions = [
+            <FlatButton
+                label="OK"
+                primary={true}
+                onClick={this.handle_close}
+            />,
+        ]
         return (
             <Header current_user={this.state.current_user}>
+                <Dialog
+                    title={this.state.dialog.text}
+                    onRequestClose={this.handle_close}
+                    open={this.state.dialog.open}
+                    actions={actions} />
                 <Login
                     update_form={this.update_form}
                     submit_form={this.submit_form} />

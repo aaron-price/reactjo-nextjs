@@ -27,28 +27,33 @@ const update_content_service = (req, res, app, content_type) => {
     })
     .then(blob => blob.json())
     .then(data => {
-        if (content_type === 'user') {
-            res.cookie('myapp_id', data.id, { maxAge: 86400000, signed: true })
-            res.cookie('myapp_name', data.name, { maxAge: 86400000, signed: true })
-            res.cookie('myapp_is_staff', data.is_staff, { maxAge: 86400000, signed: true })
-            res.cookie('myapp_is_superuser', data.is_superuser,	{ maxAge: 86400000, signed: true })
-            res.cookie('myapp_is_active', data.is_active, { maxAge: 86400000, signed: true })
-            res.current_user = {
-                id: data.id,
-                name: data.name,
-                is_staff: data.is_staff,
-                is_superuser: data.is_superuser,
-                is_active: data.is_active,
+        console.log('DATA', data)
+        if (!!data.id) {
+            if (content_type === 'user') {
+                res.cookie('reactjo_id', data.id, { maxAge: 86400000, signed: true })
+                res.cookie('reactjo_name', data.name, { maxAge: 86400000, signed: true })
+                res.cookie('reactjo_is_staff', data.is_staff, { maxAge: 86400000, signed: true })
+                res.cookie('reactjo_is_superuser', data.is_superuser,	{ maxAge: 86400000, signed: true })
+                res.cookie('reactjo_is_active', data.is_active, { maxAge: 86400000, signed: true })
+                res.current_user = {
+                    id: data.id,
+                    name: data.name,
+                    is_staff: data.is_staff,
+                    is_superuser: data.is_superuser,
+                    is_active: data.is_active,
+                }
             }
+            res.json({ status: 200, data })
+            res.end()
+        } else {
+            res.json({ status: 422, data })
+            res.end()
         }
-        res.send(data)
-        res.end()
     })
     .catch(err => {
         console.error(err)
         app.render(req, res, '/')
     })
-
 }
 
 module.exports = { update_content_service }

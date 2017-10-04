@@ -83,14 +83,14 @@ def build_structure():
         user_titles = [field['title'] for field in user_fields]
         fields_arr = [quote(title) for title in user_titles]
         fields_arr.append(quote('password'))
-        form_fields = ', '.join(fields_arr)
-        form_fields = 'const fields = ['+ form_fields +']'
-        fields = 'const fields = ['+ form_fields +']'
 
         signup_page = f('$assets/pages/signup.js', 'r').replace(
-            'const form_fields = []', form_fields)
+            'const form_fields = []',
+            'const form_fields = [' + ', '.join(fields_arr) + ']')
+
         user_page = f('$assets/pages/user.js', 'r').replace(
-            'const fields = []', form_fields)
+            'const fields = []',
+            'const fields = [' + ', '.join(fields_arr) + ']')
 
         # User Pages
         f('$out/pages/login.js', 'w', '$assets/pages/login.js')

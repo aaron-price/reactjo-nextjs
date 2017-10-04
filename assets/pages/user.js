@@ -21,10 +21,14 @@ class User extends React.Component {
     constructor(props) {
         super(props)
         let form = {}
-        fields.forEach(f => form[f] = this.props.profile[f])
-
+        let errors = {}
+        fields.forEach(f => {
+            form[f] = this.props.profile[f]
+            errors[f] = ''
+        })
         this.state = {
             show_form: false,
+            errors,
             form
         }
         this.show_hide_form = this.show_hide_form.bind(this)
@@ -36,7 +40,9 @@ class User extends React.Component {
     update_form(field, value) {
         let entry = this.state.form
         entry[field] = value.target.value
-        this.setState({ form: entry })
+        let errors = Object.assign({}, this.state.errors)
+        errors[field] = ''
+        this.setState({ form: entry, errors })
     }
     delete_item(e) {
         e.preventDefault()
@@ -85,10 +91,21 @@ class User extends React.Component {
         })
         .then(blob => blob.json())
         .then(data => {
-            Router.push(
-                `/user?id=${data.id}`,
-                `/user/${data.id}`
-            )
+            if (data.status === 200){
+                Router.push(
+                    `/user?id=${data.data.id}`,
+                    `/user/${data.data.id}`
+                )
+            } else {
+                let field_errors = {}
+                console.log('DATA: ', data)
+                Object.keys(data.data).forEach(field => {
+                    field_errors[field] = data.data[field].join('. ')
+                })
+                let errors = Object.assign({}, this.state.errors, field_errors)
+                this.setState({ errors })
+            }
+
         })
         .catch(e => console.error(e))
     }
@@ -107,6 +124,7 @@ class User extends React.Component {
                         submit_form={this.submit_form}
                         form_fields={form_fields}
                         all_fields={fields}
+                        errors={this.state.errors}
                         show_form={this.state.show_form}
                         show_hide_form={this.show_hide_form}
                         profile={this.props.profile} />

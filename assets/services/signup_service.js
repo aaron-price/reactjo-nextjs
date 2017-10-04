@@ -19,7 +19,11 @@ const signup_service = (req, res, next, app) => {
     })
     .then(blob => blob.json())
     .then(data => {
-        login_service(req, res, next, app)
+        if (!!data.id) {
+            login_service(req, res, next, app)
+        } else {
+            res.json({message: data, status: 400})
+        }
     })
     .catch(err => {
       console.error(err)

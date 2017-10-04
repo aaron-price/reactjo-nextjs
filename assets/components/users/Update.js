@@ -23,6 +23,7 @@ export default (props) => {
                     form_fields={props.form_fields}
                     all_fields={props.all_fields}
                     profile={props.profile}
+                    errors={props.errors}
                     current_user={props.current_user} />
             </div>
         )
@@ -60,6 +61,7 @@ const UpdateForm = (props) => (
                                 floatingLabelFixed={true}
                                 style={field_styles}
                                 type="text"
+                                errorText={props.errors[f]}
                                 onChange={e => props.update_form(f, e)}/>
                             <Divider />
                         </div>
@@ -72,7 +74,7 @@ const UpdateForm = (props) => (
                                 floatingLabelFixed={true}
                                 style={field_styles}
                                 type="password"
-                                required
+                                errorText={props.errors[f]}
                                 onChange={e => props.update_form(f, e)}/>
                             <Divider />
                         </div>
