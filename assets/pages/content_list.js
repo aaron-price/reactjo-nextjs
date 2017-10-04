@@ -24,6 +24,7 @@ class plural_upper extends React.Component {
         this.state = {
             current_user: this.props.current_user,
             show_form: false,
+            errors,
             form
         }
         this.update_form = this.update_form.bind(this)
@@ -35,7 +36,7 @@ class plural_upper extends React.Component {
     update_form(field, value) {
         let form = this.state.form
         form[field] = value.target.value
-        errors = Object.assign(this.state.errors)
+        let errors = Object.assign(this.state.errors)
         errors[field] = ''
         this.setState({ form, errors })
     }
@@ -66,16 +67,16 @@ class plural_upper extends React.Component {
             body: JSON.stringify(body_fields)
         })
         .then(blob => blob.json())
-        .then(data => {
+        .then(res => {
             if (data.status === 200){
                 Router.push(
-                  `/singular_lower?id=${data.pk}`,
-                  `/singular_lower/${data.pk}`
+                  `/singular_lower?id=${res.data.pk}`,
+                  `/singular_lower/${res.data.pk}`
                 )
             } else {
                 let field_errors = {}
-                Object.keys(data.data).forEach(field => {
-                    field_errors[field] = data.data[field].join('. ')
+                Object.keys(res.data).forEach(field => {
+                    field_errors[field] = res.data[field].join('. ')
                 })
                 let errors = Object.assign({}, this.state.errors, field_errors)
                 this.setState({ errors })

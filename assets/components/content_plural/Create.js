@@ -57,7 +57,7 @@ const CreateForm = (props) => (
                         <TextField
                             floatingLabelText={f}
                             floatingLabelFixed={true}
-                            style={field_styles}
+                            style={{ marginLeft: 20 }}
                             type='text'
                             errorText={props.errors[f]}
                             onChange={e => props.update_form(f, e)}/>

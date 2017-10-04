@@ -2,12 +2,12 @@
 function current_user(req, res, next) {
 		let src = req.signedCookies
 
-		let id 					 = src.reactjo_id ? src.reactjo_id : null
-		let name 				 = src.reactjo_name ? src.reactjo_name : null
-		let is_staff     = src.reactjo_is_staff ? src.reactjo_is_staff === 'true' : false
-		let is_superuser = src.reactjo_is_superuser ? src.reactjo_is_superuser === 'true' : false
-		let is_active    = src.reactjo_is_active ? src.reactjo_is_active === 'true' : false
-		let token 			 = src.reactjo_token ? src.reactjo_token : 'false'
+		let id 					 = src.id ? src.id : null
+		let name 				 = src.name ? src.name : null
+		let is_staff     = src.is_staff ? src.is_staff === 'true' : false
+		let is_superuser = src.is_superuser ? src.is_superuser === 'true' : false
+		let is_active    = src.is_active ? src.is_active === 'true' : false
+		let token 			 = src.token ? src.token : 'false'
 
 		// If one is null, they both should be.
 		if (!name || !id) {
