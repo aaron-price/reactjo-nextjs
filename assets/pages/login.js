@@ -9,7 +9,7 @@ import Divider from "material-ui/Divider"
 import TextField from "material-ui/TextField"
 import { get_uri } from '../services/get_uri.js'
 
-class Login extends React.Component {
+class LoginPage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -47,21 +47,20 @@ class Login extends React.Component {
         .catch(e => console.error(e))
     }
     render() {
-        const field_styles = { marginLeft: 20 }
         return (
             <Header current_user={this.state.current_user}>
                 <Login
                     update_form={this.update_form}
-                    submit_form={submit_form} />
+                    submit_form={this.submit_form} />
             </Header>
         )
     }
 }
 
-Login.getInitialProps = async function(context) {
+LoginPage.getInitialProps = async function(context) {
     return {
         current_user: await return_current_user(context),
     }
 }
 
-export default Login
+export default LoginPage

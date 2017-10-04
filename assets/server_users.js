@@ -14,6 +14,7 @@ const helmet = require('helmet')
 const { set_uri } = require('./middleware/set_uri.js')
 const { current_user } = require('./middleware/res_current_user.js')
 const { login_service } = require('./services/login_service.js')
+const { logout_service } = require('./services/logout_service.js')
 const { signup_service } = require('./services/signup_service.js')
 const { create_content_service } = require('./services/content_create.js')
 const { delete_content_service } = require('./services/content_delete.js')
@@ -62,13 +63,7 @@ app.prepare().then(() => {
 		})
 
 		server.post('/logout', (req, res) => {
-				res.clearCookie('reactjo_token')
-				res.clearCookie('reactjo_id')
-				res.clearCookie('reactjo_name')
-				res.clearCookie('reactjo_is_staff')
-				res.clearCookie('reactjo_is_superuser')
-				res.clearCookie('reactjo_is_active')
-				app.render(req, res, '/')
+				logout_service(req, res, app)
 		})
 
 		server.get('*', (req, res) => {
