@@ -54,15 +54,15 @@ class SignupPage extends React.Component {
             body: JSON.stringify(body_fields)
         })
         .then(blob => blob.json())
-        .then(data => {
-            if (data.status === 200) {
+        .then(res => {
+            if (res.status === 200) {
                 // If signup successful, redirect to index
                 Router.push({pathname: '/', as: '/'})
             } else {
                 // Otherwise, send the errors to the necessary fields.
                 let errors = Object.assign({}, this.state.errors)
-                Object.keys(data.data).forEach(field => {
-                    errors[field] = data.data[field].join('. ')
+                Object.keys(res.data).forEach(field => {
+                    errors[field] = res.data[field].join('. ')
                 })
                 this.setState({ errors })
             }
@@ -70,7 +70,7 @@ class SignupPage extends React.Component {
         .catch(e => {
             console.error(e)
             let errors = Object.assign({}, this.state.errors, {
-                message: 'Sorry, we had trouble communicating with the database.'
+                message: 'Sorry, there was an unexpected error.'
             })
             this.setState({ errors })
         })
