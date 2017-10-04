@@ -68,7 +68,7 @@ class plural_upper extends React.Component {
         })
         .then(blob => blob.json())
         .then(res => {
-            if (data.status === 200){
+            if (res.status === 200){
                 Router.push(
                   `/singular_lower?id=${res.data.pk}`,
                   `/singular_lower/${res.data.pk}`
