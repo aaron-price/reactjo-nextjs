@@ -1,7 +1,8 @@
 from tests.config_mock import setup_config, teardown_config
 from helpers.path_manager import mkdir, parse_shortcuts
-from helpers.extension_constants import RC_HOME, OUTPUT_HOME
+from helpers.extension_constants import RC_HOME
 import os
+OUTPUT_HOME = 'frontend'
 
 def test_parse_shortcuts():
     setup_config()
@@ -50,9 +51,6 @@ def test_parse_shortcuts():
         RC_HOME,
         'assets/test.txt')
     assert(actual == expected)
-
-
-
 
 def test_mkdir():
     from helpers.config_manager import get_cfg
