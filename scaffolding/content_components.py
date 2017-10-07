@@ -34,6 +34,7 @@ def parse_content(string):
 def scaffold_content_components():
     cfg = get_cfg()
     title = cfg['current_scaffold']['model']['title']
+    need_owner = cfg['current_scaffold']['need_owner'] == 'True'
     content_plural = pluralize(title.lower())
     # Get the directory
     mkdir('$out/components/' + content_plural)
@@ -43,8 +44,12 @@ def scaffold_content_components():
     create_asset  = parse_content(f('$assets/components/content_plural/Create.js', 'r'))
     f(comps + '/Create.js', 'w', create_asset)
 
-    details_asset = parse_content(f('$assets/components/content_plural/Details.js', 'r'))
-    f(comps + '/Details.js', 'w', details_asset)
+    if need_owner:
+        details_asset = parse_content(f('$assets/components/content_plural/Details_user.js', 'r'))
+        f(comps + '/Details.js', 'w', details_asset)
+    else:
+        details_asset = parse_content(f('$assets/components/content_plural/Details.js', 'r'))
+        f(comps + '/Details.js', 'w', details_asset)
 
     list_asset    = parse_content(f('$assets/components/content_plural/List.js', 'r'))
     f(comps + '/List.js', 'w', list_asset)
