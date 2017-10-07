@@ -13,9 +13,9 @@ async function return_current_user(context) {
 						id = null
 						name = null
 				}
-				if (!is_staff || is_staff === '') { is_staff = false }
-				if (!is_superuser || is_superuser === '') { is_superuser = false }
-				if (!is_active || is_active === '') { is_active = false }
+				if (!is_staff || is_staff === '' || is_staff === 'false') { is_staff = false }
+				if (!is_superuser || is_superuser === '' || is_superuser === 'false') { is_superuser = false }
+				if (!is_active || is_active === '' || is_active === 'false') { is_active = false }
 
 				return { id, name, is_staff, is_superuser, is_active }
 		}
