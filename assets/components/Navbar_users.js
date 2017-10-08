@@ -227,6 +227,7 @@ class NavContainer extends React.Component {
 }
 
 const MobileMenubar = (props) => {
+    let style = props.isOpen ? {} : {display: 'none'}
     return (
       <div className='menubar--mobile'>
           <Navbar className='menubar__button--regular' toggleable>
@@ -238,7 +239,7 @@ const MobileMenubar = (props) => {
                   </NavItem>
               </Nav>
           </Navbar>
-          <Drawer open={props.isOpen}>
+          <Drawer style={style} open={props.isOpen}>
               <RaisedButton
                   className='menubar__button--link menubar__button--close'
                   onClick={props.toggle}
