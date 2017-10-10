@@ -30,15 +30,12 @@ const HomeLinkDesktop = (props) => {
 // User Auth
 const UserLinkMobile = props => {
     let current_user = props.current_user
-    let has_permission = false
-    let details_permission = details_user_permission(current_user, current_user)
-    let update_permission = update_user_permission(current_user, current_user)
-    let delete_permission = delete_user_permission(current_user, current_user)
-    if (!!details_permission || !!update_permission || !!delete_permission) {
-        has_permission = true
-    }
+    let details_perm = details_user_permission(current_user, current_user)
+    let update_perm = update_user_permission(current_user, current_user)
+    let delete_perm = delete_user_permission(current_user, current_user)
+    let has_permission = (details_perm || update_perm || delete_perm)
 
-    if (has_permission) {
+    if (has_permission && props.authenticated) {
         return (
             <MenuItem href={`/user/${props.current_user.id}`}>
                     {props.current_user.name}
@@ -50,15 +47,12 @@ const UserLinkMobile = props => {
 }
 const UserLinkDesktop = props => {
     let current_user = props.current_user
-    let has_permission = false
-    let details_permission = details_user_permission(current_user, current_user)
-    let update_permission = update_user_permission(current_user, current_user)
-    let delete_permission = delete_user_permission(current_user, current_user)
-    if (!!details_permission || !!update_permission || !!delete_permission) {
-        has_permission = true
-    }
+    let details_perm = details_user_permission(current_user, current_user)
+    let update_perm = update_user_permission(current_user, current_user)
+    let delete_perm = delete_user_permission(current_user, current_user)
+    let has_permission = (details_perm || update_perm || delete_perm)
 
-    if (has_permission) {
+    if (has_permission && props.authenticated) {
         return (
             <RaisedButton
                 className='menubar__button--link userlink--desktop'
