@@ -117,6 +117,7 @@ def build_structure():
     f('$out/services/content_delete.js', 'w', '$assets/services/content_delete.js')
     f('$out/services/permissions.js', 'w', '$assets/services/permissions.js')
     f('$out/services/get_cookie.js', 'w', '$assets/services/get_cookie.js')
+    f('$out/services/get_headers.js', 'w', '$assets/services/get_headers.js')
     f('$out/services/get_uri.js', 'w', '$assets/services/get_uri.js')
 
     if users:

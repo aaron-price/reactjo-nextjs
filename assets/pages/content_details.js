@@ -1,13 +1,17 @@
 import fetch from 'isomorphic-unfetch'
-import React from 'react'
-import Header from '../components/Head'
-import { return_current_user } from '../services/current_user.js'
 import Router from 'next/router'
-const details_singular_lower_permission = require('../services/permissions.js').details_singular_lower_permission
-import { UpdateFormWrapper } from '../components/plural_lower/Update.js'
+import React from 'react'
+
 import { DeleteButton } from '../components/plural_lower/Delete.js'
 import { Details } from '../components/plural_lower/Details.js'
+import Header from '../components/Head'
+import { UpdateFormWrapper } from '../components/plural_lower/Update.js'
+
+const details_singular_lower_permission = require('../services/permissions.js').details_singular_lower_permission
+const get_headers = require('../services/get_headers.js').get_headers
 import { get_uri } from '../services/get_uri.js'
+import { return_current_user } from '../services/current_user.js'
+
 const fields = []
 
 class singular_upper extends React.Component {
@@ -140,10 +144,7 @@ singular_upper.getInitialProps = async function(context) {
     const { id } = context.query
     const res = await fetch(`${get_uri(context).backend}/api/singular_lower/${id}`, {
         method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
+        headers: get_headers(context)
     })
     const data = await res.json()
     const current_user = await return_current_user(context)

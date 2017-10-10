@@ -1,12 +1,15 @@
 import fetch from 'isomorphic-unfetch'
-import Header from '../components/Head'
-import { return_current_user } from '../services/current_user.js'
 import React from 'react'
 import Router from 'next/router'
-import { List } from '../components/plural_lower/List.js'
+
 import { CreateWrapper } from '../components/plural_lower/Create.js'
+import Header from '../components/Head'
+import { List } from '../components/plural_lower/List.js'
+
 import { list_singular_lower_permission } from '../services/permissions.js'
+const get_headers = require('../services/get_headers.js').get_headers
 import { get_uri } from '../services/get_uri.js'
+import { return_current_user } from '../services/current_user.js'
 
 const fields = []
 
@@ -120,10 +123,7 @@ class plural_upper extends React.Component {
 plural_upper.getInitialProps = async function(context) {
     const res = await fetch(`${get_uri(context).backend}/api/singular_lower/`, {
         method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
+        headers: get_headers(context)
     })
     const data = await res.json()
     const current_user = await return_current_user(context)
