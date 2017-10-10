@@ -1,6 +1,12 @@
-import { details_singular_lower_permission } from '../../services/permissions.js'
 import Link from 'next/link'
+
 import { List as MuiList, ListItem as MuiListItem } from 'material-ui/List'
+
+import {
+    details_singular_lower_permission,
+    update_singular_lower_permission,
+    delete_singular_lower_permission,
+} from '../../services/permissions.js'
 
 const List = (props) => {
     if (props.plural_lower.length === 0) {
@@ -23,7 +29,14 @@ const List = (props) => {
 const ListItem = (props) => {
     const blue = '#2962FF'
     const black = '#000000'
-    if (details_singular_lower_permission(props.current_user, props.singular_lower)) {
+    let user = props.current_user
+    let item = props.singular_lower
+    let has_permission = (
+        details_singular_lower_permission(user, item) ||
+        update_singular_lower_permission(user, item) ||
+        delete_singular_lower_permission(user, item)
+    )
+    if (has_permission) {
         return (
             <MuiListItem
                 style={{color: blue}}
@@ -34,7 +47,7 @@ const ListItem = (props) => {
     } else {
         return (
             <MuiListItem
-                style={{color: black}}
+                style={{color: black, cursor: 'initial'}}
                 primaryText={props.singular_lower.string_method}
                 insetChildren={true} />
         )

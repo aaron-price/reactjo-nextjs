@@ -1,6 +1,12 @@
-import { details_user_permission } from '../../services/permissions.js'
 import Link from 'next/link'
+
 import { List as MuiList, ListItem as MuiListItem } from 'material-ui/List'
+
+import {
+    details_user_permission,
+    update_user_permission,
+    delete_user_permission,
+} from '../../services/permissions.js'
 
 export default (props) => {
     if (props.users.length === 0) {
@@ -22,8 +28,15 @@ export default (props) => {
 
 const ListItem = (props) => {
     const blue = '#2962FF'
-    const black = '#000000'
-    if (details_user_permission(props.current_user, {owner: props.user.id})) {
+    let current_user = props.current_user
+    let profile = props.user
+    let has_permission = (
+        details_user_permission(current_user, profile) ||
+        update_user_permission(current_user, profile) ||
+        delete_user_permission(current_user, profile)
+    )
+
+    if ( has_permission ) {
         return (
             <MuiListItem
                 style={{color: blue}}
@@ -34,7 +47,7 @@ const ListItem = (props) => {
     } else {
         return (
             <MuiListItem
-                style={{color: black}}
+                style={{color: black, cursor: 'initial'}}
                 primaryText={props.user.name}
                 insetChildren={true} />
         )

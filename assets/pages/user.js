@@ -116,7 +116,13 @@ class User extends React.Component {
         fields.forEach(f => form_fields[f] = this.state.form[f])
         return (
             <Header current_user={this.props.current_user}>
-            <Details form_fields={form_fields} profile={this.props.profile}/>
+            <span>{
+                this.props.permission.details && (
+                    <Details
+                        form_fields={form_fields}
+                        profile={this.props.profile} />
+                )
+            }</span>
             <span>{
                 this.props.permission.update && (
                     <Update
@@ -156,21 +162,21 @@ User.getInitialProps = async function(context) {
         delete: delete_user_permission(current_user, { owner: profile.id }),
     }
 
-    if (!permission.details) {
+    if (!!permission.details || !!permission.update || !!permission.delete) {
+        return {
+            current_user,
+            profile,
+            permission,
+        }
+    } else {
         if (context.res) {
             context.res.writeHead(301, {
             Location: '/users'
         })
             context.res.end()
-            context.res.finished = true
+            context.res.finish2ed = true
         } else {
             Router.replace('/users')
-        }
-    } else {
-        return {
-            current_user,
-            profile,
-            permission,
         }
     }
 }

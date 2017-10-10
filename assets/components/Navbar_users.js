@@ -1,13 +1,20 @@
-import { list_user_permission } from '../services/permissions.js'
-import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
+import Link from 'next/link'
 import React from 'react'
-import RaisedButton from 'material-ui/RaisedButton'
-import Paper from 'material-ui/Paper'
+import Router from 'next/router'
+
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
-import Router from 'next/router'
 import { Navbar, Nav, NavItem } from 'reactstrap'
+import Paper from 'material-ui/Paper'
+import RaisedButton from 'material-ui/RaisedButton'
+
+import {
+    create_user_permission,
+    list_user_permission,
+    details_user_permission,
+    update_user_permission,
+    delete_user_permission } from '../services/permissions.js'
 
 // Home
 const HomeLinkMobile = (props) => {
@@ -22,7 +29,16 @@ const HomeLinkDesktop = (props) => {
 
 // User Auth
 const UserLinkMobile = props => {
-    if (props.authenticated) {
+    let current_user = props.current_user
+    let has_permission = false
+    let details_permission = details_user_permission(current_user, current_user)
+    let update_permission = update_user_permission(current_user, current_user)
+    let delete_permission = delete_user_permission(current_user, current_user)
+    if (!!details_permission || !!update_permission || !!delete_permission) {
+        has_permission = true
+    }
+
+    if (has_permission) {
         return (
             <MenuItem href={`/user/${props.current_user.id}`}>
                     {props.current_user.name}
@@ -33,7 +49,16 @@ const UserLinkMobile = props => {
     }
 }
 const UserLinkDesktop = props => {
-    if (props.authenticated) {
+    let current_user = props.current_user
+    let has_permission = false
+    let details_permission = details_user_permission(current_user, current_user)
+    let update_permission = update_user_permission(current_user, current_user)
+    let delete_permission = delete_user_permission(current_user, current_user)
+    if (!!details_permission || !!update_permission || !!delete_permission) {
+        has_permission = true
+    }
+
+    if (has_permission) {
         return (
             <RaisedButton
                 className='menubar__button--link userlink--desktop'
@@ -91,7 +116,7 @@ const LogoutLinkDesktop = props => {
 
 
 const SignupLinkMobile = props => {
-    if (!props.authenticated) {
+    if (create_user_permission(props.current_user)) {
         return (
             <MenuItem href="/signup" className='menubar__button--link'>Signup</MenuItem>
         )
@@ -100,7 +125,7 @@ const SignupLinkMobile = props => {
     }
 }
 const SignupLinkDesktop = props => {
-    if (!props.authenticated) {
+    if (create_user_permission(props.current_user)) {
         return (
             <RaisedButton href="/signup" className='menubar__button--link' label='Signup'/>
         )
@@ -255,7 +280,7 @@ const MobileMenubar = (props) => {
                   logout={props.logout}
                   authenticated={props.authenticated} />
               <SignupLinkMobile
-                  authenticated={props.authenticated} />
+                  current_user={props.current_user} />
               <ContentLinksMobile current_user={props.current_user} />
           </Drawer>
       </div>
@@ -286,7 +311,7 @@ const DesktopMenubar = (props) => {
                     </NavItem>
                     <NavItem>
                         <SignupLinkDesktop
-                            authenticated={props.authenticated} />
+                            current_user={props.current_user} />
                     </NavItem>
                     <NavItem>
                         <ContentLinksDesktop current_user={props.current_user} />
