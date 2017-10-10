@@ -15,7 +15,7 @@ function get_headers(ctx) {
 
     // If client side
     } else {
-        cookie = get_cookie('token')
+        let cookie = get_cookie('token')
         if (cookie) {
             headers.Authorization = 'token ' + cookie
         }

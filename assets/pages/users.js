@@ -1,13 +1,15 @@
 import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
+
 import Header from '../components/Head'
 import List from '../components/users/List'
-import { return_current_user } from '../services/current_user.js'
-const get_headers = require('../services/headers.js').get_headers
+
+const get_headers = require('../services/get_headers.js').get_headers
 import { get_uri } from '../services/get_uri.js'
 import {
     details_user_permission,
     list_user_permission } from '../services/permissions.js'
+import { return_current_user } from '../services/current_user.js'
 
 const Users = (props) => (
     <Header current_user={props.current_user}>

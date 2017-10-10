@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import 'isomorphic-fetch'
 import React, { Component } from 'react'
+
 import Header from '../components/Head'
 
 const index = props => (

@@ -1,14 +1,17 @@
 import fetch from 'isomorphic-unfetch'
-import React from 'react'
-import Header from '../components/Head'
-import { return_current_user } from '../services/current_user.js'
 import Router from 'next/router'
-const details_singular_lower_permission = require('../services/permissions.js').details_singular_lower_permission
-import { UpdateFormWrapper } from '../components/plural_lower/Update.js'
+import React from 'react'
+
 import { DeleteButton } from '../components/plural_lower/Delete.js'
 import { Details } from '../components/plural_lower/Details.js'
-const get_headers = require('../services/headers.js').get_headers
+import Header from '../components/Head'
+import { UpdateFormWrapper } from '../components/plural_lower/Update.js'
+
+const details_singular_lower_permission = require('../services/permissions.js').details_singular_lower_permission
+const get_headers = require('../services/get_headers.js').get_headers
 import { get_uri } from '../services/get_uri.js'
+import { return_current_user } from '../services/current_user.js'
+
 const fields = []
 
 class singular_upper extends React.Component {

@@ -1,12 +1,14 @@
-import React from 'react'
-import RaisedButton from 'material-ui/RaisedButton'
-import Router from 'next/router'
 import fetch from 'isomorphic-unfetch'
-import TextField from "material-ui/TextField"
-import Divider from "material-ui/Divider"
+import React from 'react'
+import Router from 'next/router'
 
-import Signup from '../components/users/Signup'
+import Divider from "material-ui/Divider"
+import TextField from "material-ui/TextField"
+import RaisedButton from 'material-ui/RaisedButton'
+
 import Header from '../components/Head'
+import Signup from '../components/users/Signup'
+
 import { return_current_user } from '../services/current_user.js'
 
 const form_fields = []

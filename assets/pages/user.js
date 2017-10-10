@@ -8,13 +8,13 @@ import Details from '../components/users/Details'
 import Update from '../components/users/Update'
 import Delete from '../components/users/Delete'
 
-import { return_current_user } from '../services/current_user.js'
-const get_headers = require('../services/headers.js').get_headers
+const get_headers = require('../services/get_headers.js').get_headers
 import { get_uri } from '../services/get_uri.js'
 import {
     details_user_permission,
     update_user_permission,
     delete_user_permission } from '../services/permissions.js'
+import { return_current_user } from '../services/current_user.js'
 
 const fields = []
 
