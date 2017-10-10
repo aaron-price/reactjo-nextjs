@@ -256,7 +256,7 @@ const MobileMenubar = (props) => {
                   authenticated={props.authenticated} />
               <SignupLinkMobile
                   authenticated={props.authenticated} />
-              <ContentLinksMobile />
+              <ContentLinksMobile current_user={props.current_user} />
           </Drawer>
       </div>
     )
@@ -289,7 +289,7 @@ const DesktopMenubar = (props) => {
                             authenticated={props.authenticated} />
                     </NavItem>
                     <NavItem>
-                        <ContentLinksDesktop />
+                        <ContentLinksDesktop current_user={props.current_user} />
                     </NavItem>
                 </Nav>
             </Navbar>
