@@ -9,6 +9,8 @@ from helpers.config_manager import get_cfg, set_cfg
 from helpers.compose import quote
 from helpers.ui import string_input
 
+from scaffolding.permissions import new_permissionset
+
 def id_generator():
     signature = ''.join(random.choice(string.hexdigits) for _ in range(32))
     return f"'{signature}'"
@@ -126,10 +128,10 @@ def build_structure():
         user_fields = cfg['current_scaffold']['model']['fields']
         user_titles = [field['title'] for field in user_fields]
         quote_titles = [quote(title) for title in user_titles]
+        set_cfg(cfg)
 
-        # Permissions
-        user_permissions = f('$assets/services/user_permissions.js', 'r')
-        f('$out/services/permissions.js', 'a', user_permissions)
+        # User Permissions
+        new_permissionset()
 
         # Login
         login_service = f('$assets/services/login_service.js', 'r').replace(

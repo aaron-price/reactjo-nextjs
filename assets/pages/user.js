@@ -82,7 +82,7 @@ class User extends React.Component {
         fields.forEach(f => body_fields[f] = this.state.form[f])
 
         fetch('/user/', {
-            method: 'PUT',
+            method: 'PATCH',
             credentials: 'include',
             headers: {
                 'Accept': 'application/json',
@@ -116,26 +116,36 @@ class User extends React.Component {
         fields.forEach(f => form_fields[f] = this.state.form[f])
         return (
             <Header current_user={this.props.current_user}>
-            <Details form_fields={form_fields} profile={this.props.profile}/>
-            <span>{
-                this.props.permission.update && (
-                    <Update
-                        current_user={this.props.current_user}
-                        update_form={this.update_form}
-                        submit_form={this.submit_form}
-                        form_fields={form_fields}
-                        all_fields={fields}
-                        errors={this.state.errors}
-                        show_form={this.state.show_form}
-                        show_hide_form={this.show_hide_form}
-                        profile={this.props.profile} />
-                )
-            }</span>
-            <span>{
-                this.props.permission.delete && (
-                    <Delete delete_item={this.delete_item} />
-                )
-            }</span>
+
+                <span>{
+                    this.props.permission.details && (
+                        <Details
+                            form_fields={form_fields}
+                            profile={this.props.profile} />
+                    )
+                }</span>
+
+                <span>{
+                    this.props.permission.update && (
+                        <Update
+                            current_user={this.props.current_user}
+                            update_form={this.update_form}
+                            submit_form={this.submit_form}
+                            form_fields={form_fields}
+                            all_fields={fields}
+                            errors={this.state.errors}
+                            show_form={this.state.show_form}
+                            show_hide_form={this.show_hide_form}
+                            profile={this.props.profile} />
+                    )
+                }</span>
+
+                <span>{
+                    this.props.permission.delete && (
+                        <Delete delete_item={this.delete_item} />
+                    )
+                }</span>
+
             </Header>
         )
     }
@@ -156,21 +166,21 @@ User.getInitialProps = async function(context) {
         delete: delete_user_permission(current_user, { owner: profile.id }),
     }
 
-    if (!permission.details) {
+    if (!!permission.details || !!permission.update || !!permission.delete) {
+        return {
+            current_user,
+            profile,
+            permission,
+        }
+    } else {
         if (context.res) {
             context.res.writeHead(301, {
             Location: '/users'
         })
             context.res.end()
-            context.res.finished = true
+            context.res.finish2ed = true
         } else {
             Router.replace('/users')
-        }
-    } else {
-        return {
-            current_user,
-            profile,
-            permission,
         }
     }
 }

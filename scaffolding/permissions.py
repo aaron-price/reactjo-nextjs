@@ -5,11 +5,13 @@ from helpers.worklist import worklist as wl
 def new_permissionset():
     cfg = get_cfg()
     perm = cfg['current_scaffold']['permissions']
+    title = cfg['current_scaffold']['model']['title']
+    title = 'User' if title == 'UserProfile' else title
 
     new_permissions = f('$assets/services/new_permissionset.js', 'r').replace(
-        'title', cfg['current_scaffold']['model']['title'].lower()
+        'title', title.lower()
     ).replace(
-        'upper', cfg['current_scaffold']['model']['title']
+        'upper', title
     ).replace(
         'create_permission', perm['post'].lower() + '(user, obj)'
     ).replace(

@@ -9,14 +9,15 @@ function get_headers(ctx) {
 
     // If server side
     if (ctx.res) {
-        if (ctx.res.token) {
+        let cookie = ctx.res.token
+        if (['', 'false'].indexOf(cookie) === -1) {
             headers.Authorization = 'token ' + ctx.res.token
         }
 
     // If client side
     } else {
         let cookie = get_cookie('token')
-        if (cookie) {
+        if (['', 'false'].indexOf(cookie) === -1) {
             headers.Authorization = 'token ' + cookie
         }
     }

@@ -10,10 +10,13 @@ const Details = (props) => (
                     return <li key={key}>{field}: {props.singular_lower[field]}</li>
                 }
             })}
-            <li>owner:
+            <li>owner: {props.permissions.owner ? (
                 <a href={`/user/${props.singular_lower.owner}`}>
-                    &nbsp;{props.singular_lower.owner_name}
+                    {props.singular_lower.owner_name}
                 </a>
+            ) : (
+                <span>{props.singular_lower.owner_name}</span>
+            )}
             </li>
         </ul>
     </div>

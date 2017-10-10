@@ -57,7 +57,7 @@ const UpdateForm = (props) => (
                     return (
                         <div key={key}>
                             <TextField
-                                floatingLabelText={f}
+                                floatingLabelText={'New ' + f}
                                 floatingLabelFixed={true}
                                 style={field_styles}
                                 type="text"
@@ -70,7 +70,7 @@ const UpdateForm = (props) => (
                     return (
                         <div key={key}>
                             <TextField
-                                floatingLabelText="Password *"
+                                floatingLabelText="New password"
                                 floatingLabelFixed={true}
                                 style={field_styles}
                                 type="password"
