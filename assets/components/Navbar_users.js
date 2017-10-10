@@ -30,9 +30,11 @@ const HomeLinkDesktop = (props) => {
 // User Auth
 const UserLinkMobile = props => {
     let current_user = props.current_user
-    let details_perm = details_user_permission(current_user, current_user)
-    let update_perm = update_user_permission(current_user, current_user)
-    let delete_perm = delete_user_permission(current_user, current_user)
+    let profile = { owner: current_user.id }
+
+    let details_perm = details_user_permission(current_user, profile)
+    let update_perm = update_user_permission(current_user, profile)
+    let delete_perm = delete_user_permission(current_user, profile)
     let has_permission = (details_perm || update_perm || delete_perm)
 
     if (has_permission && props.authenticated) {
@@ -47,9 +49,11 @@ const UserLinkMobile = props => {
 }
 const UserLinkDesktop = props => {
     let current_user = props.current_user
-    let details_perm = details_user_permission(current_user, current_user)
-    let update_perm = update_user_permission(current_user, current_user)
-    let delete_perm = delete_user_permission(current_user, current_user)
+    let profile = { owner: current_user.id }
+
+    let details_perm = details_user_permission(current_user, profile)
+    let update_perm = update_user_permission(current_user, profile)
+    let delete_perm = delete_user_permission(current_user, profile)
     let has_permission = (details_perm || update_perm || delete_perm)
 
     if (has_permission && props.authenticated) {
