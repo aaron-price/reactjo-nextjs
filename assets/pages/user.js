@@ -9,6 +9,7 @@ import Update from '../components/users/Update'
 import Delete from '../components/users/Delete'
 
 import { return_current_user } from '../services/current_user.js'
+const get_headers = require('../services/headers.js').get_headers
 import { get_uri } from '../services/get_uri.js'
 import {
     details_user_permission,
@@ -144,10 +145,7 @@ User.getInitialProps = async function(context) {
     const { id } = context.query
     const profile_blob = await fetch(`${get_uri(context).backend}/api/profile/${id}`, {
         method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
+        headers: get_headers(context)
     })
 
     const current_user = await return_current_user(context)

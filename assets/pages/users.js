@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Header from '../components/Head'
 import List from '../components/users/List'
 import { return_current_user } from '../services/current_user.js'
+const get_headers = require('../services/headers.js').get_headers
 import { get_uri } from '../services/get_uri.js'
 import {
     details_user_permission,
@@ -34,10 +35,7 @@ Users.getInitialProps = async function(context) {
     } else {
         const users_blob = await fetch(`${get_uri(context).backend}/api/profile/`, {
             method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
+            headers: get_headers(context)
         })
         const users = await users_blob.json()
         return {

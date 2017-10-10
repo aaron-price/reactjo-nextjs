@@ -7,6 +7,7 @@ const details_singular_lower_permission = require('../services/permissions.js').
 import { UpdateFormWrapper } from '../components/plural_lower/Update.js'
 import { DeleteButton } from '../components/plural_lower/Delete.js'
 import { Details } from '../components/plural_lower/Details.js'
+const get_headers = require('../services/headers.js').get_headers
 import { get_uri } from '../services/get_uri.js'
 const fields = []
 
@@ -140,10 +141,7 @@ singular_upper.getInitialProps = async function(context) {
     const { id } = context.query
     const res = await fetch(`${get_uri(context).backend}/api/singular_lower/${id}`, {
         method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
+        headers: get_headers(context)
     })
     const data = await res.json()
     const current_user = await return_current_user(context)
