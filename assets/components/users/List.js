@@ -36,7 +36,7 @@ const ListItem = (props) => {
         delete_user_permission(current_user, profile)
     )
 
-    if ( has_permission ) {
+    if (has_permission) {
         return (
             <MuiListItem
                 style={{color: blue}}

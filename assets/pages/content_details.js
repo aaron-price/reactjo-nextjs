@@ -7,7 +7,14 @@ import { Details } from '../components/plural_lower/Details.js'
 import Header from '../components/Head'
 import { UpdateFormWrapper } from '../components/plural_lower/Update.js'
 
-const details_singular_lower_permission = require('../services/permissions.js').details_singular_lower_permission
+import {
+    details_singular_lower_permission,
+    update_singular_lower_permission,
+    delete_singular_lower_permission,
+    details_user_permission,
+    update_user_permission,
+    delete_user_permission,
+} from '../services/permissions.js'
 const get_headers = require('../services/get_headers.js').get_headers
 import { get_uri } from '../services/get_uri.js'
 import { return_current_user } from '../services/current_user.js'
@@ -112,27 +119,33 @@ class singular_upper extends React.Component {
         let form_fields = {}
         fields.forEach(f => form_fields[f] = this.state.form[f])
         return (
-            <Header
-                current_user={ this.state.current_user }>
+            <Header current_user={ this.state.current_user }>
 
-                <UpdateFormWrapper
-                    show_form={ this.state.show_form }
-                    submit_form={ this.submit_form }
-                    update_form={ this.update_form }
-                    form_fields={ form_fields }
-                    all_fields={ fields }
-                    errors={ this.state.errors }
-                    singular_lower={ this.props.singular_lower }
-                    current_user={ this.state.current_user }
-                    show_hide_form={ this.show_hide_form } />
+                <span>{this.props.permissions.details && (
+                    <Details
+                        singular_lower={ this.props.singular_lower }
+                        permissions={this.props.permissions} />
+                )}</span>
 
-                <Details
-                    singular_lower={ this.props.singular_lower } />
+                <span>{this.props.permissions.update && (
+                    <UpdateFormWrapper
+                        show_form={ this.state.show_form }
+                        submit_form={ this.submit_form }
+                        update_form={ this.update_form }
+                        form_fields={ form_fields }
+                        all_fields={ fields }
+                        errors={ this.state.errors }
+                        singular_lower={ this.props.singular_lower }
+                        current_user={ this.state.current_user }
+                        show_hide_form={ this.show_hide_form } />
+                )}</span>
 
-                <DeleteButton
-                    current_user={ this.state.current_user }
-                    delete_item={ this.delete_item }
-                    singular_lower={ this.props.singular_lower } />
+                <span>{this.props.permissions.delete && (
+                    <DeleteButton
+                        current_user={ this.state.current_user }
+                        delete_item={ this.delete_item }
+                        singular_lower={ this.props.singular_lower } />
+                )}</span>
 
             </Header>
         )
@@ -141,15 +154,41 @@ class singular_upper extends React.Component {
 
 // Gets the current user, the singular_lower, and checks permission
 singular_upper.getInitialProps = async function(context) {
+    // Get the singular_lower object
     const { id } = context.query
     const res = await fetch(`${get_uri(context).backend}/api/singular_lower/${id}`, {
         method: 'GET',
         headers: get_headers(context)
     })
     const data = await res.json()
-    const current_user = await return_current_user(context)
-    const has_permission = details_singular_lower_permission(current_user, data)
 
+    // Get the current user
+    const current_user = await return_current_user(context)
+
+    // Build the permissions object
+    let permissions = {
+        details: details_singular_lower_permission(current_user, data),
+        update: update_singular_lower_permission(current_user, data),
+        delete: delete_singular_lower_permission(current_user, data)
+    }
+    // The page is broken into details, update, and delete. User must have
+    // permission to access at least one of them.
+    const has_permission = (
+        permissions.details ||
+        permissions.update ||
+        permissions.delete
+    )
+    permissions.object = has_permission
+
+    // Permission to view the owner's profile. If true, owner name is a link.
+    let owner = { owner: data.owner }
+    permissions.owner = (
+        details_user_permission(current_user, owner) ||
+        update_user_permission(current_user, owner) ||
+        delete_user_permission(current_user, owner)
+    )
+
+    // If user can view the page, bounce back to the list page.
     if (!has_permission) {
         if (context.res) {
             context.res.writeHead(301, {
@@ -164,6 +203,7 @@ singular_upper.getInitialProps = async function(context) {
         return {
             singular_lower: data,
             current_user: current_user,
+            permissions
         }
     }
 }
