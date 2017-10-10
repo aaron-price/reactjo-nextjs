@@ -81,7 +81,7 @@ class singular_upper extends React.Component {
         fields.forEach(f => body_fields[f] = this.state.form[f])
 
         fetch('/singular_lower/', {
-            method: 'PUT',
+            method: 'PATCH',
             credentials: 'include',
             headers: {
                 'Accept': 'application/json',

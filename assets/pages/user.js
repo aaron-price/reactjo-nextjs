@@ -82,7 +82,7 @@ class User extends React.Component {
         fields.forEach(f => body_fields[f] = this.state.form[f])
 
         fetch('/user/', {
-            method: 'PUT',
+            method: 'PATCH',
             credentials: 'include',
             headers: {
                 'Accept': 'application/json',

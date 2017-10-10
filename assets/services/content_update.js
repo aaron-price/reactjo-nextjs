@@ -1,4 +1,5 @@
 const fetch = require('isomorphic-unfetch')
+const get_headers = require('./get_headers.js').get_headers
 const { get_uri } = require('../services/get_uri.js')
 
 const update_content_service = (req, res, app, content_type) => {
@@ -10,19 +11,10 @@ const update_content_service = (req, res, app, content_type) => {
     req.body.fields.forEach(f => fields[f] = req.body[f])
     if ('owner' in fields) { fields.owner = res.current_user.id }
 
-    // Head
-    let headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-    }
-
-    if (res.token !== 'false' && !!res.token) {
-        headers.Authorization = `token ${res.token}`
-    }
     // Request
     const request = fetch(CONTENT_URL, {
-        method: 'PUT',
-        headers,
+        method: 'PATCH',
+        headers: get_headers({ res }),
         body: JSON.stringify(fields)
     })
     .then(blob => blob.json())

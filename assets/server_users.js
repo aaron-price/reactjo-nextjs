@@ -50,7 +50,7 @@ app.prepare().then(() => {
 						delete_content_service(req, res, app, type)
 				})
 				// Update
-				server.put(`/${type}/`, (req, res) => {
+				server.patch(`/${type}/`, (req, res) => {
 						update_content_service(req, res, app, type)
 				})
 		})
