@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import PropTypes from 'prop-types'
 
 import { List as MuiList, ListItem as MuiListItem } from 'material-ui/List'
 
@@ -8,7 +9,7 @@ import {
     delete_user_permission,
 } from '../../services/permissions.js'
 
-export default (props) => {
+const List = (props) => {
     if (props.users.length === 0) {
         return <div>Sorry, there are no users yet.</div>
     } else {
@@ -24,6 +25,10 @@ export default (props) => {
             </MuiList>
         )
     }
+}
+List.propTypes = {
+    current_user: PropTypes.object,
+    users: PropTypes.array,
 }
 
 const ListItem = (props) => {
@@ -53,3 +58,9 @@ const ListItem = (props) => {
         )
     }
 }
+ListItem.propTypes = {
+    current_user: PropTypes.object,
+    user: PropTypes.object
+}
+
+export default List

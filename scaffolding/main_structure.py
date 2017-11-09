@@ -61,6 +61,8 @@ def build_structure():
 
     # Redux
     f('$out/redux/store.js', 'w', '$assets/redux/store.js')
+    f('$out/pages/redux_demo.js', 'w', '$assets/pages/redux_demo.js')
+    f('$out/components/ReduxDemo.js', 'w', '$assets/components/ReduxDemo.js')
 
     server_string = f('$assets/server.js', 'r').replace(
         'random_string', id_generator()).replace(
@@ -99,8 +101,6 @@ def build_structure():
     f('$out/components/users/Login.js', 'w', '$assets/components/users/Login.js')
     f('$out/components/users/Signup.js', 'w', '$assets/components/users/Signup.js')
     f('$out/components/users/Update.js', 'w', '$assets/components/users/Update.js')
-
-
 
     # Services assets
     f('$out/services/content_create.js', 'w', '$assets/services/content_create.js')

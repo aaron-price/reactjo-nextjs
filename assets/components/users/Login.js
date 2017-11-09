@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types'
 import RaisedButton from 'material-ui/RaisedButton'
 import Divider from "material-ui/Divider"
 import TextField from "material-ui/TextField"
 const field_styles = { marginLeft: 20 }
 
-export default (props) => (
+const Login = (props) => (
     <form method="POST">
         <TextField
             floatingLabelText="Name"
@@ -29,3 +30,10 @@ export default (props) => (
             onClick={props.submit_form} /><br/><br/>
     </form>
 )
+
+Login.propTypes = {
+    update_form: PropTypes.func,
+    submit_form: PropTypes.func,
+}
+
+export default Login

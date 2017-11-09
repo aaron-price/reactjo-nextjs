@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import Divider from 'material-ui/Divider'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -8,7 +9,7 @@ import { update_user_permission } from '../../services/permissions.js'
 const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1)
 
 // Update Form wrapper, with hide/show buttons
-export default (props) => {
+const Update = (props) => {
     if (props.show_form) {
         return (
             <div>
@@ -18,13 +19,12 @@ export default (props) => {
                    onClick={() => props.show_hide_form()}/>
                 <br /><br />
                 <UpdateForm
-                    submit_form={props.submit_form}
-                    update_form={props.update_form}
-                    form_fields={props.form_fields}
                     all_fields={props.all_fields}
-                    profile={props.profile}
+                    current_user={props.current_user}
                     errors={props.errors}
-                    current_user={props.current_user} />
+                    profile={props.profile}
+                    submit_form={props.submit_form}
+                    update_form={props.update_form} />
             </div>
         )
     } else {
@@ -40,6 +40,18 @@ export default (props) => {
         )
     }
 }
+Update.propTypes = {
+    all_fields: PropTypes.array,
+    current_user: PropTypes.object,
+    errors: PropTypes.object,
+    profile: PropTypes.object,
+    show_form: PropTypes.bool,
+    show_hide_form: PropTypes.func,
+    submit_form: PropTypes.func,
+    update_form: PropTypes.update_form,
+
+}
+
 
 const field_styles = { marginLeft: 20 }
 // The actual form inputs
@@ -87,3 +99,11 @@ const UpdateForm = (props) => (
         </form>
     </div>
 )
+UpdateForm.propTypes = {
+    submit_form: PropTypes.func,
+    all_fields: PropTypes.array,
+    errors: PropTypes.object,
+    update_form: PropTypes.func,
+}
+
+export default Update

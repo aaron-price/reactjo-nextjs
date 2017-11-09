@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
 import withRedux from 'next-redux-wrapper'
+import PropTypes from 'prop-types'
 
 import Header from '../components/Head'
 import List from '../components/users/List'
@@ -43,10 +44,15 @@ Users.getInitialProps = async function(context) {
         })
         const users = await users_blob.json()
         return {
-            users,
             current_user,
+            users,
         }
     }
+}
+
+Users.propTypes = {
+    current_user: PropTypes.object,
+    users: PropTypes.array,
 }
 
 export default withRedux(initStore, null)(Users)

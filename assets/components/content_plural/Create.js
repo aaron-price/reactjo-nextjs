@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import Divider from "material-ui/Divider"
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -41,6 +42,10 @@ const CreateWrapper = (props) => {
         return <span></span>
     }
 }
+CreateWrapper.propTypes = {
+    current_user: PropTypes.object,
+    show_hide_form: PropTypes.func,
+}
 
 const CreateForm = (props) => (
     <div>
@@ -70,4 +75,10 @@ const CreateForm = (props) => (
         </form>
     </div>
 )
-module.exports = { CreateWrapper }
+CreateForm.propTypes = {
+    all_fields: PropTypes.array,
+    submit_form: PropTypes.func,
+    update_form: PropTypes.func,
+}
+
+export default CreateWrapper

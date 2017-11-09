@@ -1,4 +1,6 @@
-export default (props) => (
+import PropTypes from 'prop-types'
+
+const Details = (props) => (
     <div>
         <h1>{props.profile.name}</h1>
         {Object.keys(props.form_fields).map((f, key) => {
@@ -11,3 +13,10 @@ export default (props) => (
         })}
     </div>
 )
+
+Details.propTypes = {
+    profile: PropTypes.object,
+    form_fields: PropTypes.array,
+}
+
+export default Details

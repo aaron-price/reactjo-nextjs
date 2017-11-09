@@ -1,6 +1,7 @@
 import FlatButton from 'material-ui/FlatButton'
+import PropTypes from 'prop-types'
 
-export default (props) => {
+const Delete = (props) => {
     return (
         <div>
             <FlatButton
@@ -11,3 +12,9 @@ export default (props) => {
         </div>
     )
 }
+
+Delete.propTypes = {
+    delete_item: PropTypes.func
+}
+
+export default Delete

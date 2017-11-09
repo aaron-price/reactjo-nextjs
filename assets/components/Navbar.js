@@ -2,6 +2,7 @@ import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
 import React from 'react'
 import Router from 'next/router'
+import PropTypes from 'prop-types'
 
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
@@ -47,6 +48,11 @@ const UserLinkMobile = props => {
       return <span></span>
     }
 }
+UserLinkMobile.propTypes = {
+    current_user: PropTypes.object,
+    authenticated: PropTypes.bool,
+}
+
 const UserLinkDesktop = props => {
     let current_user = props.current_user
     let profile = { owner: current_user.id }
@@ -67,6 +73,10 @@ const UserLinkDesktop = props => {
       return <span></span>
     }
 }
+UserLinkDesktop.propTypes = {
+    current_user: PropTypes.object,
+    authenticated: PropTypes.bool,
+}
 
 const LoginLinkMobile = props => {
     if (!props.authenticated) {
@@ -75,6 +85,10 @@ const LoginLinkMobile = props => {
       return <span></span>
     }
 }
+LoginLinkMobile.propTypes = {
+    authenticated: PropTypes.bool
+}
+
 const LoginLinkDesktop = props => {
     if (!props.authenticated) {
         return (
@@ -86,6 +100,9 @@ const LoginLinkDesktop = props => {
     } else {
       return <span></span>
     }
+}
+LoginLinkDesktop.propTypes = {
+    authenticated: PropTypes.bool
 }
 
 const LogoutLinkMobile = props => {
@@ -99,6 +116,11 @@ const LogoutLinkMobile = props => {
       return <span></span>
     }
 }
+LogoutLinkMobile.propTypes = {
+    authenticated: PropTypes.bool,
+    logout: PropTypes.func,
+}
+
 const LogoutLinkDesktop = props => {
     if (props.authenticated) {
         return (
@@ -111,7 +133,10 @@ const LogoutLinkDesktop = props => {
       return <span></span>
     }
 }
-
+LogoutLinkDesktop.propTypes = {
+    authenticated: PropTypes.bool,
+    logout: PropTypes.func,
+}
 
 const SignupLinkMobile = props => {
     if (create_user_permission(props.current_user)) {
@@ -122,6 +147,10 @@ const SignupLinkMobile = props => {
       return <span></span>
     }
 }
+SignupLinkMobile.propTypes = {
+    current_user: PropTypes.object,
+}
+
 const SignupLinkDesktop = props => {
     if (create_user_permission(props.current_user)) {
         return (
@@ -130,6 +159,9 @@ const SignupLinkDesktop = props => {
     } else {
       return <span></span>
     }
+}
+SignupLinkDesktop.propTypes = {
+    current_user: PropTypes.object,
 }
 
 // Content
@@ -160,6 +192,9 @@ const ContentLinksMobile = (props) => (
         })}
     </ul>
 )
+ContentLinksMobile.propTypes = {
+    current_user: PropTypes.object,
+}
 const ContentLinksDesktop = (props) => (
     <ul className="navbar-nav mr-auto">
         { content_types.map((item, key) => {
@@ -183,6 +218,9 @@ const ContentLinksDesktop = (props) => (
         })}
     </ul>
 )
+ContentLinksDesktop.propTypes = {
+    current_user: PropTypes.object,
+}
 
 class NavContainer extends React.Component {
     constructor(props) {
@@ -248,6 +286,9 @@ class NavContainer extends React.Component {
         )
     }
 }
+NavContainer.propTypes = {
+    current_user: PropTypes.object,
+}
 
 const MobileMenubar = (props) => {
     let style = props.isOpen ? {} : {display: 'none'}
@@ -284,6 +325,11 @@ const MobileMenubar = (props) => {
       </div>
     )
 }
+MobileMenubar.propTypes = {
+    authenticated: PropTypes.bool,
+    current_user: PropTypes.object,
+    isOpen: PropTypes.bool,
+}
 
 const DesktopMenubar = (props) => {
     return (
@@ -318,6 +364,10 @@ const DesktopMenubar = (props) => {
             </Navbar>
         </div>
     )
+}
+DesktopMenubar.propTypes = {
+    authenticated: PropTypes.bool,
+    current_user: PropTypes.object,
 }
 
 export default NavContainer

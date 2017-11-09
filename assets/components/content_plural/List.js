@@ -1,5 +1,5 @@
 import Link from 'next/link'
-
+import PropTypes from 'prop-types'
 import { List as MuiList, ListItem as MuiListItem } from 'material-ui/List'
 
 import {
@@ -24,6 +24,10 @@ const List = (props) => {
             </MuiList>
         )
     }
+}
+List.propTypes = {
+    current_user: PropTypes.object,
+    plural_lower: PropTypes.array,
 }
 
 const ListItem = (props) => {
@@ -53,4 +57,9 @@ const ListItem = (props) => {
         )
     }
 }
-module.exports = { List }
+ListItem.propTypes = {
+    current_user: PropTypes.object,
+    singular_lower: PropTypes.object
+}
+
+export default List

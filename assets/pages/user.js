@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import Router from 'next/router'
 import withRedux from 'next-redux-wrapper'
+import PropTypes from 'prop-types'
 
 import Header from '../components/Head'
 import Details from '../components/users/Details'
@@ -185,6 +186,12 @@ User.getInitialProps = async function(context) {
             Router.replace('/users')
         }
     }
+}
+
+User.propTypes = {
+    current_user: PropTypes.object,
+    profile: PropTypes.object,
+    permission: PropTypes.object,
 }
 
 export default withRedux(initStore, null)(User)

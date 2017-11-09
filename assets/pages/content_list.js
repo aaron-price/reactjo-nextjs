@@ -2,10 +2,11 @@ import fetch from 'isomorphic-unfetch'
 import React from 'react'
 import Router from 'next/router'
 import withRedux from 'next-redux-wrapper'
+import PropTypes from 'prop-types'
 
-import { CreateWrapper } from '../components/plural_lower/Create.js'
+import CreateWrapper from '../components/plural_lower/Create.js'
 import Header from '../components/Head'
-import { List } from '../components/plural_lower/List.js'
+import List from '../components/plural_lower/List.js'
 
 import { initStore } from '../redux/store'
 import { list_singular_lower_permission } from '../services/permissions.js'
@@ -148,6 +149,11 @@ plural_upper.getInitialProps = async function(context) {
             current_user: await return_current_user(context),
         }
     }
+}
+
+plural_upper.propTypes = {
+    plural_lower: PropTypes.array,
+    current_user: PropTypes.object
 }
 
 export default withRedux(initStore, null)(plural_upper)

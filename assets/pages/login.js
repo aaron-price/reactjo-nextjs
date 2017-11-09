@@ -2,6 +2,7 @@ import React from 'react'
 import Router from 'next/router'
 import fetch from 'isomorphic-unfetch'
 import withRedux from 'next-redux-wrapper'
+import PropTypes from 'prop-types'
 
 import Dialog from 'material-ui/Dialog'
 import Divider from 'material-ui/Divider'
@@ -92,6 +93,9 @@ LoginPage.getInitialProps = async function(context) {
     return {
         current_user: await return_current_user(context),
     }
+}
+LoginPage.propTypes = {
+    current_user: PropTypes.object
 }
 
 export default withRedux(initStore, null)(LoginPage)

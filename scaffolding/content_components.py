@@ -44,12 +44,8 @@ def scaffold_content_components():
     create_asset  = parse_content(f('$assets/components/content_plural/Create.js', 'r'))
     f(comps + '/Create.js', 'w', create_asset)
 
-    if need_owner:
-        details_asset = parse_content(f('$assets/components/content_plural/Details_user.js', 'r'))
-        f(comps + '/Details.js', 'w', details_asset)
-    else:
-        details_asset = parse_content(f('$assets/components/content_plural/Details.js', 'r'))
-        f(comps + '/Details.js', 'w', details_asset)
+    details_asset = parse_content(f('$assets/components/content_plural/Details.js', 'r'))
+    f(comps + '/Details.js', 'w', details_asset)
 
     list_asset    = parse_content(f('$assets/components/content_plural/List.js', 'r'))
     f(comps + '/List.js', 'w', list_asset)

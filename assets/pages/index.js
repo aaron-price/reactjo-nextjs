@@ -2,6 +2,7 @@ import Link from 'next/link'
 import 'isomorphic-fetch'
 import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
+import PropTypes from 'prop-types'
 
 import Header from '../components/Head'
 
@@ -22,6 +23,10 @@ index.getInitialProps = async function(context) {
     return {
         current_user: await return_current_user(context),
     }
+}
+
+index.propTypes = {
+    current_user: PropTypes.object
 }
 
 export default withRedux(initStore, null)(index)

@@ -2,6 +2,7 @@ import fetch from 'isomorphic-unfetch'
 import React from 'react'
 import Router from 'next/router'
 import withRedux from 'next-redux-wrapper'
+import PropTypes from 'prop-types'
 
 import Divider from "material-ui/Divider"
 import TextField from "material-ui/TextField"
@@ -98,5 +99,7 @@ SignupPage.getInitialProps = async function(context) {
 				current_user: await return_current_user(context),
 		}
 }
-
+SignupPage.propTypes = {
+    current_user: PropTypes.object
+}
 export default withRedux(initStore, null)(SignupPage)
