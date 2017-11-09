@@ -8,7 +8,7 @@ import {
     delete_singular_lower_permission } from '../../services/permissions.js'
 const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1)
 
-const Update = (props) => {
+export const Update = (props) => {
     if (update_singular_lower_permission(props.current_user, props.singular_lower)) {
         if (props.show_form) {
             // Update Form, with 'hide form' button
@@ -92,4 +92,3 @@ UpdateForm.propTypes = {
 }
 
 export default Update
-module.exports = { Update }

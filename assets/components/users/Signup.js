@@ -5,7 +5,7 @@ import TextField from "material-ui/TextField"
 
 const field_styles = { marginLeft: 20 }
 
-const Signup = (props) => (
+export const Signup = (props) => (
     <form method="POST">
         {props.form_fields.map((title, key) => {
             const low = title.toLowerCase()
@@ -47,4 +47,3 @@ Signup.propTypes = {
 }
 
 export default Signup
-module.exports = { Signup }

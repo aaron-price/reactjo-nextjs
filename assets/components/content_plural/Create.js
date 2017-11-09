@@ -7,7 +7,7 @@ import TextField from "material-ui/TextField"
 import { create_singular_lower_permission } from '../../services/permissions.js'
 const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1)
 
-const CreateWrapper = (props) => {
+export const CreateWrapper = (props) => {
     if (create_singular_lower_permission(props.current_user)) {
         return (<div>{
             props.show_form
@@ -82,4 +82,3 @@ CreateForm.propTypes = {
 }
 
 export default CreateWrapper
-module.exports = { CreateWrapper }

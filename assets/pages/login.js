@@ -16,7 +16,7 @@ import { return_current_user } from '../services/current_user.js'
 import { get_uri } from '../services/get_uri.js'
 import { initStore } from '../redux/store'
 
-class LoginPage extends React.Component {
+export class LoginPage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -99,4 +99,3 @@ LoginPage.propTypes = {
 }
 
 export default withRedux(initStore, null)(LoginPage)
-module.exports = { LoginPage }

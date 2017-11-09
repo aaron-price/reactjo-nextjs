@@ -16,7 +16,7 @@ import { return_current_user } from '../services/current_user.js'
 
 const fields = []
 
-class plural_upper extends React.Component {
+export class plural_upper extends React.Component {
     constructor(props) {
         super(props)
         // Builds the 'Create' form fields.
@@ -157,4 +157,3 @@ plural_upper.propTypes = {
 }
 
 export default withRedux(initStore, null)(plural_upper)
-module.exports = { plural_upper }

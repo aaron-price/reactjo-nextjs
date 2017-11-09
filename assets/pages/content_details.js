@@ -24,7 +24,7 @@ import { return_current_user } from '../services/current_user.js'
 
 const fields = []
 
-class singular_upper extends React.Component {
+export class singular_upper extends React.Component {
     constructor(props) {
         super(props)
         let form = {}
@@ -217,4 +217,3 @@ singular_upper.propTypes = {
 }
 
 export default withRedux(initStore, null)(singular_upper)
-module.exports = { singular_upper }

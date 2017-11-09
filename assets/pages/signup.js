@@ -16,7 +16,7 @@ import { return_current_user } from '../services/current_user.js'
 
 const form_fields = []
 
-class SignupPage extends React.Component {
+export class SignupPage extends React.Component {
     constructor(props) {
         super(props)
         let form = { password: '' }
@@ -103,4 +103,3 @@ SignupPage.propTypes = {
     current_user: PropTypes.object
 }
 export default withRedux(initStore, null)(SignupPage)
-module.exports = { SignupPage }

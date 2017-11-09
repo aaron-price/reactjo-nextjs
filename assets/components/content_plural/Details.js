@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-const Details = (props) => (
+export const Details = (props) => (
     <div>
         <h1>{props.singular_lower.string_method}</h1>
         <ul>
@@ -30,4 +30,3 @@ Details.propTypes = {
 }
 
 export default Details
-module.exports = { Details }

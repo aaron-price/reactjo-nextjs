@@ -21,7 +21,7 @@ import { return_current_user } from '../services/current_user.js'
 
 const fields = []
 
-class User extends React.Component {
+export class User extends React.Component {
     constructor(props) {
         super(props)
         let form = {}
@@ -195,4 +195,3 @@ User.propTypes = {
 }
 
 export default withRedux(initStore, null)(User)
-module.exports = { User }

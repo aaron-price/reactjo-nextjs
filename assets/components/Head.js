@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 try { injectTapEventPlugin() } catch(e) {}
 const muiTheme = getMuiTheme({ userAgent: false })
 
-const Header = (props) => (
+export const Header = (props) => (
     <MuiThemeProvider muiTheme={muiTheme}>
         <div>
             <Head>
@@ -47,4 +47,3 @@ const Footer = (props) => (
 )
 
 export default Header
-module.exports = { Header }

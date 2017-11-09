@@ -9,7 +9,7 @@ import Header from '../components/Head'
 import { initStore } from '../redux/store'
 import { return_current_user } from '../services/current_user.js'
 
-const index = props => (
+export const index = props => (
     <Header current_user={props.current_user}>
         <h1>Reactjo Index</h1>
         <p>To add a new page, go to /frontent/pages/ and add a new file with a react component. You can use index.js as an example template</p>
@@ -30,4 +30,3 @@ index.propTypes = {
 }
 
 export default withRedux(initStore, null)(index)
-module.exports = { index }

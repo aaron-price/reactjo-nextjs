@@ -4,7 +4,7 @@ import Divider from "material-ui/Divider"
 import TextField from "material-ui/TextField"
 const field_styles = { marginLeft: 20 }
 
-const Login = (props) => (
+export const Login = (props) => (
     <form method="POST">
         <TextField
             floatingLabelText="Name"
@@ -37,4 +37,3 @@ Login.propTypes = {
 }
 
 export default Login
-module.exports = { Login }

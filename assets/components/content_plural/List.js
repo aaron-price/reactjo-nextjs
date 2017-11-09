@@ -8,7 +8,7 @@ import {
     delete_singular_lower_permission,
 } from '../../services/permissions.js'
 
-const List = (props) => {
+export const List = (props) => {
     if (props.plural_lower.length === 0) {
         return <div>Sorry, there are no plural_lower yet.</div>
     } else {
@@ -63,4 +63,3 @@ ListItem.propTypes = {
 }
 
 export default List
-module.exports = { List }

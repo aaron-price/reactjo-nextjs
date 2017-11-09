@@ -12,7 +12,7 @@ import ReduxDemoComponent from '../components/ReduxDemo.js'
 import { initStore, addCount } from '../redux/store'
 import { return_current_user } from '../services/current_user.js'
 
-const redux_demo = props => (
+export const redux_demo = props => (
     <Header current_user={props.current_user}>
         <h1>Redux demo</h1>
         <p>Based on the with-redux example for next.js
@@ -41,5 +41,4 @@ redux_demo.propTypes = {
     current_user: PropTypes.object,
 }
 
-export default withRedux(initStore, mapDispatchToProps)(index)
-module.exports = { index }
+export default withRedux(initStore, mapDispatchToProps)(redux_demo)

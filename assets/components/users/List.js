@@ -9,7 +9,7 @@ import {
     delete_user_permission,
 } from '../../services/permissions.js'
 
-const List = (props) => {
+export const List = (props) => {
     if (props.users.length === 0) {
         return <div>Sorry, there are no users yet.</div>
     } else {
@@ -64,4 +64,3 @@ ListItem.propTypes = {
 }
 
 export default List
-module.exports = { List }

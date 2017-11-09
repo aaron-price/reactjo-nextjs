@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-const Details = (props) => (
+export const Details = (props) => (
     <div>
         <h1>{props.profile.name}</h1>
         {Object.keys(props.form_fields).map((f, key) => {
@@ -20,4 +20,3 @@ Details.propTypes = {
 }
 
 export default Details
-module.exports = { Details }

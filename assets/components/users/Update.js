@@ -9,7 +9,7 @@ import { update_user_permission } from '../../services/permissions.js'
 const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1)
 
 // Update Form wrapper, with hide/show buttons
-const Update = (props) => {
+export const Update = (props) => {
     if (props.show_form) {
         return (
             <div>
@@ -107,4 +107,3 @@ UpdateForm.propTypes = {
 }
 
 export default Update
-module.exports = { Update }
