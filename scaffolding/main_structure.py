@@ -26,6 +26,7 @@ def build_structure():
 
     # directories
     mkdir('$out')
+    mkdir('$out/__tests__')
     mkdir('$out/components')
     mkdir('$out/components/users')
     mkdir('$out/middleware')
