@@ -30,6 +30,7 @@ def build_structure():
     mkdir('$out/components/users')
     mkdir('$out/middleware')
     mkdir('$out/pages')
+    mkdir('$out/redux')
     mkdir('$out/services')
     mkdir('$out/styles')
     mkdir('$out/styles/base')
@@ -57,6 +58,9 @@ def build_structure():
     f('$out/next.config.js', 'w', '$assets/next.config.js')
     f('$out/package.json', 'w', '$assets/package.js')
     f('$out/postcss.config.js', 'w', '$assets/postcss.config.js')
+
+    # Redux
+    f('$out/redux/store.js', 'w', '$assets/redux/store.js')
 
     server_string = f('$assets/server.js', 'r').replace(
         'random_string', id_generator()).replace(
