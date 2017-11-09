@@ -14,7 +14,7 @@ import {
     list_user_permission } from '../services/permissions.js'
 import { return_current_user } from '../services/current_user.js'
 
-const Users = (props) => (
+export const Users = (props) => (
     <Header current_user={props.current_user}>
         <h1>Users</h1>
         <List
@@ -56,4 +56,3 @@ Users.propTypes = {
 }
 
 export default withRedux(initStore, null)(Users)
-module.exports = { Users }

@@ -48,7 +48,7 @@ Update.propTypes = {
     show_form: PropTypes.bool,
     show_hide_form: PropTypes.func,
     submit_form: PropTypes.func,
-    update_form: PropTypes.update_form,
+    update_form: PropTypes.func,
 
 }
 
