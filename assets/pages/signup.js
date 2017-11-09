@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-unfetch'
 import React from 'react'
 import Router from 'next/router'
+import withRedux from 'next-redux-wrapper'
 
 import Divider from "material-ui/Divider"
 import TextField from "material-ui/TextField"
@@ -9,6 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import Header from '../components/Head'
 import Signup from '../components/users/Signup'
 
+import { initStore } from '../redux/store'
 import { return_current_user } from '../services/current_user.js'
 
 const form_fields = []
@@ -97,4 +99,4 @@ SignupPage.getInitialProps = async function(context) {
 		}
 }
 
-export default SignupPage
+export default withRedux(initStore, null)(SignupPage)

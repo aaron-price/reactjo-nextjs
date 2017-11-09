@@ -1,11 +1,13 @@
 import fetch from 'isomorphic-unfetch'
 import Router from 'next/router'
 import React from 'react'
+import withRedux from 'next-redux-wrapper'
 
 import { DeleteButton } from '../components/plural_lower/Delete.js'
 import { Details } from '../components/plural_lower/Details.js'
 import Header from '../components/Head'
 import { UpdateFormWrapper } from '../components/plural_lower/Update.js'
+import { initStore } from '../redux/store'
 
 import {
     details_singular_lower_permission,
@@ -207,4 +209,4 @@ singular_upper.getInitialProps = async function(context) {
         }
     }
 }
-export default singular_upper
+export default withRedux(initStore, null)(singular_upper)

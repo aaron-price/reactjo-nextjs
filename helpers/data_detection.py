@@ -6,7 +6,7 @@ def get_type(string):
 	paren = string.find('(')
 	types = [curly, square]
 	existing_types = []
-	
+
 	for t in types:
 		if t != -1:
 			existing_types.append(t)
@@ -15,7 +15,7 @@ def get_type(string):
 
 	opposites = {'{':'}','[':']', '(':')'}
 	opposite = opposites[typ]
-	
+
 	return {
 		'typ': typ,
 		'opposite': opposite,

@@ -1,11 +1,13 @@
 import fetch from 'isomorphic-unfetch'
 import React from 'react'
 import Router from 'next/router'
+import withRedux from 'next-redux-wrapper'
 
 import { CreateWrapper } from '../components/plural_lower/Create.js'
 import Header from '../components/Head'
 import { List } from '../components/plural_lower/List.js'
 
+import { initStore } from '../redux/store'
 import { list_singular_lower_permission } from '../services/permissions.js'
 const get_headers = require('../services/get_headers.js').get_headers
 import { get_uri } from '../services/get_uri.js'
@@ -148,4 +150,4 @@ plural_upper.getInitialProps = async function(context) {
     }
 }
 
-export default plural_upper
+export default withRedux(initStore, null)(plural_upper)

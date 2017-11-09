@@ -22,15 +22,13 @@ def build_structure():
     frontend_name = string_input('Name the frontend Node.js app', 'frontend')
     cfg['frontend_name'] = frontend_name
     set_cfg(cfg)
-    users = cfg['need_users'] == 'True'
     project_name = cfg['project_name']
 
     # directories
     mkdir('$out')
     mkdir('$out/components')
     mkdir('$out/components/users')
-    if users:
-        mkdir('$out/middleware')
+    mkdir('$out/middleware')
     mkdir('$out/pages')
     mkdir('$out/services')
     mkdir('$out/styles')
@@ -43,17 +41,13 @@ def build_structure():
 
     # Component assets
     f('$out/components/Head.js', 'w', '$assets/components/Head.js')
-    if users:
-        f('$out/components/Navbar.js', 'w', '$assets/components/Navbar_users.js')
-    else:
-        f('$out/components/Navbar.js', 'w', '$assets/components/Navbar.js')
+    f('$out/components/Navbar.js', 'w', '$assets/components/Navbar.js')
 
     # Middleware
     f('$out/middleware/set_uri.js', 'w', '$assets/middleware/set_uri.js')
-    if users:
-        res_current_user = f('$assets/middleware/res_current_user.js', 'r').replace(
-            'reactjo', project_name)
-        f('$out/middleware/res_current_user.js', 'w', res_current_user)
+    res_current_user = f('$assets/middleware/res_current_user.js', 'r').replace(
+        'reactjo', project_name)
+    f('$out/middleware/res_current_user.js', 'w', res_current_user)
 
     # Misc assets
     f('$out/.env', 'w', '$assets/env.txt')
@@ -64,52 +58,43 @@ def build_structure():
     f('$out/package.json', 'w', '$assets/package.js')
     f('$out/postcss.config.js', 'w', '$assets/postcss.config.js')
 
-
-
-    if users:
-        server_string = f('$assets/server_users.js', 'r')
-    else:
-        server_string = f('$assets/server.js', 'r')
-
-    server_string = server_string.replace(
+    server_string = f('$assets/server.js', 'r').replace(
         'random_string', id_generator()).replace(
         'reactjo', project_name)
 
     f('$out/server.js', 'w', server_string)
 
     # Pages assets
-    if users:
-        # Vars
-        cfg = get_cfg()
-        user_fields = cfg['current_scaffold']['model']['fields']
-        user_titles = [field['title'] for field in user_fields]
-        fields_arr = [quote(title) for title in user_titles]
-        fields_arr.append(quote('password'))
 
-        signup_page = f('$assets/pages/signup.js', 'r').replace(
-            'const form_fields = []',
-            'const form_fields = [' + ', '.join(fields_arr) + ']')
+    # Vars
+    cfg = get_cfg()
+    user_fields = cfg['current_scaffold']['model']['fields']
+    user_titles = [field['title'] for field in user_fields]
+    fields_arr = [quote(title) for title in user_titles]
+    fields_arr.append(quote('password'))
 
-        user_page = f('$assets/pages/user.js', 'r').replace(
-            'const fields = []',
-            'const fields = [' + ', '.join(fields_arr) + ']')
+    signup_page = f('$assets/pages/signup.js', 'r').replace(
+        'const form_fields = []',
+        'const form_fields = [' + ', '.join(fields_arr) + ']')
 
-        # User Pages
-        f('$out/pages/login.js', 'w', '$assets/pages/login.js')
-        f('$out/pages/signup.js', 'w', signup_page)
-        f('$out/pages/user.js', 'w', user_page)
-        f('$out/pages/users.js', 'w', '$assets/pages/users.js')
-        f('$out/pages/index.js', 'w', '$assets/pages/index_users.js')
+    user_page = f('$assets/pages/user.js', 'r').replace(
+        'const fields = []',
+        'const fields = [' + ', '.join(fields_arr) + ']')
 
-        # User Components
-        f('$out/components/users/Delete.js', 'w', '$assets/components/users/Delete.js')
-        f('$out/components/users/Details.js', 'w', '$assets/components/users/Details.js')
-        f('$out/components/users/List.js', 'w', '$assets/components/users/List.js')
-        f('$out/components/users/Login.js', 'w', '$assets/components/users/Login.js')
-        f('$out/components/users/Signup.js', 'w', '$assets/components/users/Signup.js')
-        f('$out/components/users/Update.js', 'w', '$assets/components/users/Update.js')
-    else:
-        f('$out/pages/index.js', 'w', '$assets/pages/index.js')
+    # User Pages
+    f('$out/pages/login.js', 'w', '$assets/pages/login.js')
+    f('$out/pages/signup.js', 'w', signup_page)
+    f('$out/pages/user.js', 'w', user_page)
+    f('$out/pages/users.js', 'w', '$assets/pages/users.js')
+    f('$out/pages/index.js', 'w', '$assets/pages/index.js')
+
+    # User Components
+    f('$out/components/users/Delete.js', 'w', '$assets/components/users/Delete.js')
+    f('$out/components/users/Details.js', 'w', '$assets/components/users/Details.js')
+    f('$out/components/users/List.js', 'w', '$assets/components/users/List.js')
+    f('$out/components/users/Login.js', 'w', '$assets/components/users/Login.js')
+    f('$out/components/users/Signup.js', 'w', '$assets/components/users/Signup.js')
+    f('$out/components/users/Update.js', 'w', '$assets/components/users/Update.js')
 
 
 
@@ -122,37 +107,36 @@ def build_structure():
     f('$out/services/get_headers.js', 'w', '$assets/services/get_headers.js')
     f('$out/services/get_uri.js', 'w', '$assets/services/get_uri.js')
 
-    if users:
-        # Vars
-        cfg = get_cfg()
-        user_fields = cfg['current_scaffold']['model']['fields']
-        user_titles = [field['title'] for field in user_fields]
-        quote_titles = [quote(title) for title in user_titles]
-        set_cfg(cfg)
+    # Vars
+    cfg = get_cfg()
+    user_fields = cfg['current_scaffold']['model']['fields']
+    user_titles = [field['title'] for field in user_fields]
+    quote_titles = [quote(title) for title in user_titles]
+    set_cfg(cfg)
 
-        # User Permissions
-        new_permissionset()
+    # User Permissions
+    new_permissionset()
 
-        # Login
-        login_service = f('$assets/services/login_service.js', 'r').replace(
-            'reactjo', project_name)
-        f('$out/services/login_service.js', 'w', login_service)
+    # Login
+    login_service = f('$assets/services/login_service.js', 'r').replace(
+        'reactjo', project_name)
+    f('$out/services/login_service.js', 'w', login_service)
 
-        # Logout
-        logout_service = f('$assets/services/logout_service.js', 'r').replace(
-            'reactjo', project_name)
-        f('$out/services/logout_service.js', 'w', logout_service)
+    # Logout
+    logout_service = f('$assets/services/logout_service.js', 'r').replace(
+        'reactjo', project_name)
+    f('$out/services/logout_service.js', 'w', logout_service)
 
-        # Signup
-        signup_service = f('$assets/services/signup_service.js', 'r').replace(
-            'let fields = []',
-            'let fields = [' + ', '.join(quote_titles) + ']')
-        f('$out/services/signup_service.js', 'w', signup_service)
+    # Signup
+    signup_service = f('$assets/services/signup_service.js', 'r').replace(
+        'let fields = []',
+        'let fields = [' + ', '.join(quote_titles) + ']')
+    f('$out/services/signup_service.js', 'w', signup_service)
 
-        # Check current_user
-        current_user_service = f('$assets/services/current_user.js', 'r').replace(
-            'reactjo', project_name)
-        f('$out/services/current_user.js', 'w', current_user_service)
+    # Check current_user
+    current_user_service = f('$assets/services/current_user.js', 'r').replace(
+        'reactjo', project_name)
+    f('$out/services/current_user.js', 'w', current_user_service)
 
     # Style assets
     f('$out/styles/index.scss', 'w', '$assets/styles/index.scss')

@@ -1,9 +1,11 @@
 import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
+import withRedux from 'next-redux-wrapper'
 
 import Header from '../components/Head'
 import List from '../components/users/List'
 
+import { initStore } from '../redux/store'
 const get_headers = require('../services/get_headers.js').get_headers
 import { get_uri } from '../services/get_uri.js'
 import {
@@ -46,4 +48,5 @@ Users.getInitialProps = async function(context) {
         }
     }
 }
-export default Users
+
+export default withRedux(initStore, null)(Users)

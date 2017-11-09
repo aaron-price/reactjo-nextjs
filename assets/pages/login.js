@@ -1,6 +1,7 @@
 import React from 'react'
 import Router from 'next/router'
 import fetch from 'isomorphic-unfetch'
+import withRedux from 'next-redux-wrapper'
 
 import Dialog from 'material-ui/Dialog'
 import Divider from 'material-ui/Divider'
@@ -12,6 +13,7 @@ import Header from '../components/Head'
 import Login from '../components/users/Login'
 import { return_current_user } from '../services/current_user.js'
 import { get_uri } from '../services/get_uri.js'
+import { initStore } from '../redux/store'
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -92,4 +94,4 @@ LoginPage.getInitialProps = async function(context) {
     }
 }
 
-export default LoginPage
+export default withRedux(initStore, null)(LoginPage)
