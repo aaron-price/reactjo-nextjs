@@ -43,7 +43,7 @@ const Update = (props) => {
     // User doesn't have permission, render nothing.
     } else { return <span></span> }
 }
-UpdateFormWrapper.propTypes = {
+Update.propTypes = {
     all_fields: PropTypes.array,
     current_user: PropTypes.object,
     errors: PropTypes.object,

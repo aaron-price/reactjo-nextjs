@@ -16,7 +16,7 @@ const Details = (props) => (
 
 Details.propTypes = {
     profile: PropTypes.object,
-    form_fields: PropTypes.array,
+    form_fields: PropTypes.object,
 }
 
 export default Details
