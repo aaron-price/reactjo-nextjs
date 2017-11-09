@@ -30,3 +30,4 @@ index.propTypes = {
 }
 
 export default withRedux(initStore, null)(index)
+module.exports = { index }

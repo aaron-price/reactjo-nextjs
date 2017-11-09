@@ -47,3 +47,4 @@ Signup.propTypes = {
 }
 
 export default Signup
+module.exports = { Signup }

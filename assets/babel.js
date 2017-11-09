@@ -14,5 +14,13 @@
         ]
     ],
     "presets": [ "next/babel" ],
-    "ignore": []
+    "ignore": ["node_modules/**"],
+    "env": {
+        "test": {
+            "presets": [
+                "next/babel",
+                ["env", { "modules": "commonjs" }]
+            ]
+        }
+    }
 }

@@ -3,11 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "jest": {
+    "setupFiles": [
+      "./shim.js"
+    ]
+  },
   "scripts": {
     "dev": "node server.js -p $PORT",
     "build": "next build",
     "heroku-postbuild": "next build",
-    "start": "node server.js -p $PORT"
+    "start": "node server.js -p $PORT",
+    "test": "NODE_ENV=test jest --no-cache && npm run lint",
+    "lint": "./node_modules/.bin/eslint . --fix"
   },
   "keywords": [],
   "author": "",

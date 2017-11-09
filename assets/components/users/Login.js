@@ -37,3 +37,4 @@ Login.propTypes = {
 }
 
 export default Login
+module.exports = { Login }

@@ -99,3 +99,4 @@ LoginPage.propTypes = {
 }
 
 export default withRedux(initStore, null)(LoginPage)
+module.exports = { LoginPage }

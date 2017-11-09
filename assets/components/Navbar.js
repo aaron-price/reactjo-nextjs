@@ -92,7 +92,7 @@ LoginLinkMobile.propTypes = {
 const LoginLinkDesktop = props => {
     if (!props.authenticated) {
         return (
-				    <RaisedButton
+            <RaisedButton
                 href='/login'
                 label='login'
                 className='menubar__button--link' />
@@ -371,3 +371,4 @@ DesktopMenubar.propTypes = {
 }
 
 export default NavContainer
+module.exports = { NavContainer }

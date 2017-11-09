@@ -24,3 +24,4 @@ ReduxDemoComponent.propTypes = {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReduxDemoComponent)
+module.exports = { ReduxDemoComponent }

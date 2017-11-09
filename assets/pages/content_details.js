@@ -4,10 +4,10 @@ import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import PropTypes from 'prop-types'
 
-import DeleteButton from '../components/plural_lower/Delete.js'
+import Delete from '../components/plural_lower/Delete.js'
 import Details from '../components/plural_lower/Details.js'
 import Header from '../components/Head'
-import UpdateFormWrapper from '../components/plural_lower/Update.js'
+import { UpdateFormWrapper } from '../components/plural_lower/Update.js'
 import { initStore } from '../redux/store'
 
 import {
@@ -144,7 +144,7 @@ class singular_upper extends React.Component {
                 )}</span>
 
                 <span>{this.props.permissions.delete && (
-                    <DeleteButton
+                    <Delete
                         current_user={ this.state.current_user }
                         delete_item={ this.delete_item }
                         singular_lower={ this.props.singular_lower } />
@@ -217,3 +217,4 @@ singular_upper.propTypes = {
 }
 
 export default withRedux(initStore, null)(singular_upper)
+module.exports = { singular_upper }

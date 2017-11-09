@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import FlatButton from 'material-ui/FlatButton'
 import { delete_singular_lower_permission } from '../../services/permissions.js'
 
-const DeleteButton = (props) => {
+const Delete = (props) => {
     if (delete_singular_lower_permission(props.current_user, props.singular_lower)) {
         return (
             <div>
@@ -15,10 +15,11 @@ const DeleteButton = (props) => {
         )
     } else { return <span></span> }
 }
-DeleteButton.propTypes = {
+Delete.propTypes = {
     current_user: PropTypes.object,
     delete_item: PropTypes.func,
     singular_lower: PropTypes.object,
 }
 
-export default DeleteButton
+export default Delete
+module.exports = { Delete }

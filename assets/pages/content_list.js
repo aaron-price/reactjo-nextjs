@@ -157,3 +157,4 @@ plural_upper.propTypes = {
 }
 
 export default withRedux(initStore, null)(plural_upper)
+module.exports = { plural_upper }

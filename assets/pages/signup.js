@@ -103,3 +103,4 @@ SignupPage.propTypes = {
     current_user: PropTypes.object
 }
 export default withRedux(initStore, null)(SignupPage)
+module.exports = { SignupPage }

@@ -30,3 +30,4 @@ Details.propTypes = {
 }
 
 export default Details
+module.exports = { Details }

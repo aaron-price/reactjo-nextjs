@@ -82,3 +82,4 @@ CreateForm.propTypes = {
 }
 
 export default CreateWrapper
+module.exports = { CreateWrapper }

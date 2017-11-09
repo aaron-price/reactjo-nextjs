@@ -42,3 +42,4 @@ redux_demo.propTypes = {
 }
 
 export default withRedux(initStore, mapDispatchToProps)(index)
+module.exports = { index }

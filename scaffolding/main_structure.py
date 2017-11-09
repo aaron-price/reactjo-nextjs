@@ -54,10 +54,12 @@ def build_structure():
     f('$out/.env', 'w', '$assets/env.txt')
     f('$out/.babelrc', 'w', '$assets/babel.js')
     f('$out/.gitignore', 'w', '$assets/gitignore.txt')
+    f('$out/.eslintrc.json', 'w', '$assets/eslint.js')
     f('$out/app.json', 'w', '$assets/app.js')
     f('$out/next.config.js', 'w', '$assets/next.config.js')
     f('$out/package.json', 'w', '$assets/package.js')
     f('$out/postcss.config.js', 'w', '$assets/postcss.config.js')
+    f('$out/shim.js', 'w', '$assets/shim.js')
 
     # Redux
     f('$out/redux/store.js', 'w', '$assets/redux/store.js')

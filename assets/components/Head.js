@@ -47,3 +47,4 @@ const Footer = (props) => (
 )
 
 export default Header
+module.exports = { Header }

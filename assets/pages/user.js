@@ -195,3 +195,4 @@ User.propTypes = {
 }
 
 export default withRedux(initStore, null)(User)
+module.exports = { User }

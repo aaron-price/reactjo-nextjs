@@ -63,3 +63,4 @@ ListItem.propTypes = {
 }
 
 export default List
+module.exports = { List }

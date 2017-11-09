@@ -92,3 +92,4 @@ UpdateForm.propTypes = {
 }
 
 export default Update
+module.exports = { Update }

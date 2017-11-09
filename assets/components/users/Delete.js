@@ -18,3 +18,4 @@ Delete.propTypes = {
 }
 
 export default Delete
+module.exports = { Delete }

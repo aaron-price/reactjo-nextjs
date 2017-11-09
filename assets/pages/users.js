@@ -56,3 +56,4 @@ Users.propTypes = {
 }
 
 export default withRedux(initStore, null)(Users)
+module.exports = { Users }
