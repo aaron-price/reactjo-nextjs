@@ -2,12 +2,15 @@ import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
 import React from 'react'
 import Router from 'next/router'
+import withRedux from 'next-redux-wrapper'
+import PropTypes from 'prop-types'
 
 import Header from '../components/Head'
-import Details from '../components/users/Details'
-import Update from '../components/users/Update'
-import Delete from '../components/users/Delete'
+import { Details } from '../components/users/Details'
+import { Update } from '../components/users/Update'
+import { Delete } from '../components/users/Delete'
 
+import { initStore } from '../redux/store'
 const get_headers = require('../services/get_headers.js').get_headers
 import { get_uri } from '../services/get_uri.js'
 import {
@@ -18,7 +21,7 @@ import { return_current_user } from '../services/current_user.js'
 
 const fields = []
 
-class User extends React.Component {
+export class User extends React.Component {
     constructor(props) {
         super(props)
         let form = {}
@@ -185,4 +188,10 @@ User.getInitialProps = async function(context) {
     }
 }
 
-export default User
+User.propTypes = {
+    current_user: PropTypes.object,
+    profile: PropTypes.object,
+    permission: PropTypes.object,
+}
+
+export default withRedux(initStore, null)(User)

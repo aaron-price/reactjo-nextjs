@@ -1,9 +1,12 @@
 import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
+import withRedux from 'next-redux-wrapper'
+import PropTypes from 'prop-types'
 
 import Header from '../components/Head'
 import List from '../components/users/List'
 
+import { initStore } from '../redux/store'
 const get_headers = require('../services/get_headers.js').get_headers
 import { get_uri } from '../services/get_uri.js'
 import {
@@ -11,7 +14,7 @@ import {
     list_user_permission } from '../services/permissions.js'
 import { return_current_user } from '../services/current_user.js'
 
-const Users = (props) => (
+export const Users = (props) => (
     <Header current_user={props.current_user}>
         <h1>Users</h1>
         <List
@@ -41,9 +44,15 @@ Users.getInitialProps = async function(context) {
         })
         const users = await users_blob.json()
         return {
-            users,
             current_user,
+            users,
         }
     }
 }
-export default Users
+
+Users.propTypes = {
+    current_user: PropTypes.object,
+    users: PropTypes.array,
+}
+
+export default withRedux(initStore, null)(Users)

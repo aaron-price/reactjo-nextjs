@@ -1,11 +1,14 @@
 import fetch from 'isomorphic-unfetch'
 import Router from 'next/router'
 import React from 'react'
+import withRedux from 'next-redux-wrapper'
+import PropTypes from 'prop-types'
 
-import { DeleteButton } from '../components/plural_lower/Delete.js'
-import { Details } from '../components/plural_lower/Details.js'
+import Delete from '../components/plural_lower/Delete.js'
+import Details from '../components/plural_lower/Details.js'
 import Header from '../components/Head'
-import { UpdateFormWrapper } from '../components/plural_lower/Update.js'
+import UpdateFormWrapper from '../components/plural_lower/Update.js'
+import { initStore } from '../redux/store'
 
 import {
     details_singular_lower_permission,
@@ -21,7 +24,7 @@ import { return_current_user } from '../services/current_user.js'
 
 const fields = []
 
-class singular_upper extends React.Component {
+export class singular_upper extends React.Component {
     constructor(props) {
         super(props)
         let form = {}
@@ -141,7 +144,7 @@ class singular_upper extends React.Component {
                 )}</span>
 
                 <span>{this.props.permissions.delete && (
-                    <DeleteButton
+                    <Delete
                         current_user={ this.state.current_user }
                         delete_item={ this.delete_item }
                         singular_lower={ this.props.singular_lower } />
@@ -207,4 +210,10 @@ singular_upper.getInitialProps = async function(context) {
         }
     }
 }
-export default singular_upper
+singular_upper.propTypes = {
+    singular_lower: PropTypes.object,
+    current_user: PropTypes.object,
+    permissions: PropTypes.object,
+}
+
+export default withRedux(initStore, null)(singular_upper)

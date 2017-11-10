@@ -22,26 +22,23 @@ function URI_cookie(signed_cookie) {
 
 function get_cookie(cname) {
     let name = cname + '='
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
+    let decodedCookie = decodeURIComponent(document.cookie)
+    let ca = decodedCookie.split(';')
     for(let i = 0; i < ca.length; i++) {
-	        let c = ca[i];
-	        while (c.charAt(0) == ' ') {
-			        c = c.substring(1);
-			    }
-	        if (c.indexOf(name) == 0) {
-					let signed_cookie = c.substring(name.length, c.length)
+        let c = ca[i]
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1)
+        }
+        if (c.indexOf(name) == 0) {
+            let signed_cookie = c.substring(name.length, c.length)
 
-          if (cname.indexOf('URI') === -1) {
-              return normal_cookie(signed_cookie)
-          } else {
-              return URI_cookie(signed_cookie)
-          }
-
-					let dot = signed_cookie.indexOf('.')
-					return signed_cookie.slice(2, dot)
-			}
-	}
+            if (cname.indexOf('URI') === -1) {
+                return normal_cookie(signed_cookie)
+            } else {
+                return URI_cookie(signed_cookie)
+            }
+        }
+    }
     return ''
 }
 

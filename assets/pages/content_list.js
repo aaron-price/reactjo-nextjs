@@ -1,11 +1,14 @@
 import fetch from 'isomorphic-unfetch'
 import React from 'react'
 import Router from 'next/router'
+import withRedux from 'next-redux-wrapper'
+import PropTypes from 'prop-types'
 
-import { CreateWrapper } from '../components/plural_lower/Create.js'
+import CreateWrapper from '../components/plural_lower/Create.js'
 import Header from '../components/Head'
-import { List } from '../components/plural_lower/List.js'
+import List from '../components/plural_lower/List.js'
 
+import { initStore } from '../redux/store'
 import { list_singular_lower_permission } from '../services/permissions.js'
 const get_headers = require('../services/get_headers.js').get_headers
 import { get_uri } from '../services/get_uri.js'
@@ -13,7 +16,7 @@ import { return_current_user } from '../services/current_user.js'
 
 const fields = []
 
-class plural_upper extends React.Component {
+export class plural_upper extends React.Component {
     constructor(props) {
         super(props)
         // Builds the 'Create' form fields.
@@ -73,8 +76,8 @@ class plural_upper extends React.Component {
         .then(res => {
             if (res.status === 200){
                 Router.push(
-                  `/singular_lower?id=${res.data.pk}`,
-                  `/singular_lower/${res.data.pk}`
+                    `/singular_lower?id=${res.data.pk}`,
+                    `/singular_lower/${res.data.pk}`
                 )
             } else {
                 let field_errors = {}
@@ -148,4 +151,9 @@ plural_upper.getInitialProps = async function(context) {
     }
 }
 
-export default plural_upper
+plural_upper.propTypes = {
+    plural_lower: PropTypes.array,
+    current_user: PropTypes.object
+}
+
+export default withRedux(initStore, null)(plural_upper)

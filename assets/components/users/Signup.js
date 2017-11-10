@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types'
 import RaisedButton from 'material-ui/RaisedButton'
 import Divider from "material-ui/Divider"
 import TextField from "material-ui/TextField"
 
 const field_styles = { marginLeft: 20 }
 
-export default (props) => (
+export const Signup = (props) => (
     <form method="POST">
         {props.form_fields.map((title, key) => {
             const low = title.toLowerCase()
@@ -38,3 +39,11 @@ export default (props) => (
             onClick={props.submit_form} /><br/><br/>
     </form>
 )
+
+Signup.propTypes = {
+    form_fields: PropTypes.array,
+    update_form: PropTypes.func,
+    errors: PropTypes.object,
+}
+
+export default Signup

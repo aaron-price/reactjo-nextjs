@@ -32,17 +32,9 @@ def parse_content(string):
 
 def scaffold_list_page():
     cfg = get_cfg()
-    users = cfg['need_users'] == 'True'
     title = cfg['current_scaffold']['model']['title']
     title_plural = pluralize(title.lower())
     list_page = parse_content(f('$assets/pages/content_list.js', 'r'))
-    if not users:
-        list_page = list_page.replace(
-            'current_user: await return_current_user(context)', '').replace(
-                "import { return_current_user } from '../services/current_user.js'",
-                '').replace(
-                ' current_user={props.current_user}', ''
-                )
     f('$pages/' + title_plural + '.js', 'w', list_page)
     wl('Built the list page')
 
@@ -56,18 +48,8 @@ def scaffold_list_page():
 
 def scaffold_details_page():
     cfg = get_cfg()
-    users = cfg['need_users'] == 'True'
     title = cfg['current_scaffold']['model']['title']
     title_singular = title.lower()
     details_page = parse_content(f('$assets/pages/content_details.js', 'r'))
-    if not users:
-        details_page = details_page.replace(
-            'current_user: await return_current_user(context)', ''
-        ).replace(
-            "import { return_current_user } from '../services/current_user.js'",
-            '').replace(
-            ' current_user={props.current_user}', ''
-            )
-
     f('$pages/' + title_singular + '.js', 'w', details_page)
     wl('Built the details page')
