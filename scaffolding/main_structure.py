@@ -164,6 +164,8 @@ def build_structure():
     # Tests
     mkdir('$out/__tests__/users')
     f('$out/__tests__/users/Delete.test.js', 'w', '$assets/tests/users/Delete.js')
+    f('$out/__tests__/users/Details.test.js', 'w', '$assets/tests/users/Details.js')
+    f('$out/__tests__/users/Update.test.js', 'w', '$assets/tests/users/Update.js')
 
     print('Installing node dependencies. This will take a while.')
     os.chdir(f('$out', '$'))

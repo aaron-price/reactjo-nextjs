@@ -6,8 +6,8 @@ import withRedux from 'next-redux-wrapper'
 import PropTypes from 'prop-types'
 
 import Header from '../components/Head'
-import Details from '../components/users/Details'
-import Update from '../components/users/Update'
+import { Details } from '../components/users/Details'
+import { Update } from '../components/users/Update'
 import { Delete } from '../components/users/Delete'
 
 import { initStore } from '../redux/store'

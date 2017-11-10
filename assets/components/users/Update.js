@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import Divider from 'material-ui/Divider'
 import FlatButton from 'material-ui/FlatButton'
@@ -14,9 +15,9 @@ export const Update = (props) => {
         return (
             <div>
                 <FlatButton
-                   label="Hide Form"
-                   secondary={true}
-                   onClick={() => props.show_hide_form()}/>
+                    label="Hide Form"
+                    secondary={true}
+                    onClick={() => props.show_hide_form()}/>
                 <br /><br />
                 <UpdateForm
                     all_fields={props.all_fields}
@@ -32,9 +33,9 @@ export const Update = (props) => {
         return (
             <div>
                 <FlatButton
-                   label="Update Profile"
-                   primary={true}
-                   onClick={() => props.show_hide_form()}/>
+                    label="Update Profile"
+                    primary={true}
+                    onClick={() => props.show_hide_form()}/>
                 <br /><br />
             </div>
         )
@@ -69,12 +70,13 @@ const UpdateForm = (props) => (
                     return (
                         <div key={key}>
                             <TextField
-                                floatingLabelText={'New ' + f}
-                                floatingLabelFixed={true}
-                                style={field_styles}
-                                type="text"
+                                className={`user_crud__update_${f}`}
                                 errorText={props.errors[f]}
-                                onChange={e => props.update_form(f, e)}/>
+                                floatingLabelFixed={true}
+                                floatingLabelText={'New ' + f}
+                                onChange={e => props.update_form(f, e)}
+                                style={field_styles}
+                                type="text" />
                             <Divider />
                         </div>
                     )
@@ -82,12 +84,13 @@ const UpdateForm = (props) => (
                     return (
                         <div key={key}>
                             <TextField
-                                floatingLabelText="New password"
-                                floatingLabelFixed={true}
-                                style={field_styles}
-                                type="password"
+                                className={`user_crud__update_${f}`}
                                 errorText={props.errors[f]}
-                                onChange={e => props.update_form(f, e)}/>
+                                floatingLabelFixed={true}
+                                floatingLabelText="New password"
+                                onChange={e => props.update_form(f, e)}
+                                style={field_styles}
+                                type="password" />
                             <Divider />
                         </div>
                     )
@@ -100,10 +103,10 @@ const UpdateForm = (props) => (
     </div>
 )
 UpdateForm.propTypes = {
-    submit_form: PropTypes.func,
     all_fields: PropTypes.array,
     errors: PropTypes.object,
+    submit_form: PropTypes.func,
     update_form: PropTypes.func,
 }
 
-export default Update
+module.exports = { Update, UpdateForm }

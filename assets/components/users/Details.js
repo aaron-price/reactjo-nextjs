@@ -1,6 +1,7 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 
-export const Details = (props) => (
+const Details = (props) => (
     <div>
         <h1>{props.profile.name}</h1>
         {Object.keys(props.form_fields).map((f, key) => {
@@ -8,7 +9,13 @@ export const Details = (props) => (
             if (blacklist.indexOf(f) !== -1) {
                 return <span key={key}></span>
             } else {
-                return <p key={key}>{f}: {props.profile[f]}</p>
+                return (
+                    <p
+                        key={key}
+                        className={`user_crud__details_${f}`}>
+                        {f}: {props.profile[f]}
+                    </p>
+                )
             }
         })}
     </div>
@@ -19,4 +26,4 @@ Details.propTypes = {
     form_fields: PropTypes.object,
 }
 
-export default Details
+module.exports = { Details }
