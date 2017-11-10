@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import Header from '../components/Head'
 import Details from '../components/users/Details'
 import Update from '../components/users/Update'
-import Delete from '../components/users/Delete'
+import { Delete } from '../components/users/Delete'
 
 import { initStore } from '../redux/store'
 const get_headers = require('../services/get_headers.js').get_headers

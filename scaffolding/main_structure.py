@@ -161,6 +161,10 @@ def build_structure():
     f('$out/styles/state/_state.scss', 'w', '$assets/styles/state/_state.scss')
     wl('Build front end directories and files')
 
+    # Tests
+    mkdir('$out/__tests__/users')
+    f('$out/__tests__/users/Delete.test.js', 'w', '$assets/tests/users/Delete.js')
+
     print('Installing node dependencies. This will take a while.')
     os.chdir(f('$out', '$'))
 

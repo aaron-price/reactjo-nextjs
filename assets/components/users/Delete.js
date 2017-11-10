@@ -17,4 +17,4 @@ Delete.propTypes = {
     delete_item: PropTypes.func
 }
 
-export default Delete
+module.exports = { Delete }
