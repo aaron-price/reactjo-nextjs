@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import Delete from '../components/plural_lower/Delete.js'
 import Details from '../components/plural_lower/Details.js'
 import Header from '../components/Head'
-import { UpdateFormWrapper } from '../components/plural_lower/Update.js'
+import UpdateFormWrapper from '../components/plural_lower/Update.js'
 import { initStore } from '../redux/store'
 
 import {

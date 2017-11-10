@@ -5,9 +5,9 @@ export const Delete = (props) => {
     return (
         <div>
             <FlatButton
-               label="Delete user"
-               secondary={true}
-               onClick={(e) => props.delete_item(e)} />
+                label="Delete user"
+                secondary={true}
+                onClick={(e) => props.delete_item(e)} />
             <br />
         </div>
     )

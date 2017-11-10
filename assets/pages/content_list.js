@@ -76,8 +76,8 @@ export class plural_upper extends React.Component {
         .then(res => {
             if (res.status === 200){
                 Router.push(
-                  `/singular_lower?id=${res.data.pk}`,
-                  `/singular_lower/${res.data.pk}`
+                    `/singular_lower?id=${res.data.pk}`,
+                    `/singular_lower/${res.data.pk}`
                 )
             } else {
                 let field_errors = {}

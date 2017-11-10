@@ -14,9 +14,9 @@ export const CreateWrapper = (props) => {
             ? (
                 <div>
                     <FlatButton
-                       label="Hide Form"
-                       secondary={true}
-                       onClick={() => props.show_hide_form()}/>
+                        label="Hide Form"
+                        secondary={true}
+                        onClick={() => props.show_hide_form()}/>
                     <br /><br/>
 
                     <CreateForm
@@ -30,12 +30,12 @@ export const CreateWrapper = (props) => {
                 </div>
             )
             : (
-              <div>
-                  <FlatButton
-                      label="Create singular_upper"
-                      primary={true}
-                      onClick={() => props.show_hide_form()}/><br/><br/>
-              </div>
+                <div>
+                    <FlatButton
+                        label="Create singular_upper"
+                        primary={true}
+                        onClick={() => props.show_hide_form()}/><br/><br/>
+                </div>
             )
         }</div>)
     } else {

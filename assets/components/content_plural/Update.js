@@ -15,9 +15,9 @@ export const Update = (props) => {
             return (
                 <div>
                     <FlatButton
-                       label="Hide Form"
-                       secondary={true}
-                       onClick={() => props.show_hide_form()}/>
+                        label="Hide Form"
+                        secondary={true}
+                        onClick={() => props.show_hide_form()}/>
                     <br /><br />
                     <UpdateForm
                         submit_form={props.submit_form}
@@ -33,9 +33,9 @@ export const Update = (props) => {
             return (
                 <div>
                     <FlatButton
-                       label="Update singular_upper"
-                       primary={true}
-                       onClick={() => props.show_hide_form()}/>
+                        label="Update singular_upper"
+                        primary={true}
+                        onClick={() => props.show_hide_form()} />
                     <br /><br />
                 </div>
             )

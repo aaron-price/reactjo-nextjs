@@ -7,9 +7,9 @@ export const Delete = (props) => {
         return (
             <div>
                 <FlatButton
-                   label="Delete singular_upper"
-                   secondary={true}
-                   onClick={(e) => props.delete_item(e)} />
+                    label="Delete singular_upper"
+                    secondary={true}
+                    onClick={(e) => props.delete_item(e)} />
                 <br />
             </div>
         )
